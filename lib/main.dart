@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -9,12 +11,23 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        ),
-      ),
+          backgroundColor: Colors.lightBlueAccent,
+          body: Center(
+            child: Container(
+                height: MediaQuery.of(context).size.height,
+                width: 150,
+                color: Colors.lightBlue,
+                child: const Center(
+                  child: Text(
+                    "Flutter App",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold),
+                  ),
+                )),
+          )),
     );
   }
 }
