@@ -1,33 +1,18 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
+import 'package:neuralflight/pages/homepage.dart';
 
 void main() {
-  runApp(const MainApp());
+  runApp(const NeuralFLIGHT());
 }
 
-class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+class NeuralFLIGHT extends StatelessWidget {
+  const NeuralFLIGHT({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-          backgroundColor: Colors.lightBlueAccent,
-          body: Center(
-            child: Container(
-                height: MediaQuery.of(context).size.height,
-                width: 150,
-                color: Colors.lightBlue,
-                child: const Center(
-                  child: Text(
-                    "Flutter App",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold),
-                  ),
-                )),
-          )),
+      home: HomePage()
     );
   }
 }
