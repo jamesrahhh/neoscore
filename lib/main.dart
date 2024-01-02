@@ -10,9 +10,18 @@ class NeuralFLIGHT extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomePage()
+      home: Scaffold(
+        backgroundColor: Colors.blue,
+        bottomNavigationBar: BottomNavigationBar(items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+          BottomNavigationBarItem(icon: Icon(Icons.copy), label: "Session"),
+          BottomNavigationBarItem(icon: Icon(Icons.history), label: "History"),
+          BottomNavigationBarItem(icon: Icon(Icons.settings), label: "Settings")
+        ], backgroundColor: Colors.blueAccent,),
+        body: const HomePage()
+        )
     );
   }
 }
