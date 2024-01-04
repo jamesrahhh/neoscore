@@ -5,21 +5,25 @@ void main() {
   runApp(const NeuralFLIGHT());
 }
 
-class NeuralFLIGHT extends StatelessWidget {
+class NeuralFLIGHT extends StatefulWidget {
   const NeuralFLIGHT({super.key});
 
+  @override
+  State<NeuralFLIGHT> createState() => _NeuralFLIGHTState();
+}
+
+class _NeuralFLIGHTState extends State<NeuralFLIGHT> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        backgroundColor: Colors.blue,
-        bottomNavigationBar: BottomNavigationBar(items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+        bottomNavigationBar: BottomNavigationBar(fixedColor: Colors.black, unselectedItemColor: Colors.grey,items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home", backgroundColor: Colors.white),
           BottomNavigationBarItem(icon: Icon(Icons.copy), label: "Session"),
           BottomNavigationBarItem(icon: Icon(Icons.history), label: "History"),
           BottomNavigationBarItem(icon: Icon(Icons.settings), label: "Settings")
-        ], backgroundColor: Colors.blueAccent,),
+        ],),
         body: const HomePage()
         )
     );

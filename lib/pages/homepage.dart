@@ -11,7 +11,8 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(title: const Center(child: Text("Demo", style: TextStyle(color: Colors.white, fontFamily: "assets/fonts/Inter-Regular.ttf"))), backgroundColor: Colors.black,),
+      backgroundColor: Colors.grey,
     );
   }
 }
