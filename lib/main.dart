@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:neuralflight/pages/homepage.dart';
+import 'package:neuralflight/pages/home.dart';
+import 'package:neuralflight/pages/session.dart';
+import 'package:neuralflight/pages/camera.dart';
+import 'package:neuralflight/pages/history.dart';
+import 'package:neuralflight/pages/settings.dart';
 
 void main() {
   runApp(const NeuralFLIGHT());
@@ -13,18 +17,22 @@ class NeuralFLIGHT extends StatefulWidget {
 }
 
 class _NeuralFLIGHTState extends State<NeuralFLIGHT> {
+  final List pages = [const Home(), const Session(), const Camera(), const History(), const Settings()];
+  int pageIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        bottomNavigationBar: BottomNavigationBar(fixedColor: Colors.black, unselectedItemColor: Colors.grey,items: const [
+        bottomNavigationBar: BottomNavigationBar(fixedColor: Colors.black, unselectedItemColor: Colors.grey, items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home", backgroundColor: Colors.white),
           BottomNavigationBarItem(icon: Icon(Icons.copy), label: "Session"),
+          BottomNavigationBarItem(icon: Icon(Icons.camera), label: "Camera"),
           BottomNavigationBarItem(icon: Icon(Icons.history), label: "History"),
           BottomNavigationBarItem(icon: Icon(Icons.settings), label: "Settings")
         ],),
-        body: const HomePage()
+        body: pages[0]
         )
     );
   }
