@@ -18,21 +18,33 @@ class NeuralFLIGHT extends StatefulWidget {
 
 class _NeuralFLIGHTState extends State<NeuralFLIGHT> {
   final List pages = [const Home(), const Session(), const Camera(), const History(), const Settings()];
+  
   int pageIndex = 0;
+
+  void onNavbarTap(int index) {
+    setState(() {
+      pageIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        bottomNavigationBar: BottomNavigationBar(fixedColor: Colors.black, unselectedItemColor: Colors.grey, items: const [
+        bottomNavigationBar: BottomNavigationBar(
+          fixedColor: Colors.black, 
+          unselectedItemColor: Colors.grey,
+          currentIndex: pageIndex, 
+          onTap: onNavbarTap,
+          items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home", backgroundColor: Colors.white),
           BottomNavigationBarItem(icon: Icon(Icons.copy), label: "Session"),
           BottomNavigationBarItem(icon: Icon(Icons.camera), label: "Camera"),
           BottomNavigationBarItem(icon: Icon(Icons.history), label: "History"),
           BottomNavigationBarItem(icon: Icon(Icons.settings), label: "Settings")
         ],),
-        body: pages[0]
+        body: pages[pageIndex]
         )
     );
   }
