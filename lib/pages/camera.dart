@@ -11,7 +11,7 @@ class _CameraState extends State<Camera> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Center(child: Text("Camera", style: TextStyle(color: Colors.white, fontFamily: "assets/fonts/Inter-Regular.ttf"))), backgroundColor: Colors.black,),
+      appBar: AppBar(title: const Center(child: Text("Camera", style: TextStyle(color: Colors.white))), backgroundColor: Colors.black,),
       backgroundColor: Colors.grey,
     );
   }

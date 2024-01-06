@@ -31,6 +31,7 @@ class _NeuralFLIGHTState extends State<NeuralFLIGHT> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(fontFamily: 'Inter'),
       home: Scaffold(
         bottomNavigationBar: BottomNavigationBar(
           fixedColor: Colors.black, 
@@ -38,11 +39,11 @@ class _NeuralFLIGHTState extends State<NeuralFLIGHT> {
           currentIndex: pageIndex, 
           onTap: onNavbarTap,
           items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home", backgroundColor: Colors.white),
-          BottomNavigationBarItem(icon: Icon(Icons.copy), label: "Session"),
-          BottomNavigationBarItem(icon: Icon(Icons.camera), label: "Camera"),
-          BottomNavigationBarItem(icon: Icon(Icons.history), label: "History"),
-          BottomNavigationBarItem(icon: Icon(Icons.settings), label: "Settings")
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home', backgroundColor: Colors.white),
+          BottomNavigationBarItem(icon: Icon(Icons.copy), label: 'Session'),
+          BottomNavigationBarItem(icon: Icon(Icons.camera), label: 'Camera'),
+          BottomNavigationBarItem(icon: Icon(Icons.history), label: 'History'),
+          BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Settings')
         ],),
         body: pages[pageIndex]
         )
