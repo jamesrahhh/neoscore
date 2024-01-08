@@ -7,8 +7,11 @@ environment:
   sdk: '>=3.2.3 <4.0.0'
 
 dependencies:
+  camera: ^0.10.5+8
   flutter:
     sdk: flutter
+  path: ^1.8.3
+  path_provider: ^2.1.1
 
 dev_dependencies:
   flutter_test:
