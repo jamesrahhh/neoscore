@@ -21,7 +21,7 @@ dev_dependencies:
 
 flutter:
   fonts:
-    - family: Inter
+    - family: DM Sans
       fonts:
-        - asset: assets/fonts/Inter-VariableFont_slnt,wght.ttf
+        - asset: assets/fonts/DMSans-VariableFont_opsz,wght.ttf
   uses-material-design: true

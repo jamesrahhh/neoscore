@@ -11,8 +11,12 @@ class _SessionState extends State<Session> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Center(child: Text("Session", style: TextStyle(color: Colors.white))), backgroundColor: Colors.black,),
-      backgroundColor: Colors.grey,
+      appBar: AppBar(
+        title: const Center(
+            child: Text("Session", style: TextStyle(color: Colors.white))),
+        backgroundColor: Colors.black,
+      ),
+      backgroundColor: Colors.white,
     );
   }
 }
