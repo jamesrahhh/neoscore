@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:neuralflight/components/CustomAppBar.dart';
 
 class History extends StatefulWidget {
   const History({super.key});
@@ -10,12 +11,8 @@ class History extends StatefulWidget {
 class _HistoryState extends State<History> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Center(
-            child: Text("History", style: TextStyle(color: Colors.white))),
-        backgroundColor: Colors.black,
-      ),
+    return const Scaffold(
+      appBar: CustomAppBar(pageName: 'History'),
       backgroundColor: Colors.white,
     );
   }

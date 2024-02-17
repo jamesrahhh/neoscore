@@ -13,15 +13,22 @@ class _AccountState extends State<Account> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(20, 15, 20, 0),
+        padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
         child: ListView(
           children: [
-            const Text(
-              "Welcome, James",
-              style: TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20),
+            Row(
+              children: [
+                GestureDetector(
+                    onTap: () => Navigator.pop(context),
+                    child: const Icon(Icons.navigate_before_rounded)),
+                const Text(
+                  "Welcome, James",
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20),
+                ),
+              ],
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
@@ -46,7 +53,7 @@ class _AccountState extends State<Account> {
                       children: [
                         Text("i forgot what this button was"),
                         Icon(
-                          Icons.navigate_next,
+                          Icons.navigate_next_rounded,
                           size: 20,
                           weight: 300,
                         )

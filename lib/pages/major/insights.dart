@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:neuralflight/components/CustomAppBar.dart';
 
 class Insights extends StatefulWidget {
   const Insights({super.key});
@@ -10,12 +11,8 @@ class Insights extends StatefulWidget {
 class _InsightsState extends State<Insights> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Center(
-            child: Text("Insights", style: TextStyle(color: Colors.white))),
-        backgroundColor: Colors.black,
-      ),
+    return const Scaffold(
+      appBar: CustomAppBar(pageName: 'Insights'),
       backgroundColor: Colors.white,
     );
   }

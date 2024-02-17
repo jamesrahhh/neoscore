@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:neuralflight/pages/major/insights.dart';
 import 'package:neuralflight/pages/major/session.dart';
 import 'package:neuralflight/pages/major/history.dart';
+import 'package:neuralflight/pages/major/insights.dart';
 import 'package:neuralflight/pages/major/settings.dart';
-import 'package:crystal_navigation_bar/crystal_navigation_bar.dart';
+import 'package:custom_navigation_bar/custom_navigation_bar.dart';
 
 void main() {
   runApp(const NeuralFLIGHT());
@@ -32,16 +32,19 @@ class _NeuralFLIGHTState extends State<NeuralFLIGHT> {
         debugShowCheckedModeBanner: false,
         theme: ThemeData(fontFamily: 'DM Sans'),
         home: Scaffold(
-            extendBody: true,
-            bottomNavigationBar: CrystalNavigationBar(
+            bottomNavigationBar: CustomNavigationBar(
               items: [
-                CrystalNavigationBarItem(icon: Icons.description_rounded),
-                CrystalNavigationBarItem(
-                    icon: Icons.format_list_numbered_rounded),
-                CrystalNavigationBarItem(icon: Icons.insights_rounded),
-                CrystalNavigationBarItem(icon: Icons.settings_rounded)
+                CustomNavigationBarItem(
+                    icon: const Icon(Icons.description_rounded)),
+                CustomNavigationBarItem(
+                    icon: const Icon(Icons.format_list_numbered_rounded)),
+                CustomNavigationBarItem(
+                    icon: const Icon(Icons.insights_rounded)),
+                CustomNavigationBarItem(
+                    icon: const Icon(Icons.settings_rounded))
               ],
-              selectedItemColor: Colors.black,
+              selectedColor: Colors.black,
+              strokeColor: Colors.black,
               onTap: (index) {
                 setState(() {
                   _pageIndex = index;
@@ -49,7 +52,6 @@ class _NeuralFLIGHTState extends State<NeuralFLIGHT> {
               },
               backgroundColor: Colors.black.withOpacity(0.1),
               currentIndex: _pageIndex,
-              enableFloatingNavBar: true,
             ),
             body: _pages[_pageIndex]));
   }
