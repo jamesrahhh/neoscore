@@ -15,15 +15,39 @@ class _SessionState extends State<Session> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const CustomAppBar(pageName: 'Session'),
-      backgroundColor: Colors.white,
-      body: const Center(
-        child: Text('No active session'),
-      ),
-      floatingActionButton: FloatingActionButton(onPressed: () {
-        _currentSheetID = Global.createScoresheet(Target.nfaa, 20);
-      }),
-    );
+    if (_currentSheetID == 0) {
+      return Scaffold(
+        appBar: const CustomAppBar(pageName: 'Session'),
+        backgroundColor: Colors.white,
+        body: const Center(
+          child: Text('No active session'),
+        ),
+        floatingActionButton: FloatingActionButton(
+            child: const Icon(Icons.add_rounded),
+            onPressed: () {
+              setState(() {
+                _currentSheetID = Global.createScoresheet(Target.nfaa, 20);
+              });
+            }),
+      );
+    } else {
+      return Scaffold(
+        appBar: const CustomAppBar(pageName: 'Session'),
+        backgroundColor: Colors.white,
+        body: ListView.builder(
+          itemCount: 1,
+          itemBuilder: (BuildContext context, int index) {
+            return Text('$_currentSheetID');
+          },
+        ),
+        floatingActionButton: FloatingActionButton(
+            child: const Icon(Icons.add_rounded),
+            onPressed: () {
+              setState(() {
+                _currentSheetID = Global.createScoresheet(Target.nfaa, 20);
+              });d
+            }),
+      );
+    }
   }
 }
