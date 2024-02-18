@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:neuralflight/components/CustomAppBar.dart';
-import 'package:neuralflight/components/global.dart';
-import 'package:neuralflight/components/scoresheet.dart';
+import 'package:neuralflight/components/handler/scorehandler.dart';
+import 'package:neuralflight/components/object/scoresheet.dart';
 
 class Session extends StatefulWidget {
   const Session({super.key});
@@ -26,7 +26,8 @@ class _SessionState extends State<Session> {
             child: const Icon(Icons.add_rounded),
             onPressed: () {
               setState(() {
-                _currentSheetID = Global.createScoresheet(Target.nfaa, 20);
+                _currentSheetID =
+                    ScoreHandler.createScoresheet(Target.nfaa, 20);
               });
             }),
       );
@@ -34,18 +35,21 @@ class _SessionState extends State<Session> {
       return Scaffold(
         appBar: const CustomAppBar(pageName: 'Session'),
         backgroundColor: Colors.white,
-        body: ListView.builder(
-          itemCount: 1,
-          itemBuilder: (BuildContext context, int index) {
-            return Text('$_currentSheetID');
-          },
+        body: Center(
+          child: ListView.builder(
+            itemCount: 1,
+            itemBuilder: (BuildContext context, int index) {
+              return Text('$_currentSheetID');
+            },
+          ),
         ),
         floatingActionButton: FloatingActionButton(
             child: const Icon(Icons.add_rounded),
             onPressed: () {
               setState(() {
-                _currentSheetID = Global.createScoresheet(Target.nfaa, 20);
-              });d
+                _currentSheetID =
+                    ScoreHandler.createScoresheet(Target.nfaa, 20);
+              });
             }),
       );
     }

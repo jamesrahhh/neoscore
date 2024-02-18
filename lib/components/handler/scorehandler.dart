@@ -1,6 +1,6 @@
-import 'package:neuralflight/components/scoresheet.dart';
+import 'package:neuralflight/components/object/scoresheet.dart';
 
-class Global {
+class ScoreHandler {
   static List<Scoresheet> scoresheets = [];
 
   static int createScoresheet(Target target, int distance) {
