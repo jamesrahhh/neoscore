@@ -1,3 +1,5 @@
+import 'package:neuralflight/components/handler/targethandler.dart';
+
 class Scoresheet {
   final Target target;
   final int distance;
@@ -5,5 +7,3 @@ class Scoresheet {
 
   Scoresheet({required this.target, required this.distance});
 }
-
-enum Target { nfaa, usa }

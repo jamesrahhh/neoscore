@@ -1,3 +1,4 @@
+import 'package:neuralflight/components/handler/targethandler.dart';
 import 'package:neuralflight/components/object/scoresheet.dart';
 
 class ScoreHandler {
@@ -5,6 +6,6 @@ class ScoreHandler {
 
   static int createScoresheet(Target target, int distance) {
     scoresheets.add(Scoresheet(target: target, distance: distance));
-    return scoresheets.length;
+    return scoresheets.length - 1;
   }
 }

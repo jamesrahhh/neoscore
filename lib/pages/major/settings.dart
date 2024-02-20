@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:neuralflight/components/CustomAppBar.dart';
+import 'package:neuralflight/components/widget/customappbar.dart';
 
 class Settings extends StatefulWidget {
   const Settings({super.key});

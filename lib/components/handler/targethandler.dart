@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:neuralflight/components/object/scoresheet.dart';
+
+enum Target { nfaa, usa }
 
 class TargetHandler {
-  static int getMaxScore(Target target) {
-    if (target == Target.nfaa) {
-      return 5;
-    } else if (target == Target.usa) {
-      return 10;
+  static String parseScore(Target target, int score) {
+    if (target == Target.nfaa && score > 5) {
+      return 'X';
+    } else if (target == Target.usa && score > 10) {
+      return 'X';
+    } else if (score == 0) {
+      return 'M';
     }
-    return 0;
+    return '$score';
   }
 
   static Color getRingColor(Target target, int score) {
