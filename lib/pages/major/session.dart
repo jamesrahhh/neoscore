@@ -11,11 +11,11 @@ class Session extends StatefulWidget {
 }
 
 class _SessionState extends State<Session> {
-  int _currentSheetID = -1;
+  int currentSheetID = -1;
 
   @override
   Widget build(BuildContext context) {
-    if (_currentSheetID == -1) {
+    if (currentSheetID == -1) {
       return Scaffold(
         appBar: const CustomAppBar(pageName: 'Session'),
         backgroundColor: Colors.white,
@@ -26,12 +26,11 @@ class _SessionState extends State<Session> {
             child: const Icon(Icons.add_rounded),
             onPressed: () {
               setState(() {
-                _currentSheetID =
-                    ScoreHandler.createScoresheet(Target.nfaa, 20);
+                currentSheetID = ScoreHandler.createScoresheet(Target.nfaa, 20);
               });
-              ScoreHandler.scoresheets[_currentSheetID].ends
+              ScoreHandler.scoresheets[currentSheetID].ends
                   .add([5, 4, 4, 4, 3]);
-              ScoreHandler.scoresheets[_currentSheetID].ends
+              ScoreHandler.scoresheets[currentSheetID].ends
                   .add([6, 6, 5, 5, 5, 0]);
             }),
       );
@@ -40,70 +39,11 @@ class _SessionState extends State<Session> {
         appBar: const CustomAppBar(pageName: 'Session'),
         backgroundColor: Colors.white,
         body: Center(
-          child: ListView.builder(
-            itemCount: ScoreHandler.scoresheets[_currentSheetID].ends.length,
-            itemBuilder: (BuildContext verticalContext, int endIndex) {
-              return SizedBox(
-                height: 40,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: ScoreHandler
-                      .scoresheets[_currentSheetID].ends[endIndex].length,
-                  itemBuilder: (BuildContext horizontalContext, int shotIndex) {
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        width: 60,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            gradient: LinearGradient(colors: [
-                              TargetHandler.getRingColor(
-                                  ScoreHandler
-                                      .scoresheets[_currentSheetID].target,
-                                  ScoreHandler.scoresheets[_currentSheetID]
-                                      .ends[endIndex][shotIndex]),
-                              Color.fromARGB(
-                                  255,
-                                  TargetHandler.getRingColor(
-                                              ScoreHandler
-                                                  .scoresheets[_currentSheetID]
-                                                  .target,
-                                              ScoreHandler
-                                                  .scoresheets[_currentSheetID]
-                                                  .ends[endIndex][shotIndex])
-                                          .red -
-                                      25,
-                                  TargetHandler.getRingColor(
-                                              ScoreHandler
-                                                  .scoresheets[_currentSheetID]
-                                                  .target,
-                                              ScoreHandler
-                                                  .scoresheets[_currentSheetID]
-                                                  .ends[endIndex][shotIndex])
-                                          .green -
-                                      25,
-                                  TargetHandler.getRingColor(
-                                              ScoreHandler
-                                                  .scoresheets[_currentSheetID]
-                                                  .target,
-                                              ScoreHandler
-                                                  .scoresheets[_currentSheetID]
-                                                  .ends[endIndex][shotIndex])
-                                          .blue -
-                                      25)
-                            ])),
-                        child: Center(
-                          child: Text(TargetHandler.parseScore(
-                              ScoreHandler.scoresheets[_currentSheetID].target,
-                              ScoreHandler.scoresheets[_currentSheetID]
-                                  .ends[endIndex][shotIndex])),
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              );
-            },
+          child: Column(
+            children: [
+              SessionInfoDisplay(currentSheetID: currentSheetID),
+              SessionScoresheetDisplay(currentSheetID: currentSheetID)
+            ],
           ),
         ), /*
         floatingActionButton: FloatingActionButton(
@@ -120,5 +60,113 @@ class _SessionState extends State<Session> {
             }),*/
       );
     }
+  }
+}
+
+class SessionInfoDisplay extends StatelessWidget {
+  final int currentSheetID;
+
+  const SessionInfoDisplay({super.key, required this.currentSheetID});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        const Padding(
+          padding: EdgeInsets.all(8.0),
+          child: Text(
+            'Scoresheet',
+            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+              '${ScoreHandler.scoresheets[currentSheetID].target.name.toUpperCase()} target, ${ScoreHandler.scoresheets[currentSheetID].distance} yards'),
+        )
+      ],
+    );
+  }
+}
+
+class SessionScoresheetDisplay extends StatelessWidget {
+  final int currentSheetID;
+
+  const SessionScoresheetDisplay({super.key, required this.currentSheetID});
+
+  @override
+  Widget build(BuildContext context) {
+    return Flexible(
+      child: ListView.builder(
+        itemCount: ScoreHandler.scoresheets[currentSheetID].ends.length,
+        itemBuilder: (BuildContext verticalContext, int endIndex) {
+          return SizedBox(
+            height: 40,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                SizedBox(
+                  width: 64,
+                  child: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Text('End ${endIndex + 1}'),
+                  ),
+                ),
+                Flexible(
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: ScoreHandler
+                        .scoresheets[currentSheetID].ends[endIndex].length,
+                    itemBuilder:
+                        (BuildContext horizontalContext, int shotIndex) {
+                      double screenWidth = MediaQuery.of(context).size.width;
+                      return SizedBox(
+                        width: (screenWidth - 64) /
+                            (ScoreHandler.scoresheets[currentSheetID]
+                                .ends[endIndex].length),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                gradient: LinearGradient(colors: [
+                                  TargetHandler.getTargetColors(
+                                      ScoreHandler
+                                          .scoresheets[currentSheetID].target,
+                                      ScoreHandler.scoresheets[currentSheetID]
+                                          .ends[endIndex][shotIndex])[0],
+                                  TargetHandler.getTargetColors(
+                                      ScoreHandler
+                                          .scoresheets[currentSheetID].target,
+                                      ScoreHandler.scoresheets[currentSheetID]
+                                          .ends[endIndex][shotIndex])[1]
+                                ])),
+                            child: Center(
+                              child: Text(
+                                TargetHandler.parseScore(
+                                    ScoreHandler
+                                        .scoresheets[currentSheetID].target,
+                                    ScoreHandler.scoresheets[currentSheetID]
+                                        .ends[endIndex][shotIndex]),
+                                style: TextStyle(
+                                    color: TargetHandler.getTargetColors(
+                                        ScoreHandler
+                                            .scoresheets[currentSheetID].target,
+                                        ScoreHandler.scoresheets[currentSheetID]
+                                            .ends[endIndex][shotIndex])[2]),
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
+      ),
+    );
   }
 }

@@ -21,15 +21,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           GestureDetector(
             onTap: () => Navigator.push(context,
                 MaterialPageRoute(builder: (context) => const Account())),
-            child: Container(
-              height: 32,
-              width: 32,
-              decoration: const BoxDecoration(
-                  shape: BoxShape.circle, color: Colors.white),
-              child: const Icon(
-                Icons.person_rounded,
-                color: Colors.black,
-              ),
+            child: const CircleAvatar(
+              radius: 16,
+              backgroundColor: Colors.white,
+              child: Icon(Icons.person_rounded),
             ),
           )
         ],
