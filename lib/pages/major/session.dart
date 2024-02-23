@@ -42,7 +42,8 @@ class _SessionState extends State<Session> {
           child: Column(
             children: [
               SessionInfoDisplay(currentSheetID: currentSheetID),
-              SessionScoresheetDisplay(currentSheetID: currentSheetID)
+              SessionScoresheetDisplay(currentSheetID: currentSheetID),
+              SessionBottomDisplay(currentSheetID: currentSheetID)
             ],
           ),
         ), /*
@@ -178,6 +179,10 @@ class SessionBottomDisplay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text('Score: ${ScoreHandler.getTotalScore(currentSheetID)}');
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Text(
+          'Score: ${ScoreHandler.getTotalScore(ScoreHandler.scoresheets[currentSheetID].target, currentSheetID)[0]}, X: ${ScoreHandler.getTotalScore(ScoreHandler.scoresheets[currentSheetID].target, currentSheetID)[1]}'),
+    );
   }
 }
