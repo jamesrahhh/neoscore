@@ -1,5 +1,8 @@
 import 'package:neuralflight/components/handler/targethandler.dart';
 
+/// Scoresheet object.
+///
+/// Takes [target] and [distance].
 class Scoresheet {
   final Target target;
   final int distance;

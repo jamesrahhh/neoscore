@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:neuralflight/pages/minor/account.dart';
 
+/// A custom widget providing the AppBar for most pages.
+///
+/// Takes [pageName] to display the page of the name, and optionally takes [actions].
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String pageName;
   final List<Widget>? actions;

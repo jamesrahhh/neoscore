@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 enum Target { nfaa, usa }
 
 class TargetHandler {
+  /// Parses numerical scores into strings.
+  ///
+  /// Takes [target] as the target and [score] as the score of the arrow.
+  /// Returns the score as an X or M as needed.
   static String parseScore(Target target, int score) {
     if (target == Target.nfaa && score > 5) {
       return 'X';
@@ -14,7 +18,12 @@ class TargetHandler {
     return '$score';
   }
 
-  static List<Color> getTargetColors(Target target, int score) {
+  /// Gets the ring colors of a target ring.
+  ///
+  /// Takes [target] and [score] as the score of the ring.
+  /// Returns a list containing the color of the ring,
+  /// the secondary color for gradients, and the text color.
+  static List<Color> getRingColors(Target target, int score) {
     if (target == Target.nfaa) {
       if (score >= 5) {
         return [

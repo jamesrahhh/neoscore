@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// Page for logging in, account settings, and saving data to the cloud.
 class Account extends StatefulWidget {
   const Account({super.key});
 
@@ -8,6 +9,7 @@ class Account extends StatefulWidget {
 }
 
 class _AccountState extends State<Account> {
+  // TODO: Add functionality and Firebase integration,
   @override
   Widget build(BuildContext context) {
     return Scaffold(

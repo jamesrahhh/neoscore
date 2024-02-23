@@ -9,6 +9,7 @@ void main() {
   runApp(const NeuralFLIGHT());
 }
 
+/// Main class. Manages BottomNavigationBar (for now.)
 class NeuralFLIGHT extends StatefulWidget {
   const NeuralFLIGHT({super.key});
 

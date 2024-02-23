@@ -130,12 +130,12 @@ class SessionScoresheetDisplay extends StatelessWidget {
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
                                 gradient: LinearGradient(colors: [
-                                  TargetHandler.getTargetColors(
+                                  TargetHandler.getRingColors(
                                       ScoreHandler
                                           .scoresheets[currentSheetID].target,
                                       ScoreHandler.scoresheets[currentSheetID]
                                           .ends[endIndex][shotIndex])[0],
-                                  TargetHandler.getTargetColors(
+                                  TargetHandler.getRingColors(
                                       ScoreHandler
                                           .scoresheets[currentSheetID].target,
                                       ScoreHandler.scoresheets[currentSheetID]
@@ -149,7 +149,7 @@ class SessionScoresheetDisplay extends StatelessWidget {
                                     ScoreHandler.scoresheets[currentSheetID]
                                         .ends[endIndex][shotIndex]),
                                 style: TextStyle(
-                                    color: TargetHandler.getTargetColors(
+                                    color: TargetHandler.getRingColors(
                                         ScoreHandler
                                             .scoresheets[currentSheetID].target,
                                         ScoreHandler.scoresheets[currentSheetID]
@@ -168,5 +168,16 @@ class SessionScoresheetDisplay extends StatelessWidget {
         },
       ),
     );
+  }
+}
+
+class SessionBottomDisplay extends StatelessWidget {
+  final int currentSheetID;
+
+  const SessionBottomDisplay({super.key, required this.currentSheetID});
+
+  @override
+  Widget build(BuildContext context) {
+    return Text('Score: ${ScoreHandler.getTotalScore(currentSheetID)}');
   }
 }
