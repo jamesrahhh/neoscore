@@ -11,6 +11,7 @@ dependencies:
   custom_navigation_bar: ^0.8.2
   flutter:
     sdk: flutter
+  flutter_launcher_icons: ^0.13.1
   path: ^1.8.3
   path_provider: ^2.1.1
 
