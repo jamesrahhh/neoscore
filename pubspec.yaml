@@ -15,6 +15,12 @@ dependencies:
   path: ^1.8.3
   path_provider: ^2.1.1
 
+flutter_launcher_icons:
+  image_path: "assets/icons/appicon.jpg"
+  android: true
+  ios: true
+  min_android_sdk: 21
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter
