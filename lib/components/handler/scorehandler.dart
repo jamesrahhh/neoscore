@@ -12,25 +12,35 @@ class ScoreHandler {
     return scoresheets.length - 1;
   }
 
-  /// Calculates the total score of a scoresheet.
+  /// Gathers totals for a scoresheet.
   ///
-  /// Takes [target] and [currentSheetID], the index of the scoresheet within scoresheets[],
-  /// and returns a list containing the total score and the amount of X's.
-  static List<int> getTotalScore(Target target, int currentSheetID) {
+  /// Takes [currentSheetID], the index of the scoresheet within scoresheets[],
+  /// and returns a list containing a list of the running totals,
+  /// a list of the running Xs, and a list with the total score and the total Xs.
+  static List<List<int>> refreshScoreData(int currentSheetID) {
+    List<int> runningTotals = [];
+    List<int> runningXs = [];
     int total = 0;
     int x = 0;
 
     for (int i = 0; i < scoresheets[currentSheetID].ends.length; i++) {
       for (int j = 0; j < scoresheets[currentSheetID].ends[i].length; j++) {
         total += scoresheets[currentSheetID].ends[i][j];
-        if (TargetHandler.parseScore(
-                target, scoresheets[currentSheetID].ends[i][j]) ==
+        if (TargetHandler.parseScore(scoresheets[currentSheetID].target,
+                scoresheets[currentSheetID].ends[i][j]) ==
             'X') {
           total--;
           x++;
         }
       }
+      runningTotals.add(total);
+      runningXs.add(x);
     }
-    return [total, x];
+
+    return [
+      runningTotals,
+      runningXs,
+      [total, x]
+    ];
   }
 }
