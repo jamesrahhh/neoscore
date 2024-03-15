@@ -39,15 +39,10 @@ class _AccountState extends State<Account> {
                 child: Container(
                   height: 120,
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      gradient: const LinearGradient(
-                          colors: [Colors.red, Colors.deepOrange]),
-                      boxShadow: const [
-                        BoxShadow(
-                          color: Color.fromARGB(255, 225, 225, 225),
-                          blurRadius: 20.0,
-                        )
-                      ]),
+                    borderRadius: BorderRadius.circular(5),
+                    gradient: const LinearGradient(
+                        colors: [Colors.red, Colors.deepOrange]),
+                  ),
                   child: const Padding(
                     padding: EdgeInsets.all(10.0),
                     child: Row(

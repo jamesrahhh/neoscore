@@ -8,7 +8,6 @@ environment:
 
 dependencies:
   camera: ^0.10.5+8
-  custom_navigation_bar: ^0.8.2
   flutter:
     sdk: flutter
   flutter_launcher_icons: ^0.13.1

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:neuralflight/components/widget/customappbar.dart';
 
 /// Page for changing app settings.
 class Settings extends StatefulWidget {
@@ -13,8 +12,10 @@ class _SettingsState extends State<Settings> {
   // TODO: Add functionality.
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      appBar: CustomAppBar(pageName: 'Settings'),
+    return Scaffold(
+      appBar: AppBar(
+          title: const Text('Settings',
+              style: TextStyle(fontWeight: FontWeight.bold))),
       backgroundColor: Colors.white,
     );
   }
