@@ -89,11 +89,29 @@ class _SessionState extends State<Session> {
                 // Total display.
                 if (endIndex ==
                     ScoreHandler.scoresheets[currentSheetID].ends.length) {
+                  double screenWidth = MediaQuery.of(context).size.width;
                   return SizedBox(
-                    height: 40,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
+                        SizedBox(
+                          height: 40,
+                          width: screenWidth - 80,
+                          child: Padding(
+                            padding: const EdgeInsets.all(6.0),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  border: Border.all(
+                                      color: Colors.grey, width: 1.0)),
+                              child: const Icon(
+                                Icons.add_rounded,
+                                color: Colors.grey,
+                                size: 15,
+                              ),
+                            ),
+                          ),
+                        ),
                         SizedBox(
                             width: 20,
                             child: Center(child: Text('${scoreData[2][1]}'))),
