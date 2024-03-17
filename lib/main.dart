@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:neuralflight/pages/major/session.dart';
-import 'package:neuralflight/pages/major/history.dart';
-import 'package:neuralflight/pages/major/insights.dart';
-import 'package:neuralflight/pages/major/settings.dart';
+import 'package:neuralflight/pages/account.dart';
+import 'package:neuralflight/pages/session.dart';
+import 'package:neuralflight/pages/history.dart';
+import 'package:neuralflight/pages/insights.dart';
+import 'package:neuralflight/pages/settings.dart';
 
 void main() {
   runApp(const NeuralFLIGHT());
 }
 
-/// Main class. Manages BottomNavigationBar (for now.)
+/// Main class.
 class NeuralFLIGHT extends StatefulWidget {
   const NeuralFLIGHT({super.key});
 
@@ -17,20 +18,20 @@ class NeuralFLIGHT extends StatefulWidget {
 }
 
 class _NeuralFLIGHTState extends State<NeuralFLIGHT> {
-  final List _pages = [
-    const Session(),
-    const History(),
-    const Insights(),
-    const Settings()
-  ];
-
-  final int _pageIndex = 0;
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(fontFamily: 'DM Sans'),
-        home: Scaffold(body: _pages[_pageIndex]));
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(fontFamily: 'DM Sans'),
+      title: 'neuralflight',
+      routes: {
+        '/account': (context) => const Account(),
+        '/session': (context) => const Session(),
+        '/history': (context) => const History(),
+        '/insights': (context) => const Insights(),
+        '/settings': (context) => const Settings()
+      },
+      initialRoute: '/session',
+    );
   }
 }

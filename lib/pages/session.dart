@@ -61,8 +61,8 @@ class _SessionState extends State<Session> {
               ],
             ),
           ),
-          drawer: const CustomDrawer(),
           backgroundColor: Colors.white,
+          drawer: const CustomDrawer(),
           body: Center(
               child: Column(children: [
             // Header display.

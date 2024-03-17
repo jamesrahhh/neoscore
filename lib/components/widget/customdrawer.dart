@@ -9,15 +9,40 @@ class CustomDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-        child: ListView(children: const [
-      DrawerHeader(child: Text('Yo')),
+        child: ListView(children: [
+      const DrawerHeader(child: Text('Header')),
       ListTile(
-          leading: Icon(Icons.description_rounded), title: Text('Session')),
+        leading: const Icon(Icons.description_rounded),
+        title: const Text('Session'),
+        onTap: () {
+          Navigator.pop(context);
+          Navigator.pushNamed(context, '/session');
+        },
+      ),
       ListTile(
-          leading: Icon(Icons.format_list_numbered_rounded),
-          title: Text('History')),
-      ListTile(leading: Icon(Icons.insights_rounded), title: Text('Insights')),
-      ListTile(leading: Icon(Icons.settings_rounded), title: Text('Settings')),
+        leading: const Icon(Icons.format_list_numbered_rounded),
+        title: const Text('History'),
+        onTap: () {
+          Navigator.pop(context);
+          Navigator.pushNamed(context, '/history');
+        },
+      ),
+      ListTile(
+        leading: const Icon(Icons.insights_rounded),
+        title: const Text('Insights'),
+        onTap: () {
+          Navigator.pop(context);
+          Navigator.pushNamed(context, '/insights');
+        },
+      ),
+      ListTile(
+        leading: const Icon(Icons.settings_rounded),
+        title: const Text('Settings'),
+        onTap: () {
+          Navigator.pop(context);
+          Navigator.pushNamed(context, '/settings');
+        },
+      ),
     ]));
   }
 }
