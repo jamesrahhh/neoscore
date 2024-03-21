@@ -24,10 +24,10 @@ class ScoreHandler {
     int x = 0;
 
     for (int i = 0; i < scoresheets[currentSheetID].ends.length; i++) {
-      for (int j = 0; j < scoresheets[currentSheetID].ends[i].length; j++) {
-        total += scoresheets[currentSheetID].ends[i][j];
+      for (int ii = 0; ii < scoresheets[currentSheetID].ends[i].length; ii++) {
+        total += scoresheets[currentSheetID].ends[i][ii];
         if (TargetHandler.parseScore(scoresheets[currentSheetID].target,
-                scoresheets[currentSheetID].ends[i][j]) ==
+                scoresheets[currentSheetID].ends[i][ii]) ==
             'X') {
           total--;
           x++;

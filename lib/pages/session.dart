@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:neuralflight/components/handler/scorehandler.dart';
 import 'package:neuralflight/components/handler/targethandler.dart';
 import 'package:neuralflight/components/widget/customdrawer.dart';
+import 'package:neuralflight/components/widget/scoresheetbuttons.dart';
 
 class Session extends StatefulWidget {
   const Session({super.key});
@@ -49,6 +50,7 @@ class _SessionState extends State<Session> {
       return Scaffold(
           appBar: AppBar(
             title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 const Text('Scoresheet',
                     style: TextStyle(fontWeight: FontWeight.bold)),
@@ -94,24 +96,9 @@ class _SessionState extends State<Session> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        SizedBox(
-                          height: 40,
-                          width: screenWidth - 80,
-                          child: Padding(
-                            padding: const EdgeInsets.all(6.0),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  border: Border.all(
-                                      color: Colors.grey, width: 1.0)),
-                              child: const Icon(
-                                Icons.add_rounded,
-                                color: Colors.grey,
-                                size: 15,
-                              ),
-                            ),
-                          ),
-                        ),
+                        AddEndButton(
+                            currentSheetID: currentSheetID,
+                            screenWidth: screenWidth),
                         SizedBox(
                             width: 20,
                             child: Center(child: Text('${scoreData[2][1]}'))),

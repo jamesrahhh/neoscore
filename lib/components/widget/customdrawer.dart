@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
-/// A custom widget providing the AppBar for most pages.
-///
-/// Takes [pageName] to display the page of the name, and optionally takes [actions].
+/// A custom widget providing a navigation Drawer for most pages.
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({super.key});
 

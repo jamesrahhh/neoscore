@@ -8,14 +8,24 @@ class TargetHandler {
   /// Takes [target] as the target and [score] as the score of the arrow.
   /// Returns the score as an X or M as needed.
   static String parseScore(Target target, int score) {
-    if (target == Target.nfaa && score > 5) {
-      return 'X';
-    } else if (target == Target.usa && score > 10) {
+    if (score > getMaxScore(target)) {
       return 'X';
     } else if (score == 0) {
       return 'M';
     }
     return '$score';
+  }
+
+  /// Gets the maximum possible score from a target.
+  ///
+  /// Takes [target] as the target.
+  static int getMaxScore(Target target) {
+    if (target == Target.nfaa) {
+      return 5;
+    } else if (target == Target.usa) {
+      return 10;
+    }
+    return 0;
   }
 
   /// Gets the ring colors of a target ring.
