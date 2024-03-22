@@ -1,12 +1,10 @@
-import 'package:neuralflight/components/handler/targethandler.dart';
-
 /// Scoresheet object.
 ///
-/// Takes [target] and [distance].
+/// Takes [targetIndex], the index of the target within TargetHandler.targets[] and [distance].
 class Scoresheet {
-  final Target target;
+  final int targetIndex;
   final int distance;
   List<List<int>> ends = [];
 
-  Scoresheet({required this.target, required this.distance});
+  Scoresheet({required this.targetIndex, required this.distance});
 }

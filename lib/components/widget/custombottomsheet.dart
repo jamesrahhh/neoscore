@@ -10,8 +10,9 @@ class CustomBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double rowMembers = ((TargetHandler.getMaxScore(
-                ScoreHandler.scoresheets[currentSheetID].target) +
+    double rowMembers = ((TargetHandler
+                .targets[ScoreHandler.scoresheets[currentSheetID].targetIndex]
+                .maxScore +
             2) /
         2);
     double screenWidth = MediaQuery.of(context).size.width;
@@ -37,27 +38,28 @@ class CustomBottomSheet extends StatelessWidget {
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
                                 gradient: LinearGradient(colors: [
-                                  TargetHandler.getRingColors(
-                                      ScoreHandler
-                                          .scoresheets[currentSheetID].target,
-                                      index)[0],
-                                  TargetHandler.getRingColors(
-                                      ScoreHandler
-                                          .scoresheets[currentSheetID].target,
-                                      index)[1]
+                                  TargetHandler.targets[ScoreHandler
+                                          .scoresheets[currentSheetID]
+                                          .targetIndex]
+                                      .getRingColors(index)[0],
+                                  TargetHandler.targets[ScoreHandler
+                                          .scoresheets[currentSheetID]
+                                          .targetIndex]
+                                      .getRingColors(index)[1]
                                 ])),
                             child: Center(
                                 child: Text(
                                     TargetHandler.parseScore(
-                                        ScoreHandler
-                                            .scoresheets[currentSheetID].target,
+                                        TargetHandler.targets[ScoreHandler
+                                            .scoresheets[currentSheetID]
+                                            .targetIndex],
                                         index),
                                     style: TextStyle(
-                                        color: TargetHandler.getRingColors(
-                                            ScoreHandler
-                                                .scoresheets[currentSheetID]
-                                                .target,
-                                            index)[2]))),
+                                        color: TargetHandler.targets[
+                                                ScoreHandler
+                                                    .scoresheets[currentSheetID]
+                                                    .targetIndex]
+                                            .getRingColors(index)[2]))),
                           ),
                         ),
                       );
@@ -81,27 +83,31 @@ class CustomBottomSheet extends StatelessWidget {
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
                                 gradient: LinearGradient(colors: [
-                                  TargetHandler.getRingColors(
-                                      ScoreHandler
-                                          .scoresheets[currentSheetID].target,
-                                      index + rowMembers.ceil())[0],
-                                  TargetHandler.getRingColors(
-                                      ScoreHandler
-                                          .scoresheets[currentSheetID].target,
-                                      index + rowMembers.ceil())[1]
+                                  TargetHandler.targets[ScoreHandler
+                                          .scoresheets[currentSheetID]
+                                          .targetIndex]
+                                      .getRingColors(
+                                          index + rowMembers.ceil())[0],
+                                  TargetHandler.targets[ScoreHandler
+                                          .scoresheets[currentSheetID]
+                                          .targetIndex]
+                                      .getRingColors(
+                                          index + rowMembers.ceil())[1]
                                 ])),
                             child: Center(
                                 child: Text(
                                     TargetHandler.parseScore(
-                                        ScoreHandler
-                                            .scoresheets[currentSheetID].target,
+                                        TargetHandler.targets[ScoreHandler
+                                            .scoresheets[currentSheetID]
+                                            .targetIndex],
                                         index + rowMembers.ceil()),
                                     style: TextStyle(
-                                        color: TargetHandler.getRingColors(
-                                            ScoreHandler
-                                                .scoresheets[currentSheetID]
-                                                .target,
-                                            index + rowMembers.ceil())[2]))),
+                                        color: TargetHandler.targets[
+                                                ScoreHandler
+                                                    .scoresheets[currentSheetID]
+                                                    .targetIndex]
+                                            .getRingColors(index +
+                                                rowMembers.ceil())[2]))),
                           ),
                         ),
                       );

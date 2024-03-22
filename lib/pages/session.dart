@@ -35,7 +35,7 @@ class _SessionState extends State<Session> {
             child: const Icon(Icons.add_rounded),
             onPressed: () {
               setState(() {
-                currentSheetID = ScoreHandler.createScoresheet(Target.nfaa, 20);
+                currentSheetID = ScoreHandler.createScoresheet(0, 20);
               });
               ScoreHandler.scoresheets[currentSheetID].ends
                   .add([4, 4, 4, 4, 3]);
@@ -57,7 +57,7 @@ class _SessionState extends State<Session> {
                 Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Text(
-                      '${ScoreHandler.scoresheets[currentSheetID].target.name.toUpperCase()} target, ${ScoreHandler.scoresheets[currentSheetID].distance} yards',
+                      '${TargetHandler.targets[ScoreHandler.scoresheets[currentSheetID].targetIndex].name} target, ${ScoreHandler.scoresheets[currentSheetID].distance} yards',
                       style: const TextStyle(fontSize: 14)),
                 ),
               ],
@@ -145,41 +145,37 @@ class _SessionState extends State<Session> {
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(10),
                                         gradient: LinearGradient(colors: [
-                                          TargetHandler
+                                          TargetHandler.targets[ScoreHandler
+                                                  .scoresheets[currentSheetID]
+                                                  .targetIndex]
                                               .getRingColors(
-                                                  ScoreHandler
-                                                      .scoresheets[
-                                                          currentSheetID]
-                                                      .target,
                                                   ScoreHandler
                                                           .scoresheets[
                                                               currentSheetID]
                                                           .ends[endIndex]
                                                       [shotIndex])[0],
-                                          TargetHandler.getRingColors(
-                                              ScoreHandler
+                                          TargetHandler.targets[ScoreHandler
                                                   .scoresheets[currentSheetID]
-                                                  .target,
-                                              ScoreHandler
+                                                  .targetIndex]
+                                              .getRingColors(ScoreHandler
                                                   .scoresheets[currentSheetID]
                                                   .ends[endIndex][shotIndex])[1]
                                         ])),
                                     child: Center(
                                       child: Text(
                                         TargetHandler.parseScore(
-                                            ScoreHandler
+                                            TargetHandler.targets[ScoreHandler
                                                 .scoresheets[currentSheetID]
-                                                .target,
+                                                .targetIndex],
                                             ScoreHandler
                                                 .scoresheets[currentSheetID]
                                                 .ends[endIndex][shotIndex]),
                                         style: TextStyle(
-                                            color:
-                                                TargetHandler.getRingColors(
-                                                    ScoreHandler
-                                                        .scoresheets[
-                                                            currentSheetID]
-                                                        .target,
+                                            color: TargetHandler
+                                                .targets[ScoreHandler
+                                                    .scoresheets[currentSheetID]
+                                                    .targetIndex]
+                                                .getRingColors(
                                                     ScoreHandler
                                                             .scoresheets[
                                                                 currentSheetID]

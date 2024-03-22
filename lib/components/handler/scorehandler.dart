@@ -6,9 +6,9 @@ class ScoreHandler {
 
   /// Creates a new scoresheet and returns its index.
   ///
-  /// Takes [target] and [distance] as distance.
-  static int createScoresheet(Target target, int distance) {
-    scoresheets.add(Scoresheet(target: target, distance: distance));
+  /// Takes [targetIndex] and [distance] as distance.
+  static int createScoresheet(int targetIndex, int distance) {
+    scoresheets.add(Scoresheet(targetIndex: targetIndex, distance: distance));
     return scoresheets.length - 1;
   }
 
@@ -26,7 +26,8 @@ class ScoreHandler {
     for (int i = 0; i < scoresheets[currentSheetID].ends.length; i++) {
       for (int ii = 0; ii < scoresheets[currentSheetID].ends[i].length; ii++) {
         total += scoresheets[currentSheetID].ends[i][ii];
-        if (TargetHandler.parseScore(scoresheets[currentSheetID].target,
+        if (TargetHandler.parseScore(
+                TargetHandler.targets[scoresheets[currentSheetID].targetIndex],
                 scoresheets[currentSheetID].ends[i][ii]) ==
             'X') {
           total--;
