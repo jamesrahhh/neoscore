@@ -26,8 +26,7 @@ class ScoreHandler {
     for (int i = 0; i < scoresheets[currentSheetID].ends.length; i++) {
       for (int ii = 0; ii < scoresheets[currentSheetID].ends[i].length; ii++) {
         total += scoresheets[currentSheetID].ends[i][ii];
-        if (TargetHandler.parseScore(
-                TargetHandler.targets[scoresheets[currentSheetID].targetIndex],
+        if (TargetHandler.parseScore(scoresheets[currentSheetID].targetIndex,
                 scoresheets[currentSheetID].ends[i][ii]) ==
             'X') {
           total--;

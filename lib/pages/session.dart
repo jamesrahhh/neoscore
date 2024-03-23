@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:neuralflight/components/handler/scorehandler.dart';
 import 'package:neuralflight/components/handler/targethandler.dart';
+import 'package:neuralflight/components/widget/custombottomsheet.dart';
 import 'package:neuralflight/components/widget/customdrawer.dart';
 import 'package:neuralflight/components/widget/scoresheetbuttons.dart';
 
@@ -19,6 +20,15 @@ class _SessionState extends State<Session> {
     [0, 0]
   ];
 
+  void updateScoreData(int endIndex, int shotIndex, int score) {
+    ScoreHandler.scoresheets[currentSheetID].ends[endIndex][shotIndex] = score;
+    ScoreHandler.scoresheets[currentSheetID].ends[endIndex]
+        .sort((b, a) => a.compareTo(b));
+    setState(() {
+      scoreData = ScoreHandler.refreshScoreData(currentSheetID);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     if (currentSheetID == -1) {
@@ -34,9 +44,7 @@ class _SessionState extends State<Session> {
         floatingActionButton: FloatingActionButton(
             child: const Icon(Icons.add_rounded),
             onPressed: () {
-              setState(() {
-                currentSheetID = ScoreHandler.createScoresheet(0, 20);
-              });
+              currentSheetID = ScoreHandler.createScoresheet(0, 20);
               ScoreHandler.scoresheets[currentSheetID].ends
                   .add([4, 4, 4, 4, 3]);
               ScoreHandler.scoresheets[currentSheetID].ends
@@ -135,52 +143,56 @@ class _SessionState extends State<Session> {
                                 int shotIndex) {
                               double screenWidth =
                                   MediaQuery.of(context).size.width;
-                              return SizedBox(
-                                width: (screenWidth - 80) /
-                                    (ScoreHandler.scoresheets[currentSheetID]
-                                        .ends[endIndex].length),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(6.0),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        gradient: LinearGradient(colors: [
-                                          TargetHandler.targets[ScoreHandler
+                              return InkWell(
+                                onTap: () {
+                                  Scaffold.of(horizontalContext)
+                                      .showBottomSheet((BuildContext context) {
+                                    return CustomBottomSheet(
+                                      update: updateScoreData,
+                                      currentSheetID: currentSheetID,
+                                      endIndex: endIndex,
+                                      shotIndex: shotIndex,
+                                    );
+                                  });
+                                },
+                                child: SizedBox(
+                                  width: (screenWidth - 80) /
+                                      (ScoreHandler.scoresheets[currentSheetID]
+                                          .ends[endIndex].length),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(6.0),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          gradient: TargetHandler
+                                              .targets[ScoreHandler
                                                   .scoresheets[currentSheetID]
                                                   .targetIndex]
-                                              .getRingColors(
-                                                  ScoreHandler
+                                              .getRingGradient(ScoreHandler
+                                                  .scoresheets[currentSheetID]
+                                                  .ends[endIndex][shotIndex])),
+                                      child: Center(
+                                        child: Text(
+                                          TargetHandler.parseScore(
+                                              ScoreHandler
+                                                  .scoresheets[currentSheetID]
+                                                  .targetIndex,
+                                              ScoreHandler
+                                                  .scoresheets[currentSheetID]
+                                                  .ends[endIndex][shotIndex]),
+                                          style: TextStyle(
+                                              color: TargetHandler.targets[
+                                                      ScoreHandler
+                                                          .scoresheets[
+                                                              currentSheetID]
+                                                          .targetIndex]
+                                                  .getTextColor(ScoreHandler
                                                           .scoresheets[
                                                               currentSheetID]
                                                           .ends[endIndex]
-                                                      [shotIndex])[0],
-                                          TargetHandler.targets[ScoreHandler
-                                                  .scoresheets[currentSheetID]
-                                                  .targetIndex]
-                                              .getRingColors(ScoreHandler
-                                                  .scoresheets[currentSheetID]
-                                                  .ends[endIndex][shotIndex])[1]
-                                        ])),
-                                    child: Center(
-                                      child: Text(
-                                        TargetHandler.parseScore(
-                                            TargetHandler.targets[ScoreHandler
-                                                .scoresheets[currentSheetID]
-                                                .targetIndex],
-                                            ScoreHandler
-                                                .scoresheets[currentSheetID]
-                                                .ends[endIndex][shotIndex]),
-                                        style: TextStyle(
-                                            color: TargetHandler
-                                                .targets[ScoreHandler
-                                                    .scoresheets[currentSheetID]
-                                                    .targetIndex]
-                                                .getRingColors(
-                                                    ScoreHandler
-                                                            .scoresheets[
-                                                                currentSheetID]
-                                                            .ends[endIndex]
-                                                        [shotIndex])[2]),
+                                                      [shotIndex])),
+                                        ),
                                       ),
                                     ),
                                   ),

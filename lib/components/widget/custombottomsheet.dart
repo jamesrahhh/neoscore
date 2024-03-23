@@ -4,9 +4,17 @@ import 'package:neuralflight/components/handler/targethandler.dart';
 
 /// Bottom sheet widget that serves as a custom keyboard for entering scores.
 class CustomBottomSheet extends StatelessWidget {
+  final Function(int, int, int) update;
   final int currentSheetID;
+  final int endIndex;
+  final int shotIndex;
 
-  const CustomBottomSheet({super.key, required this.currentSheetID});
+  const CustomBottomSheet(
+      {super.key,
+      required this.update,
+      required this.currentSheetID,
+      required this.endIndex,
+      required this.shotIndex});
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +30,10 @@ class CustomBottomSheet extends StatelessWidget {
         width: screenWidth,
         child: Column(
           children: [
+            const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Text('Edit score'),
+            ),
             SizedBox(
               height: 60,
               child: Flexible(
@@ -30,36 +42,36 @@ class CustomBottomSheet extends StatelessWidget {
                     shrinkWrap: true,
                     itemCount: rowMembers.ceil(),
                     itemBuilder: (BuildContext horizontalContext, int index) {
-                      return SizedBox(
-                        width: (screenWidth - 30) / (rowMembers.ceil()),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                gradient: LinearGradient(colors: [
-                                  TargetHandler.targets[ScoreHandler
+                      return InkWell(
+                        onTap: () {
+                          update(endIndex, shotIndex, index);
+                          Navigator.pop(context);
+                        },
+                        child: SizedBox(
+                          width: (screenWidth - 30) / (rowMembers.ceil()),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  gradient: TargetHandler.targets[ScoreHandler
                                           .scoresheets[currentSheetID]
                                           .targetIndex]
-                                      .getRingColors(index)[0],
-                                  TargetHandler.targets[ScoreHandler
-                                          .scoresheets[currentSheetID]
-                                          .targetIndex]
-                                      .getRingColors(index)[1]
-                                ])),
-                            child: Center(
-                                child: Text(
-                                    TargetHandler.parseScore(
-                                        TargetHandler.targets[ScoreHandler
-                                            .scoresheets[currentSheetID]
-                                            .targetIndex],
-                                        index),
-                                    style: TextStyle(
-                                        color: TargetHandler.targets[
-                                                ScoreHandler
-                                                    .scoresheets[currentSheetID]
-                                                    .targetIndex]
-                                            .getRingColors(index)[2]))),
+                                      .getRingGradient(index)),
+                              child: Center(
+                                  child: Text(
+                                      TargetHandler.parseScore(
+                                          ScoreHandler
+                                              .scoresheets[currentSheetID]
+                                              .targetIndex,
+                                          index),
+                                      style: TextStyle(
+                                          color: TargetHandler
+                                              .targets[ScoreHandler
+                                                  .scoresheets[currentSheetID]
+                                                  .targetIndex]
+                                              .getTextColor(index)))),
+                            ),
                           ),
                         ),
                       );
@@ -75,39 +87,39 @@ class CustomBottomSheet extends StatelessWidget {
                     itemCount: rowMembers.floor(),
                     itemBuilder: (BuildContext horizontalContext, int index) {
                       double screenWidth = MediaQuery.of(context).size.width;
-                      return SizedBox(
-                        width: (screenWidth - 30) / (rowMembers.floor()),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                gradient: LinearGradient(colors: [
-                                  TargetHandler.targets[ScoreHandler
+                      return InkWell(
+                        onTap: () {
+                          update(
+                              endIndex, shotIndex, index + rowMembers.ceil());
+                          Navigator.pop(context);
+                        },
+                        child: SizedBox(
+                          width: (screenWidth - 30) / (rowMembers.floor()),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  gradient: TargetHandler.targets[ScoreHandler
                                           .scoresheets[currentSheetID]
                                           .targetIndex]
-                                      .getRingColors(
-                                          index + rowMembers.ceil())[0],
-                                  TargetHandler.targets[ScoreHandler
-                                          .scoresheets[currentSheetID]
-                                          .targetIndex]
-                                      .getRingColors(
-                                          index + rowMembers.ceil())[1]
-                                ])),
-                            child: Center(
-                                child: Text(
-                                    TargetHandler.parseScore(
-                                        TargetHandler.targets[ScoreHandler
-                                            .scoresheets[currentSheetID]
-                                            .targetIndex],
-                                        index + rowMembers.ceil()),
-                                    style: TextStyle(
-                                        color: TargetHandler.targets[
-                                                ScoreHandler
-                                                    .scoresheets[currentSheetID]
-                                                    .targetIndex]
-                                            .getRingColors(index +
-                                                rowMembers.ceil())[2]))),
+                                      .getRingGradient(
+                                          index + rowMembers.ceil())),
+                              child: Center(
+                                  child: Text(
+                                      TargetHandler.parseScore(
+                                          ScoreHandler
+                                              .scoresheets[currentSheetID]
+                                              .targetIndex,
+                                          index + rowMembers.ceil()),
+                                      style: TextStyle(
+                                          color: TargetHandler
+                                              .targets[ScoreHandler
+                                                  .scoresheets[currentSheetID]
+                                                  .targetIndex]
+                                              .getTextColor(
+                                                  index + rowMembers.ceil())))),
+                            ),
                           ),
                         ),
                       );
