@@ -34,97 +34,90 @@ class CustomBottomSheet extends StatelessWidget {
               padding: EdgeInsets.all(8.0),
               child: Text('Edit score'),
             ),
-            SizedBox(
-              height: 60,
-              child: Flexible(
-                child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    shrinkWrap: true,
-                    itemCount: rowMembers.ceil(),
-                    itemBuilder: (BuildContext horizontalContext, int index) {
-                      return InkWell(
-                        onTap: () {
-                          update(endIndex, shotIndex, index);
-                          Navigator.pop(context);
-                        },
-                        child: SizedBox(
-                          width: (screenWidth - 30) / (rowMembers.ceil()),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  gradient: TargetHandler.targets[ScoreHandler
-                                          .scoresheets[currentSheetID]
-                                          .targetIndex]
-                                      .getRingGradient(index)),
-                              child: Center(
-                                  child: Text(
-                                      TargetHandler.parseScore(
-                                          ScoreHandler
-                                              .scoresheets[currentSheetID]
-                                              .targetIndex,
-                                          index),
-                                      style: TextStyle(
-                                          color: TargetHandler
-                                              .targets[ScoreHandler
-                                                  .scoresheets[currentSheetID]
-                                                  .targetIndex]
-                                              .getTextColor(index)))),
-                            ),
+            Flexible(
+              child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  shrinkWrap: true,
+                  itemCount: rowMembers.ceil(),
+                  itemBuilder: (BuildContext horizontalContext, int index) {
+                    return InkWell(
+                      onTap: () {
+                        update(endIndex, shotIndex, index);
+                        Navigator.pop(context);
+                      },
+                      child: SizedBox(
+                        height: 60,
+                        width: (screenWidth - 30) / (rowMembers.ceil()),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                gradient: TargetHandler.targets[ScoreHandler
+                                        .scoresheets[currentSheetID]
+                                        .targetIndex]
+                                    .getRingGradient(index)),
+                            child: Center(
+                                child: Text(
+                                    TargetHandler.parseScore(
+                                        ScoreHandler.scoresheets[currentSheetID]
+                                            .targetIndex,
+                                        index),
+                                    style: TextStyle(
+                                        color: TargetHandler.targets[
+                                                ScoreHandler
+                                                    .scoresheets[currentSheetID]
+                                                    .targetIndex]
+                                            .getTextColor(index)))),
                           ),
                         ),
-                      );
-                    }),
-              ),
+                      ),
+                    );
+                  }),
             ),
-            SizedBox(
-              height: 60,
-              child: Flexible(
-                child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    shrinkWrap: true,
-                    itemCount: rowMembers.floor(),
-                    itemBuilder: (BuildContext horizontalContext, int index) {
-                      double screenWidth = MediaQuery.of(context).size.width;
-                      return InkWell(
-                        onTap: () {
-                          update(
-                              endIndex, shotIndex, index + rowMembers.ceil());
-                          Navigator.pop(context);
-                        },
-                        child: SizedBox(
-                          width: (screenWidth - 30) / (rowMembers.floor()),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  gradient: TargetHandler.targets[ScoreHandler
-                                          .scoresheets[currentSheetID]
-                                          .targetIndex]
-                                      .getRingGradient(
-                                          index + rowMembers.ceil())),
-                              child: Center(
-                                  child: Text(
-                                      TargetHandler.parseScore(
-                                          ScoreHandler
-                                              .scoresheets[currentSheetID]
-                                              .targetIndex,
-                                          index + rowMembers.ceil()),
-                                      style: TextStyle(
-                                          color: TargetHandler
-                                              .targets[ScoreHandler
-                                                  .scoresheets[currentSheetID]
-                                                  .targetIndex]
-                                              .getTextColor(
-                                                  index + rowMembers.ceil())))),
-                            ),
+            Flexible(
+              child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  shrinkWrap: true,
+                  itemCount: rowMembers.floor(),
+                  itemBuilder: (BuildContext horizontalContext, int index) {
+                    double screenWidth = MediaQuery.of(context).size.width;
+                    return InkWell(
+                      onTap: () {
+                        update(endIndex, shotIndex, index + rowMembers.ceil());
+                        Navigator.pop(context);
+                      },
+                      child: SizedBox(
+                        width: (screenWidth - 30) / (rowMembers.floor()),
+                        height: 60,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                gradient: TargetHandler.targets[ScoreHandler
+                                        .scoresheets[currentSheetID]
+                                        .targetIndex]
+                                    .getRingGradient(
+                                        index + rowMembers.ceil())),
+                            child: Center(
+                                child: Text(
+                                    TargetHandler.parseScore(
+                                        ScoreHandler.scoresheets[currentSheetID]
+                                            .targetIndex,
+                                        index + rowMembers.ceil()),
+                                    style: TextStyle(
+                                        color: TargetHandler.targets[
+                                                ScoreHandler
+                                                    .scoresheets[currentSheetID]
+                                                    .targetIndex]
+                                            .getTextColor(
+                                                index + rowMembers.ceil())))),
                           ),
                         ),
-                      );
-                    }),
-              ),
+                      ),
+                    );
+                  }),
             )
           ],
         ));
