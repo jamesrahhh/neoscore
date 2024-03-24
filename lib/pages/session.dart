@@ -99,14 +99,14 @@ class _SessionState extends State<Session> {
                 // Total display.
                 if (endIndex ==
                     ScoreHandler.scoresheets[currentSheetID].ends.length) {
-                  double screenWidth = MediaQuery.of(context).size.width;
                   return SizedBox(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         AddEndButton(
-                            currentSheetID: currentSheetID,
-                            screenWidth: screenWidth),
+                          currentSheetID: currentSheetID,
+                          update: updateScoreData,
+                        ),
                         SizedBox(
                             width: 20,
                             child: Center(child: Text('${scoreData[2][1]}'))),
