@@ -119,107 +119,137 @@ class _SessionState extends State<Session> {
                 } else {
                   return SizedBox(
                     height: 40,
-                    child: Row(
-                      children: [
-                        // End title.
-                        SizedBox(
-                          width: 30,
-                          child: Center(
-                            child: Text(
-                              '${endIndex + 1}',
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
+                    child: GestureDetector(
+                      onHorizontalDragEnd: (details) {
+                        if (details.primaryVelocity! < -5) {
+                          ScoreHandler
+                              .scoresheets[currentSheetID].ends[endIndex]
+                              .add(0);
+                          Scaffold.of(verticalContext)
+                              .showBottomSheet((BuildContext context) {
+                            return CustomBottomSheet(
+                              update: updateScoreData,
+                              currentSheetID: currentSheetID,
+                              endIndex: endIndex,
+                              shotIndex: ScoreHandler
+                                      .scoresheets[currentSheetID]
+                                      .ends[endIndex]
+                                      .length -
+                                  1,
+                            );
+                          });
+                        }
+                      },
+                      child: Row(
+                        children: [
+                          // End title.
+                          SizedBox(
+                            width: 30,
+                            child: Center(
+                              child: Text(
+                                '${endIndex + 1}',
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                        // End score display.
-                        Flexible(
-                          child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: ScoreHandler.scoresheets[currentSheetID]
-                                .ends[endIndex].length,
-                            itemBuilder: (BuildContext horizontalContext,
-                                int shotIndex) {
-                              double screenWidth =
-                                  MediaQuery.of(context).size.width;
-                              return InkWell(
-                                onTap: () {
-                                  Scaffold.of(horizontalContext)
-                                      .showBottomSheet((BuildContext context) {
-                                    return CustomBottomSheet(
-                                      update: updateScoreData,
-                                      currentSheetID: currentSheetID,
-                                      endIndex: endIndex,
-                                      shotIndex: shotIndex,
-                                    );
-                                  });
-                                },
-                                child: SizedBox(
-                                  width: (screenWidth - 80) /
-                                      (ScoreHandler.scoresheets[currentSheetID]
-                                          .ends[endIndex].length),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(6.0),
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          gradient: TargetHandler
-                                              .targets[ScoreHandler
-                                                  .scoresheets[currentSheetID]
-                                                  .targetIndex]
-                                              .getRingGradient(ScoreHandler
-                                                  .scoresheets[currentSheetID]
-                                                  .ends[endIndex][shotIndex])),
-                                      child: Center(
-                                        child: Text(
-                                          TargetHandler.parseScore(
-                                              ScoreHandler
-                                                  .scoresheets[currentSheetID]
-                                                  .targetIndex,
-                                              ScoreHandler
-                                                  .scoresheets[currentSheetID]
-                                                  .ends[endIndex][shotIndex]),
-                                          style: TextStyle(
-                                              color: TargetHandler.targets[
-                                                      ScoreHandler
-                                                          .scoresheets[
-                                                              currentSheetID]
-                                                          .targetIndex]
-                                                  .getTextColor(ScoreHandler
-                                                          .scoresheets[
-                                                              currentSheetID]
-                                                          .ends[endIndex]
-                                                      [shotIndex])),
+                          // End score display.
+                          Flexible(
+                            child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: ScoreHandler
+                                  .scoresheets[currentSheetID]
+                                  .ends[endIndex]
+                                  .length,
+                              itemBuilder: (BuildContext horizontalContext,
+                                  int shotIndex) {
+                                double screenWidth =
+                                    MediaQuery.of(context).size.width;
+                                return InkWell(
+                                  onTap: () {
+                                    Scaffold.of(horizontalContext)
+                                        .showBottomSheet(
+                                            (BuildContext context) {
+                                      return CustomBottomSheet(
+                                        update: updateScoreData,
+                                        currentSheetID: currentSheetID,
+                                        endIndex: endIndex,
+                                        shotIndex: shotIndex,
+                                      );
+                                    });
+                                  },
+                                  child: SizedBox(
+                                    width: (screenWidth - 80) /
+                                        (ScoreHandler
+                                            .scoresheets[currentSheetID]
+                                            .ends[endIndex]
+                                            .length),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(6.0),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            gradient: TargetHandler
+                                                .targets[ScoreHandler
+                                                    .scoresheets[currentSheetID]
+                                                    .targetIndex]
+                                                .getRingGradient(
+                                                    ScoreHandler
+                                                            .scoresheets[
+                                                                currentSheetID]
+                                                            .ends[endIndex]
+                                                        [shotIndex])),
+                                        child: Center(
+                                          child: Text(
+                                            TargetHandler.parseScore(
+                                                ScoreHandler
+                                                    .scoresheets[currentSheetID]
+                                                    .targetIndex,
+                                                ScoreHandler
+                                                    .scoresheets[currentSheetID]
+                                                    .ends[endIndex][shotIndex]),
+                                            style: TextStyle(
+                                                color: TargetHandler.targets[
+                                                        ScoreHandler
+                                                            .scoresheets[
+                                                                currentSheetID]
+                                                            .targetIndex]
+                                                    .getTextColor(ScoreHandler
+                                                            .scoresheets[
+                                                                currentSheetID]
+                                                            .ends[endIndex]
+                                                        [shotIndex])),
+                                          ),
                                         ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              );
-                            },
-                          ),
-                        ),
-                        // X's.
-                        SizedBox(
-                          width: 20,
-                          child: Center(
-                            child: Text(
-                              '${scoreData[1][endIndex] - (endIndex == 0 ? 0 : scoreData[1][endIndex - 1])}',
+                                );
+                              },
                             ),
                           ),
-                        ),
-                        // End scores.
-                        SizedBox(
-                          width: 30,
-                          child: Center(
-                            child: Text(
-                              '${scoreData[0][endIndex] - (endIndex == 0 ? 0 : scoreData[0][endIndex - 1])}',
+                          // X's.
+                          SizedBox(
+                            width: 20,
+                            child: Center(
+                              child: Text(
+                                '${scoreData[1][endIndex] - (endIndex == 0 ? 0 : scoreData[1][endIndex - 1])}',
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                          // End scores.
+                          SizedBox(
+                            width: 30,
+                            child: Center(
+                              child: Text(
+                                '${scoreData[0][endIndex] - (endIndex == 0 ? 0 : scoreData[0][endIndex - 1])}',
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   );
                 }
