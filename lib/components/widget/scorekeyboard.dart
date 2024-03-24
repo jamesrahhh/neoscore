@@ -3,13 +3,13 @@ import 'package:neuralflight/components/handler/scorehandler.dart';
 import 'package:neuralflight/components/handler/targethandler.dart';
 
 /// Bottom sheet widget that serves as a custom keyboard for entering scores.
-class CustomBottomSheet extends StatelessWidget {
-  final Function(int, int, int) update;
+class ScoreKeyboard extends StatelessWidget {
+  final Function() update;
   final int currentSheetID;
   final int endIndex;
   final int shotIndex;
 
-  const CustomBottomSheet(
+  const ScoreKeyboard(
       {super.key,
       required this.update,
       required this.currentSheetID,
@@ -30,9 +30,27 @@ class CustomBottomSheet extends StatelessWidget {
         width: screenWidth,
         child: Column(
           children: [
-            const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Text('Edit score'),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text('Edit score'),
+                ),
+                IconButton(
+                    onPressed: () {
+                      ScoreHandler.scoresheets[currentSheetID].ends[endIndex]
+                          .removeAt(shotIndex);
+                      if (ScoreHandler
+                          .scoresheets[currentSheetID].ends[endIndex].isEmpty) {
+                        ScoreHandler.scoresheets[currentSheetID].ends
+                            .removeAt(endIndex);
+                      }
+                      update();
+                      Navigator.pop(context);
+                    },
+                    icon: const Icon(Icons.delete_rounded))
+              ],
             ),
             Flexible(
               child: ListView.builder(
@@ -42,7 +60,11 @@ class CustomBottomSheet extends StatelessWidget {
                   itemBuilder: (BuildContext horizontalContext, int index) {
                     return InkWell(
                       onTap: () {
-                        update(endIndex, shotIndex, index);
+                        ScoreHandler.scoresheets[currentSheetID].ends[endIndex]
+                            [shotIndex] = index;
+                        ScoreHandler.scoresheets[currentSheetID].ends[endIndex]
+                            .sort((b, a) => a.compareTo(b));
+                        update();
                         Navigator.pop(context);
                       },
                       child: SizedBox(
@@ -84,7 +106,11 @@ class CustomBottomSheet extends StatelessWidget {
                     double screenWidth = MediaQuery.of(context).size.width;
                     return InkWell(
                       onTap: () {
-                        update(endIndex, shotIndex, index + rowMembers.ceil());
+                        ScoreHandler.scoresheets[currentSheetID].ends[endIndex]
+                            [shotIndex] = index + rowMembers.ceil();
+                        ScoreHandler.scoresheets[currentSheetID].ends[endIndex]
+                            .sort((b, a) => a.compareTo(b));
+                        update();
                         Navigator.pop(context);
                       },
                       child: SizedBox(

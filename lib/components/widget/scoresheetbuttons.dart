@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:neuralflight/components/handler/scorehandler.dart';
-import 'package:neuralflight/components/widget/custombottomsheet.dart';
+import 'package:neuralflight/components/widget/scorekeyboard.dart';
 
 /// A button that appears below the last end in a scoresheet for adding another end.
 class AddEndButton extends StatelessWidget {
-  final Function(int, int, int) update;
+  final Function() update;
   final int currentSheetID;
 
   const AddEndButton(
@@ -19,7 +19,7 @@ class AddEndButton extends StatelessWidget {
         ScoreHandler.scoresheets[currentSheetID].ends.add([0]);
 
         Scaffold.of(context).showBottomSheet((BuildContext context) {
-          return CustomBottomSheet(
+          return ScoreKeyboard(
             update: update,
             currentSheetID: currentSheetID,
             endIndex: ScoreHandler.scoresheets[currentSheetID].ends.length - 1,

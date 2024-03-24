@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:neuralflight/components/handler/scorehandler.dart';
 import 'package:neuralflight/components/handler/targethandler.dart';
-import 'package:neuralflight/components/widget/custombottomsheet.dart';
+import 'package:neuralflight/components/widget/scorekeyboard.dart';
 import 'package:neuralflight/components/widget/customdrawer.dart';
 import 'package:neuralflight/components/widget/scoresheetbuttons.dart';
 
@@ -20,10 +20,7 @@ class _SessionState extends State<Session> {
     [0, 0]
   ];
 
-  void updateScoreData(int endIndex, int shotIndex, int score) {
-    ScoreHandler.scoresheets[currentSheetID].ends[endIndex][shotIndex] = score;
-    ScoreHandler.scoresheets[currentSheetID].ends[endIndex]
-        .sort((b, a) => a.compareTo(b));
+  void updateScoreData() {
     setState(() {
       scoreData = ScoreHandler.refreshScoreData(currentSheetID);
     });
@@ -45,10 +42,6 @@ class _SessionState extends State<Session> {
             child: const Icon(Icons.add_rounded),
             onPressed: () {
               currentSheetID = ScoreHandler.createScoresheet(0, 20);
-              ScoreHandler.scoresheets[currentSheetID].ends
-                  .add([4, 4, 4, 4, 3]);
-              ScoreHandler.scoresheets[currentSheetID].ends
-                  .add([6, 6, 5, 5, 5, 0]);
               setState(() {
                 scoreData = ScoreHandler.refreshScoreData(currentSheetID);
               });
@@ -127,7 +120,7 @@ class _SessionState extends State<Session> {
                               .add(0);
                           Scaffold.of(verticalContext)
                               .showBottomSheet((BuildContext context) {
-                            return CustomBottomSheet(
+                            return ScoreKeyboard(
                               update: updateScoreData,
                               currentSheetID: currentSheetID,
                               endIndex: endIndex,
@@ -171,7 +164,7 @@ class _SessionState extends State<Session> {
                                     Scaffold.of(horizontalContext)
                                         .showBottomSheet(
                                             (BuildContext context) {
-                                      return CustomBottomSheet(
+                                      return ScoreKeyboard(
                                         update: updateScoreData,
                                         currentSheetID: currentSheetID,
                                         endIndex: endIndex,
