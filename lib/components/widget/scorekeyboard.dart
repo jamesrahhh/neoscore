@@ -39,12 +39,19 @@ class ScoreKeyboard extends StatelessWidget {
                 ),
                 IconButton(
                     onPressed: () {
-                      ScoreHandler.scoresheets[currentSheetID].ends[endIndex]
-                          .removeAt(shotIndex);
                       if (ScoreHandler
-                          .scoresheets[currentSheetID].ends[endIndex].isEmpty) {
-                        ScoreHandler.scoresheets[currentSheetID].ends
-                            .removeAt(endIndex);
+                          .scoresheets[currentSheetID].ends.isNotEmpty) {
+                        if (ScoreHandler.scoresheets[currentSheetID]
+                            .ends[endIndex].isNotEmpty) {
+                          ScoreHandler
+                              .scoresheets[currentSheetID].ends[endIndex]
+                              .removeAt(shotIndex);
+                          if (ScoreHandler.scoresheets[currentSheetID]
+                              .ends[endIndex].isEmpty) {
+                            ScoreHandler.scoresheets[currentSheetID].ends
+                                .removeAt(endIndex);
+                          }
+                        }
                       }
                       update();
                       Navigator.pop(context);
@@ -60,6 +67,18 @@ class ScoreKeyboard extends StatelessWidget {
                   itemBuilder: (BuildContext horizontalContext, int index) {
                     return InkWell(
                       onTap: () {
+                        if (ScoreHandler
+                                .scoresheets[currentSheetID].ends.length <=
+                            endIndex) {
+                          ScoreHandler.scoresheets[currentSheetID].ends.add([]);
+                        }
+                        if (ScoreHandler.scoresheets[currentSheetID]
+                                .ends[endIndex].length <=
+                            shotIndex) {
+                          ScoreHandler
+                              .scoresheets[currentSheetID].ends[endIndex]
+                              .add(0);
+                        }
                         ScoreHandler.scoresheets[currentSheetID].ends[endIndex]
                             [shotIndex] = index;
                         ScoreHandler.scoresheets[currentSheetID].ends[endIndex]
@@ -106,6 +125,18 @@ class ScoreKeyboard extends StatelessWidget {
                     double screenWidth = MediaQuery.of(context).size.width;
                     return InkWell(
                       onTap: () {
+                        if (ScoreHandler
+                                .scoresheets[currentSheetID].ends.length <=
+                            endIndex) {
+                          ScoreHandler.scoresheets[currentSheetID].ends.add([]);
+                        }
+                        if (ScoreHandler.scoresheets[currentSheetID]
+                                .ends[endIndex].length <=
+                            shotIndex) {
+                          ScoreHandler
+                              .scoresheets[currentSheetID].ends[endIndex]
+                              .add(0);
+                        }
                         ScoreHandler.scoresheets[currentSheetID].ends[endIndex]
                             [shotIndex] = index + rowMembers.ceil();
                         ScoreHandler.scoresheets[currentSheetID].ends[endIndex]

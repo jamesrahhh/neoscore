@@ -16,13 +16,11 @@ class AddEndButton extends StatelessWidget {
 
     return InkWell(
       onTap: () {
-        ScoreHandler.scoresheets[currentSheetID].ends.add([0]);
-
         Scaffold.of(context).showBottomSheet((BuildContext context) {
           return ScoreKeyboard(
             update: update,
             currentSheetID: currentSheetID,
-            endIndex: ScoreHandler.scoresheets[currentSheetID].ends.length - 1,
+            endIndex: ScoreHandler.scoresheets[currentSheetID].ends.length,
             shotIndex: 0,
           );
         });

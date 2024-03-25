@@ -20,7 +20,7 @@ class _SessionState extends State<Session> {
     [0, 0]
   ];
 
-  void updateScoreData() {
+  void refreshSessionState() {
     setState(() {
       scoreData = ScoreHandler.refreshScoreData(currentSheetID);
     });
@@ -98,7 +98,7 @@ class _SessionState extends State<Session> {
                       children: [
                         AddEndButton(
                           currentSheetID: currentSheetID,
-                          update: updateScoreData,
+                          update: refreshSessionState,
                         ),
                         SizedBox(
                             width: 20,
@@ -115,20 +115,16 @@ class _SessionState extends State<Session> {
                     child: GestureDetector(
                       onHorizontalDragEnd: (details) {
                         if (details.primaryVelocity! < -5) {
-                          ScoreHandler
-                              .scoresheets[currentSheetID].ends[endIndex]
-                              .add(0);
                           Scaffold.of(verticalContext)
                               .showBottomSheet((BuildContext context) {
                             return ScoreKeyboard(
-                              update: updateScoreData,
+                              update: refreshSessionState,
                               currentSheetID: currentSheetID,
                               endIndex: endIndex,
                               shotIndex: ScoreHandler
-                                      .scoresheets[currentSheetID]
-                                      .ends[endIndex]
-                                      .length -
-                                  1,
+                                  .scoresheets[currentSheetID]
+                                  .ends[endIndex]
+                                  .length,
                             );
                           });
                         }
@@ -165,7 +161,7 @@ class _SessionState extends State<Session> {
                                         .showBottomSheet(
                                             (BuildContext context) {
                                       return ScoreKeyboard(
-                                        update: updateScoreData,
+                                        update: refreshSessionState,
                                         currentSheetID: currentSheetID,
                                         endIndex: endIndex,
                                         shotIndex: shotIndex,
