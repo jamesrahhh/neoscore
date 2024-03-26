@@ -68,8 +68,6 @@ class _SessionState extends State<Session> {
           drawer: const CustomDrawer(),
           body: Center(
               child: Column(children: [
-            // Header display.
-            // Score column info.
             const Padding(
               padding: EdgeInsets.all(4.0),
               child: Row(
@@ -83,13 +81,11 @@ class _SessionState extends State<Session> {
                 ],
               ),
             ),
-            // Score display.
             Flexible(
                 child: ListView.builder(
               itemCount:
                   ScoreHandler.scoresheets[currentSheetID].ends.length + 1,
               itemBuilder: (BuildContext verticalContext, int endIndex) {
-                // Total display.
                 if (endIndex ==
                     ScoreHandler.scoresheets[currentSheetID].ends.length) {
                   return SizedBox(
@@ -131,7 +127,6 @@ class _SessionState extends State<Session> {
                       },
                       child: Row(
                         children: [
-                          // End title.
                           SizedBox(
                             width: 30,
                             child: Center(
@@ -143,7 +138,6 @@ class _SessionState extends State<Session> {
                               ),
                             ),
                           ),
-                          // End score display.
                           Flexible(
                             child: ListView.builder(
                               scrollDirection: Axis.horizontal,
@@ -219,7 +213,6 @@ class _SessionState extends State<Session> {
                               },
                             ),
                           ),
-                          // X's.
                           SizedBox(
                             width: 20,
                             child: Center(
@@ -228,7 +221,6 @@ class _SessionState extends State<Session> {
                               ),
                             ),
                           ),
-                          // End scores.
                           SizedBox(
                             width: 30,
                             child: Center(
@@ -244,7 +236,6 @@ class _SessionState extends State<Session> {
                 }
               },
             )),
-            // Score display.
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [

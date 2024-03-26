@@ -61,121 +61,105 @@ class ScoreKeyboard extends StatelessWidget {
             ),
             Flexible(
               child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
+                  itemCount: 2,
                   shrinkWrap: true,
-                  itemCount: rowMembers.ceil(),
-                  itemBuilder: (BuildContext horizontalContext, int index) {
-                    return InkWell(
-                      onTap: () {
-                        if (ScoreHandler
-                                .scoresheets[currentSheetID].ends.length <=
-                            endIndex) {
-                          ScoreHandler.scoresheets[currentSheetID].ends.add([]);
-                        }
-                        if (ScoreHandler.scoresheets[currentSheetID]
-                                .ends[endIndex].length <=
-                            shotIndex) {
-                          ScoreHandler
-                              .scoresheets[currentSheetID].ends[endIndex]
-                              .add(0);
-                        }
-                        ScoreHandler.scoresheets[currentSheetID].ends[endIndex]
-                            [shotIndex] = index;
-                        ScoreHandler.scoresheets[currentSheetID].ends[endIndex]
-                            .sort((b, a) => a.compareTo(b));
-                        update();
-                        Navigator.pop(context);
-                      },
+                  itemBuilder: (verticalContext, verticalIndex) {
+                    return Center(
                       child: SizedBox(
                         height: 60,
-                        width: (screenWidth - 30) / (rowMembers.ceil()),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                gradient: TargetHandler.targets[ScoreHandler
-                                        .scoresheets[currentSheetID]
-                                        .targetIndex]
-                                    .getRingGradient(index)),
-                            child: Center(
-                                child: Text(
-                                    TargetHandler.parseScore(
-                                        ScoreHandler.scoresheets[currentSheetID]
-                                            .targetIndex,
-                                        index),
-                                    style: TextStyle(
-                                        color: TargetHandler.targets[
-                                                ScoreHandler
+                        child: Flexible(
+                          child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              shrinkWrap: true,
+                              itemCount: verticalIndex == 0
+                                  ? rowMembers.ceil()
+                                  : rowMembers.floor(),
+                              itemBuilder:
+                                  (horizontalContext, horizontalIndex) {
+                                return InkWell(
+                                  onTap: () {
+                                    if (ScoreHandler.scoresheets[currentSheetID]
+                                            .ends.length <=
+                                        endIndex) {
+                                      ScoreHandler
+                                          .scoresheets[currentSheetID].ends
+                                          .add([]);
+                                    }
+                                    if (ScoreHandler.scoresheets[currentSheetID]
+                                            .ends[endIndex].length <=
+                                        shotIndex) {
+                                      ScoreHandler.scoresheets[currentSheetID]
+                                          .ends[endIndex]
+                                          .add(0);
+                                    }
+                                    ScoreHandler.scoresheets[currentSheetID]
+                                            .ends[endIndex][shotIndex] =
+                                        horizontalIndex +
+                                            (verticalIndex == 0
+                                                ? 0
+                                                : rowMembers.ceil());
+                                    ScoreHandler.scoresheets[currentSheetID]
+                                        .ends[endIndex]
+                                        .sort((b, a) => a.compareTo(b));
+                                    update();
+                                    Navigator.pop(context);
+                                  },
+                                  child: SizedBox(
+                                    width: (screenWidth - 30) /
+                                        ((verticalIndex == 0
+                                            ? rowMembers.ceil()
+                                            : rowMembers.floor())),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            gradient: TargetHandler
+                                                .targets[ScoreHandler
                                                     .scoresheets[currentSheetID]
                                                     .targetIndex]
-                                            .getTextColor(index)))),
-                          ),
+                                                .getRingGradient(
+                                                    horizontalIndex +
+                                                        (verticalIndex == 0
+                                                            ? 0
+                                                            : rowMembers
+                                                                .ceil()))),
+                                        child: Center(
+                                            child: Text(
+                                                TargetHandler.parseScore(
+                                                    ScoreHandler
+                                                        .scoresheets[
+                                                            currentSheetID]
+                                                        .targetIndex,
+                                                    horizontalIndex +
+                                                        (verticalIndex == 0
+                                                            ? 0
+                                                            : rowMembers
+                                                                .ceil())),
+                                                style: TextStyle(
+                                                    color: TargetHandler
+                                                        .targets[ScoreHandler
+                                                            .scoresheets[
+                                                                currentSheetID]
+                                                            .targetIndex]
+                                                        .getTextColor(
+                                                            horizontalIndex +
+                                                                (verticalIndex ==
+                                                                        0
+                                                                    ? 0
+                                                                    : rowMembers
+                                                                        .ceil()))))),
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              }),
                         ),
                       ),
                     );
                   }),
             ),
-            Flexible(
-              child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  shrinkWrap: true,
-                  itemCount: rowMembers.floor(),
-                  itemBuilder: (BuildContext horizontalContext, int index) {
-                    double screenWidth = MediaQuery.of(context).size.width;
-                    return InkWell(
-                      onTap: () {
-                        if (ScoreHandler
-                                .scoresheets[currentSheetID].ends.length <=
-                            endIndex) {
-                          ScoreHandler.scoresheets[currentSheetID].ends.add([]);
-                        }
-                        if (ScoreHandler.scoresheets[currentSheetID]
-                                .ends[endIndex].length <=
-                            shotIndex) {
-                          ScoreHandler
-                              .scoresheets[currentSheetID].ends[endIndex]
-                              .add(0);
-                        }
-                        ScoreHandler.scoresheets[currentSheetID].ends[endIndex]
-                            [shotIndex] = index + rowMembers.ceil();
-                        ScoreHandler.scoresheets[currentSheetID].ends[endIndex]
-                            .sort((b, a) => a.compareTo(b));
-                        update();
-                        Navigator.pop(context);
-                      },
-                      child: SizedBox(
-                        width: (screenWidth - 30) / (rowMembers.floor()),
-                        height: 60,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                gradient: TargetHandler.targets[ScoreHandler
-                                        .scoresheets[currentSheetID]
-                                        .targetIndex]
-                                    .getRingGradient(
-                                        index + rowMembers.ceil())),
-                            child: Center(
-                                child: Text(
-                                    TargetHandler.parseScore(
-                                        ScoreHandler.scoresheets[currentSheetID]
-                                            .targetIndex,
-                                        index + rowMembers.ceil()),
-                                    style: TextStyle(
-                                        color: TargetHandler.targets[
-                                                ScoreHandler
-                                                    .scoresheets[currentSheetID]
-                                                    .targetIndex]
-                                            .getTextColor(
-                                                index + rowMembers.ceil())))),
-                          ),
-                        ),
-                      ),
-                    );
-                  }),
-            )
           ],
         ));
   }
