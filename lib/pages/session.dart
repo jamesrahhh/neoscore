@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:neuralflight/components/handler/scorehandler.dart';
-import 'package:neuralflight/components/handler/targethandler.dart';
+import 'package:neuralflight/components/model/scorehandler.dart';
+import 'package:neuralflight/components/model/targethandler.dart';
 import 'package:neuralflight/components/widget/scorekeyboard.dart';
 import 'package:neuralflight/components/widget/customdrawer.dart';
 import 'package:neuralflight/components/widget/scoresheetbuttons.dart';
@@ -49,6 +49,7 @@ class _SessionState extends State<Session> {
       );
     } else {
       return Scaffold(
+          drawer: const CustomDrawer(),
           appBar: AppBar(
             title: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -65,7 +66,6 @@ class _SessionState extends State<Session> {
             ),
           ),
           backgroundColor: Colors.white,
-          drawer: const CustomDrawer(),
           body: Center(
               child: Column(children: [
             const Padding(

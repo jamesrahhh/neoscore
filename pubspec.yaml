@@ -1,5 +1,5 @@
 name: neuralflight
-description: "A new Flutter project."
+description: "NeuralFLIGHT App"
 publish_to: 'none'
 version: 0.1.0
 
@@ -13,6 +13,7 @@ dependencies:
   flutter_launcher_icons: ^0.13.1
   path: ^1.8.3
   path_provider: ^2.1.1
+  provider: ^6.1.2
 
 flutter_launcher_icons:
   image_path: "assets/icons/appicon.jpg"

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:neuralflight/components/model/navigationmodel.dart';
+import 'package:provider/provider.dart';
 
 /// A custom widget providing a navigation Drawer for most pages.
 class CustomDrawer extends StatelessWidget {
@@ -6,39 +8,33 @@ class CustomDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Function(int) setPageIndex =
+        Provider.of<NavigationModel>(context).setPageIndex;
     return Drawer(
         child: ListView(children: [
       const DrawerHeader(child: Text('Header')),
       ListTile(
         leading: const Icon(Icons.description_rounded),
         title: const Text('Session'),
-        onTap: () {
-          Navigator.pop(context);
-          Navigator.pushNamed(context, '/session');
-        },
+        onTap: () => setPageIndex(0),
       ),
       ListTile(
         leading: const Icon(Icons.format_list_numbered_rounded),
         title: const Text('History'),
-        onTap: () {
-          Navigator.pop(context);
-          Navigator.pushNamed(context, '/history');
-        },
+        onTap: () => setPageIndex(1),
       ),
       ListTile(
         leading: const Icon(Icons.insights_rounded),
         title: const Text('Insights'),
-        onTap: () {
-          Navigator.pop(context);
-          Navigator.pushNamed(context, '/insights');
-        },
+        onTap: () => setPageIndex(2),
       ),
       ListTile(
         leading: const Icon(Icons.settings_rounded),
         title: const Text('Settings'),
         onTap: () {
-          Navigator.pop(context);
-          Navigator.pushNamed(context, '/settings');
+          if (ModalRoute.of(context)?.settings.name != '/settings') {
+            Navigator.popAndPushNamed(context, '/settings');
+          }
         },
       ),
     ]));

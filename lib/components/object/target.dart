@@ -8,14 +8,14 @@ import 'package:flutter/rendering.dart';
 /// and [getRingGradient], a function that returns a list containing the primary and secondary ring colors
 /// of the target.
 class Target {
-  final String name;
-  final int maxScore;
-  final LinearGradient Function(int) getRingGradient;
-  final Color Function(int) getTextColor;
-
   Target(
       {required this.name,
       required this.maxScore,
       required this.getTextColor,
       required this.getRingGradient});
+
+  final LinearGradient Function(int) getRingGradient;
+  final Color Function(int) getTextColor;
+  final int maxScore;
+  final String name;
 }

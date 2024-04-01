@@ -1,4 +1,4 @@
-import 'package:neuralflight/components/handler/targethandler.dart';
+import 'package:neuralflight/components/model/targethandler.dart';
 import 'package:neuralflight/components/object/scoresheet.dart';
 
 class ScoreHandler {

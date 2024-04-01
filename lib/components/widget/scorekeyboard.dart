@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:neuralflight/components/handler/scorehandler.dart';
-import 'package:neuralflight/components/handler/targethandler.dart';
+import 'package:neuralflight/components/model/scorehandler.dart';
+import 'package:neuralflight/components/model/targethandler.dart';
 
 /// Bottom sheet widget that serves as a custom keyboard for entering scores.
 class ScoreKeyboard extends StatelessWidget {
-  final Function() update;
-  final int currentSheetID;
-  final int endIndex;
-  final int shotIndex;
-
   const ScoreKeyboard(
       {super.key,
       required this.update,
       required this.currentSheetID,
       required this.endIndex,
       required this.shotIndex});
+
+  final int currentSheetID;
+  final int endIndex;
+  final int shotIndex;
+  final Function() update;
 
   @override
   Widget build(BuildContext context) {
