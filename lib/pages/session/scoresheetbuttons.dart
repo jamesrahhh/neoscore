@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:neuralflight/components/model/scorehandler.dart';
-import 'package:neuralflight/components/widget/scorekeyboard.dart';
+import 'package:neuralflight/components/scoresheet/scorehandler.dart';
+import 'package:neuralflight/pages/session/scorekeyboard.dart';
 
 /// A button that appears below the last end in a scoresheet for adding another end.
 class AddEndButton extends StatelessWidget {

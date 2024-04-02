@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:neuralflight/components/widget/customdrawer.dart';
+import 'package:neuralflight/components/navigation/navigationglobaldrawer.dart';
 
 /// Page for displaying usage history.
 class History extends StatefulWidget {
@@ -14,7 +14,7 @@ class _HistoryState extends State<History> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: const CustomDrawer(),
+      drawer: const NavigationGlobalDrawer(),
       appBar: AppBar(
           title: const Text('History',
               style: TextStyle(fontWeight: FontWeight.bold))),

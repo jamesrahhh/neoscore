@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:neuralflight/components/model/scorehandler.dart';
-import 'package:neuralflight/components/model/targethandler.dart';
-import 'package:neuralflight/components/widget/customdrawer.dart';
-import 'package:neuralflight/components/widget/scorekeyboard.dart';
-import 'package:neuralflight/components/widget/scoresheetbuttons.dart';
+import 'package:neuralflight/components/scoresheet/scorehandler.dart';
+import 'package:neuralflight/components/target/targethandler.dart';
+import 'package:neuralflight/pages/session/scorekeyboard.dart';
+import 'package:neuralflight/pages/session/scoresheetbuttons.dart';
 
 class SessionActive extends StatefulWidget {
   const SessionActive({super.key, required this.currentSheetID});
@@ -30,7 +29,6 @@ class _SessionActiveState extends State<SessionActive> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        drawer: const CustomDrawer(),
         appBar: AppBar(
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

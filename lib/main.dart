@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:neuralflight/components/model/navigationmodel.dart';
+import 'package:neuralflight/components/navigation/navigationmodel.dart';
 import 'package:neuralflight/pages/account.dart';
 import 'package:neuralflight/pages/session/sessionactive.dart';
 import 'package:neuralflight/pages/session/sessionpassive.dart';
@@ -10,18 +10,13 @@ import 'package:provider/provider.dart';
 
 void main() {
   runApp(ChangeNotifierProvider(
-      create: (context) => NavigationModel(), child: const NeuralFLIGHT()));
+      create: (context) => NavigationModel(), child: NeuralFLIGHT()));
 }
 
 /// Main class.
-class NeuralFLIGHT extends StatefulWidget {
-  const NeuralFLIGHT({super.key});
+class NeuralFLIGHT extends StatelessWidget {
+  NeuralFLIGHT({super.key});
 
-  @override
-  State<NeuralFLIGHT> createState() => _NeuralFLIGHTState();
-}
-
-class _NeuralFLIGHTState extends State<NeuralFLIGHT> {
   final List<Widget> pages = [
     const SessionPassive(),
     const History(),

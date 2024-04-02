@@ -1,15 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:neuralflight/components/model/scorehandler.dart';
-import 'package:neuralflight/components/widget/customdrawer.dart';
+import 'package:neuralflight/components/scoresheet/scorehandler.dart';
+import 'package:neuralflight/components/navigation/navigationglobaldrawer.dart';
 
-class SessionPassive extends StatefulWidget {
+class SessionPassive extends StatelessWidget {
   const SessionPassive({super.key});
 
-  @override
-  State<SessionPassive> createState() => _SessionPassiveState();
-}
-
-class _SessionPassiveState extends State<SessionPassive> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +15,7 @@ class _SessionPassiveState extends State<SessionPassive> {
       body: const Center(
         child: Text('No active session'),
       ),
-      drawer: const CustomDrawer(),
+      drawer: const NavigationGlobalDrawer(),
       floatingActionButton: FloatingActionButton(
           child: const Icon(Icons.add_rounded),
           onPressed: () {
