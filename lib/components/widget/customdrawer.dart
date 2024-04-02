@@ -16,17 +16,29 @@ class CustomDrawer extends StatelessWidget {
       ListTile(
         leading: const Icon(Icons.description_rounded),
         title: const Text('Session'),
-        onTap: () => setPageIndex(0),
+        onTap: () {
+          setPageIndex(0);
+          Navigator.popUntil(
+              context, ModalRoute.withName(Navigator.defaultRouteName));
+        },
       ),
       ListTile(
         leading: const Icon(Icons.format_list_numbered_rounded),
         title: const Text('History'),
-        onTap: () => setPageIndex(1),
+        onTap: () {
+          setPageIndex(1);
+          Navigator.popUntil(
+              context, ModalRoute.withName(Navigator.defaultRouteName));
+        },
       ),
       ListTile(
         leading: const Icon(Icons.insights_rounded),
         title: const Text('Insights'),
-        onTap: () => setPageIndex(2),
+        onTap: () {
+          setPageIndex(2);
+          Navigator.popUntil(
+              context, ModalRoute.withName(Navigator.defaultRouteName));
+        },
       ),
       ListTile(
         leading: const Icon(Icons.settings_rounded),
