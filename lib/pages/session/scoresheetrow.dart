@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:neuralflight/components/scoresheet/scorehandler.dart';
 import 'package:neuralflight/components/target/targethandler.dart';
 import 'package:neuralflight/pages/session/scorekeyboard.dart';
+import 'package:swipe_to/swipe_to.dart';
 
 class ScoresheetRow extends StatefulWidget {
   final Function() refreshSessionState;
@@ -20,23 +21,33 @@ class ScoresheetRow extends StatefulWidget {
   State<ScoresheetRow> createState() => _ScoresheetRowState();
 }
 
+/*Scaffold.of(context).showBottomSheet((BuildContext context) {
+              return ScoreKeyboard(
+                update: widget.refreshSessionState,
+                scoresheetIndex: widget.scoresheetIndex,
+                endIndex: widget.endIndex,
+                shotIndex: ScoreHandler.scoresheets[widget.scoresheetIndex]
+                    .ends[widget.endIndex].length,
+              );
+            });*/
 class _ScoresheetRowState extends State<ScoresheetRow> {
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 40,
-      child: GestureDetector(
-        onHorizontalDragUpdate: (details) {
+    return SwipeTo(
+      iconOnLeftSwipe: Icons.add_rounded,
+      iconOnRightSwipe: Icons.delete_rounded,
+      onLeftSwipe: (details) =>
           Scaffold.of(context).showBottomSheet((BuildContext context) {
-            return ScoreKeyboard(
-              update: widget.refreshSessionState,
-              scoresheetIndex: widget.scoresheetIndex,
-              endIndex: widget.endIndex,
-              shotIndex: ScoreHandler.scoresheets[widget.scoresheetIndex]
-                  .ends[widget.endIndex].length,
-            );
-          });
-        },
+        return ScoreKeyboard(
+          update: widget.refreshSessionState,
+          scoresheetIndex: widget.scoresheetIndex,
+          endIndex: widget.endIndex,
+          shotIndex: ScoreHandler
+              .scoresheets[widget.scoresheetIndex].ends[widget.endIndex].length,
+        );
+      }),
+      child: SizedBox(
+        height: 40,
         child: Row(
           children: [
             SizedBox(
