@@ -38,7 +38,7 @@ class NeuralFLIGHT extends StatelessWidget {
           final arguments = settings.arguments;
           if (settings.name == '/sessionactive' && arguments is int) {
             return MaterialPageRoute(builder: (context) {
-              return SessionActive(currentSheetID: arguments);
+              return SessionActive(scoresheetIndex: arguments);
             });
           }
           return null;

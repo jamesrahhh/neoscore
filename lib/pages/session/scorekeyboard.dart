@@ -7,11 +7,11 @@ class ScoreKeyboard extends StatelessWidget {
   const ScoreKeyboard(
       {super.key,
       required this.update,
-      required this.currentSheetID,
+      required this.scoresheetIndex,
       required this.endIndex,
       required this.shotIndex});
 
-  final int currentSheetID;
+  final int scoresheetIndex;
   final int endIndex;
   final int shotIndex;
   final Function() update;
@@ -19,7 +19,7 @@ class ScoreKeyboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double rowMembers = ((TargetHandler
-                .targets[ScoreHandler.scoresheets[currentSheetID].targetIndex]
+                .targets[ScoreHandler.scoresheets[scoresheetIndex].targetIndex]
                 .maxScore +
             2) /
         2);
@@ -40,15 +40,15 @@ class ScoreKeyboard extends StatelessWidget {
                 IconButton(
                     onPressed: () {
                       if (ScoreHandler
-                          .scoresheets[currentSheetID].ends.isNotEmpty) {
-                        if (ScoreHandler.scoresheets[currentSheetID]
+                          .scoresheets[scoresheetIndex].ends.isNotEmpty) {
+                        if (ScoreHandler.scoresheets[scoresheetIndex]
                             .ends[endIndex].isNotEmpty) {
                           ScoreHandler
-                              .scoresheets[currentSheetID].ends[endIndex]
+                              .scoresheets[scoresheetIndex].ends[endIndex]
                               .removeAt(shotIndex);
-                          if (ScoreHandler.scoresheets[currentSheetID]
+                          if (ScoreHandler.scoresheets[scoresheetIndex]
                               .ends[endIndex].isEmpty) {
-                            ScoreHandler.scoresheets[currentSheetID].ends
+                            ScoreHandler.scoresheets[scoresheetIndex].ends
                                 .removeAt(endIndex);
                           }
                         }
@@ -76,27 +76,27 @@ class ScoreKeyboard extends StatelessWidget {
                             itemBuilder: (horizontalContext, horizontalIndex) {
                               return InkWell(
                                 onTap: () {
-                                  if (ScoreHandler.scoresheets[currentSheetID]
+                                  if (ScoreHandler.scoresheets[scoresheetIndex]
                                           .ends.length <=
                                       endIndex) {
                                     ScoreHandler
-                                        .scoresheets[currentSheetID].ends
+                                        .scoresheets[scoresheetIndex].ends
                                         .add([]);
                                   }
-                                  if (ScoreHandler.scoresheets[currentSheetID]
+                                  if (ScoreHandler.scoresheets[scoresheetIndex]
                                           .ends[endIndex].length <=
                                       shotIndex) {
-                                    ScoreHandler.scoresheets[currentSheetID]
+                                    ScoreHandler.scoresheets[scoresheetIndex]
                                         .ends[endIndex]
                                         .add(0);
                                   }
-                                  ScoreHandler.scoresheets[currentSheetID]
+                                  ScoreHandler.scoresheets[scoresheetIndex]
                                           .ends[endIndex][shotIndex] =
                                       horizontalIndex +
                                           (verticalIndex == 0
                                               ? 0
                                               : rowMembers.ceil());
-                                  ScoreHandler.scoresheets[currentSheetID]
+                                  ScoreHandler.scoresheets[scoresheetIndex]
                                       .ends[endIndex]
                                       .sort((b, a) => a.compareTo(b));
                                   update();
@@ -115,7 +115,7 @@ class ScoreKeyboard extends StatelessWidget {
                                               BorderRadius.circular(10),
                                           gradient: TargetHandler
                                               .targets[ScoreHandler
-                                                  .scoresheets[currentSheetID]
+                                                  .scoresheets[scoresheetIndex]
                                                   .targetIndex]
                                               .getRingGradient(horizontalIndex +
                                                   (verticalIndex == 0
@@ -126,7 +126,7 @@ class ScoreKeyboard extends StatelessWidget {
                                               TargetHandler.parseScore(
                                                   ScoreHandler
                                                       .scoresheets[
-                                                          currentSheetID]
+                                                          scoresheetIndex]
                                                       .targetIndex,
                                                   horizontalIndex +
                                                       (verticalIndex == 0
@@ -136,7 +136,7 @@ class ScoreKeyboard extends StatelessWidget {
                                                   color: TargetHandler
                                                       .targets[ScoreHandler
                                                           .scoresheets[
-                                                              currentSheetID]
+                                                              scoresheetIndex]
                                                           .targetIndex]
                                                       .getTextColor(
                                                           horizontalIndex +

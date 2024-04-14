@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:neuralflight/components/scoresheet/scorehandler.dart';
 import 'package:neuralflight/components/target/targethandler.dart';
-import 'package:neuralflight/pages/session/scorekeyboard.dart';
 import 'package:neuralflight/pages/session/scoresheetbuttons.dart';
+import 'package:neuralflight/pages/session/scoresheetrow.dart';
 
 class SessionActive extends StatefulWidget {
-  const SessionActive({super.key, required this.currentSheetID});
+  const SessionActive({super.key, required this.scoresheetIndex});
 
-  final int currentSheetID;
+  final int scoresheetIndex;
 
   @override
   State<SessionActive> createState() => _SessionActiveState();
@@ -22,7 +22,7 @@ class _SessionActiveState extends State<SessionActive> {
 
   void refreshSessionState() {
     setState(() {
-      scoreData = ScoreHandler.refreshScoreData(widget.currentSheetID);
+      scoreData = ScoreHandler.refreshScoreData(widget.scoresheetIndex);
     });
   }
 
@@ -38,7 +38,7 @@ class _SessionActiveState extends State<SessionActive> {
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Text(
-                    '${TargetHandler.targets[ScoreHandler.scoresheets[widget.currentSheetID].targetIndex].name} target, ${ScoreHandler.scoresheets[widget.currentSheetID].distance} yards',
+                    '${TargetHandler.targets[ScoreHandler.scoresheets[widget.scoresheetIndex].targetIndex].name} target, ${ScoreHandler.scoresheets[widget.scoresheetIndex].distance} yards',
                     style: const TextStyle(fontSize: 14)),
               ),
             ],
@@ -63,16 +63,18 @@ class _SessionActiveState extends State<SessionActive> {
           Flexible(
               child: ListView.builder(
             itemCount:
-                ScoreHandler.scoresheets[widget.currentSheetID].ends.length + 1,
+                ScoreHandler.scoresheets[widget.scoresheetIndex].ends.length +
+                    1,
             itemBuilder: (BuildContext verticalContext, int endIndex) {
               if (endIndex ==
-                  ScoreHandler.scoresheets[widget.currentSheetID].ends.length) {
+                  ScoreHandler
+                      .scoresheets[widget.scoresheetIndex].ends.length) {
                 return SizedBox(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       AddEndButton(
-                        currentSheetID: widget.currentSheetID,
+                        scoresheetIndex: widget.scoresheetIndex,
                         update: refreshSessionState,
                       ),
                       SizedBox(
@@ -85,133 +87,11 @@ class _SessionActiveState extends State<SessionActive> {
                   ),
                 );
               } else {
-                return SizedBox(
-                  height: 40,
-                  child: GestureDetector(
-                    onHorizontalDragEnd: (details) {
-                      if (details.primaryVelocity! < -5) {
-                        Scaffold.of(verticalContext)
-                            .showBottomSheet((BuildContext context) {
-                          return ScoreKeyboard(
-                            update: refreshSessionState,
-                            currentSheetID: widget.currentSheetID,
-                            endIndex: endIndex,
-                            shotIndex: ScoreHandler
-                                .scoresheets[widget.currentSheetID]
-                                .ends[endIndex]
-                                .length,
-                          );
-                        });
-                      }
-                    },
-                    child: Row(
-                      children: [
-                        SizedBox(
-                          width: 30,
-                          child: Center(
-                            child: Text(
-                              '${endIndex + 1}',
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                        ),
-                        Flexible(
-                          child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: ScoreHandler
-                                .scoresheets[widget.currentSheetID]
-                                .ends[endIndex]
-                                .length,
-                            itemBuilder: (BuildContext horizontalContext,
-                                int shotIndex) {
-                              double screenWidth =
-                                  MediaQuery.of(context).size.width;
-                              return InkWell(
-                                onTap: () {
-                                  Scaffold.of(horizontalContext)
-                                      .showBottomSheet((BuildContext context) {
-                                    return ScoreKeyboard(
-                                      update: refreshSessionState,
-                                      currentSheetID: widget.currentSheetID,
-                                      endIndex: endIndex,
-                                      shotIndex: shotIndex,
-                                    );
-                                  });
-                                },
-                                child: SizedBox(
-                                  width: (screenWidth - 80) /
-                                      (ScoreHandler
-                                          .scoresheets[widget.currentSheetID]
-                                          .ends[endIndex]
-                                          .length),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(6.0),
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          gradient: TargetHandler.targets[
-                                                  ScoreHandler
-                                                      .scoresheets[
-                                                          widget.currentSheetID]
-                                                      .targetIndex]
-                                              .getRingGradient(ScoreHandler
-                                                  .scoresheets[
-                                                      widget.currentSheetID]
-                                                  .ends[endIndex][shotIndex])),
-                                      child: Center(
-                                        child: Text(
-                                          TargetHandler.parseScore(
-                                              ScoreHandler
-                                                  .scoresheets[
-                                                      widget.currentSheetID]
-                                                  .targetIndex,
-                                              ScoreHandler
-                                                  .scoresheets[
-                                                      widget.currentSheetID]
-                                                  .ends[endIndex][shotIndex]),
-                                          style: TextStyle(
-                                              color: TargetHandler
-                                                  .targets[ScoreHandler
-                                                      .scoresheets[
-                                                          widget.currentSheetID]
-                                                      .targetIndex]
-                                                  .getTextColor(ScoreHandler
-                                                          .scoresheets[widget
-                                                              .currentSheetID]
-                                                          .ends[endIndex]
-                                                      [shotIndex])),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
-                        ),
-                        SizedBox(
-                          width: 20,
-                          child: Center(
-                            child: Text(
-                              '${scoreData[1][endIndex] - (endIndex == 0 ? 0 : scoreData[1][endIndex - 1])}',
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 30,
-                          child: Center(
-                            child: Text(
-                              '${scoreData[0][endIndex] - (endIndex == 0 ? 0 : scoreData[0][endIndex - 1])}',
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                );
+                return ScoresheetRow(
+                    refreshSessionState: refreshSessionState,
+                    scoresheetIndex: widget.scoresheetIndex,
+                    endIndex: endIndex,
+                    scoreData: scoreData);
               }
             },
           )),
