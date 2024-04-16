@@ -75,7 +75,7 @@ class _SessionActiveState extends State<SessionActive> {
                     children: [
                       AddEndButton(
                         scoresheetIndex: widget.scoresheetIndex,
-                        update: refreshSessionState,
+                        refreshSessionState: refreshSessionState,
                       ),
                       SizedBox(
                           width: 20,

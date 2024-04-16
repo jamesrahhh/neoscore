@@ -53,7 +53,7 @@ class _ScoresheetRowState extends State<ScoresheetRow>
   void _showScoreKeyboard({required BuildContext context}) {
     Scaffold.of(context).showBottomSheet((BuildContext context) {
       return ScoreKeyboard(
-        update: widget.refreshSessionState,
+        refreshState: widget.refreshSessionState,
         scoresheetIndex: widget.scoresheetIndex,
         endIndex: widget.endIndex,
         shotIndex: ScoreHandler
@@ -201,7 +201,7 @@ class _ScoresheetRowState extends State<ScoresheetRow>
                             Scaffold.of(horizontalContext)
                                 .showBottomSheet((BuildContext context) {
                               return ScoreKeyboard(
-                                update: widget.refreshSessionState,
+                                refreshState: widget.refreshSessionState,
                                 scoresheetIndex: widget.scoresheetIndex,
                                 endIndex: widget.endIndex,
                                 shotIndex: shotIndex,

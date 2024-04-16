@@ -6,7 +6,7 @@ import 'package:neuralflight/components/target/targethandler.dart';
 class ScoreKeyboard extends StatelessWidget {
   const ScoreKeyboard(
       {super.key,
-      required this.update,
+      required this.refreshState,
       required this.scoresheetIndex,
       required this.endIndex,
       required this.shotIndex});
@@ -14,7 +14,7 @@ class ScoreKeyboard extends StatelessWidget {
   final int scoresheetIndex;
   final int endIndex;
   final int shotIndex;
-  final Function() update;
+  final Function() refreshState;
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +53,7 @@ class ScoreKeyboard extends StatelessWidget {
                           }
                         }
                       }
-                      update();
+                      refreshState();
                       Navigator.pop(context);
                     },
                     icon: const Icon(Icons.delete_rounded))
@@ -99,7 +99,7 @@ class ScoreKeyboard extends StatelessWidget {
                                   ScoreHandler.scoresheets[scoresheetIndex]
                                       .ends[endIndex]
                                       .sort((b, a) => a.compareTo(b));
-                                  update();
+                                  refreshState();
                                   Navigator.pop(context);
                                 },
                                 child: SizedBox(

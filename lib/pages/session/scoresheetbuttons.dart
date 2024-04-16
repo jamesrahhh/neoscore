@@ -5,10 +5,12 @@ import 'package:neuralflight/pages/session/scorekeyboard.dart';
 /// A button that appears below the last end in a scoresheet for adding another end.
 class AddEndButton extends StatelessWidget {
   const AddEndButton(
-      {super.key, required this.update, required this.scoresheetIndex});
+      {super.key,
+      required this.refreshSessionState,
+      required this.scoresheetIndex});
 
   final int scoresheetIndex;
-  final Function() update;
+  final Function() refreshSessionState;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +20,7 @@ class AddEndButton extends StatelessWidget {
       onTap: () {
         Scaffold.of(context).showBottomSheet((BuildContext context) {
           return ScoreKeyboard(
-            update: update,
+            refreshState: refreshSessionState,
             scoresheetIndex: scoresheetIndex,
             endIndex: ScoreHandler.scoresheets[scoresheetIndex].ends.length,
             shotIndex: 0,
