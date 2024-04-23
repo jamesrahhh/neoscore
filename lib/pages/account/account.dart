@@ -24,7 +24,7 @@ class _AccountState extends State<Account> {
                     onTap: () => Navigator.pop(context),
                     child: const Icon(Icons.navigate_before_rounded)),
                 const Text(
-                  "Welcome, James",
+                  "Welcome, User",
                   style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
@@ -48,7 +48,7 @@ class _AccountState extends State<Account> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Text("i forgot what this button was"),
+                        Text("Button description"),
                         Icon(
                           Icons.navigate_next_rounded,
                           size: 20,
