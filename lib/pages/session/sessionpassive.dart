@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:neuralflight/components/scoresheet/scorehandler.dart';
-import 'package:neuralflight/components/navigation/navigationglobaldrawer.dart';
+import 'package:neoscore/components/scoresheet/scorehandler.dart';
+import 'package:neoscore/components/navigation/navigationglobaldrawer.dart';
 
 class SessionPassive extends StatelessWidget {
   const SessionPassive({super.key});

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:neuralflight/components/navigation/navigationmodel.dart';
+import 'package:neoscore/components/navigation/navigationmodel.dart';
 import 'package:provider/provider.dart';
 
 /// A custom widget providing a navigation Drawer for most pages.

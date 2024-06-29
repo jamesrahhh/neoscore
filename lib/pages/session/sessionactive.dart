@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:neuralflight/components/scoresheet/scorehandler.dart';
-import 'package:neuralflight/components/target/targethandler.dart';
-import 'package:neuralflight/pages/session/scoresheetbuttons.dart';
-import 'package:neuralflight/pages/session/scoresheetrow.dart';
+import 'package:neoscore/components/scoresheet/scorehandler.dart';
+import 'package:neoscore/components/target/targethandler.dart';
+import 'package:neoscore/pages/session/scoresheetbuttons.dart';
+import 'package:neoscore/pages/session/scoresheetrow.dart';
 
 class SessionActive extends StatefulWidget {
   const SessionActive({super.key, required this.scoresheetIndex});

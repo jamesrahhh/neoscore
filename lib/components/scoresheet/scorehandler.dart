@@ -1,5 +1,5 @@
-import 'package:neuralflight/components/target/targethandler.dart';
-import 'package:neuralflight/components/scoresheet/scoresheet.dart';
+import 'package:neoscore/components/target/targethandler.dart';
+import 'package:neoscore/components/scoresheet/scoresheet.dart';
 
 class ScoreHandler {
   static List<Scoresheet> scoresheets = [];

@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:neuralflight/components/navigation/navigationmodel.dart';
-import 'package:neuralflight/pages/account/account.dart';
-import 'package:neuralflight/pages/session/sessionactive.dart';
-import 'package:neuralflight/pages/session/sessionpassive.dart';
-import 'package:neuralflight/pages/history/history.dart';
-import 'package:neuralflight/pages/insights/insights.dart';
-import 'package:neuralflight/pages/settings/settings.dart';
+import 'package:neoscore/components/navigation/navigationmodel.dart';
+import 'package:neoscore/pages/account/account.dart';
+import 'package:neoscore/pages/session/sessionactive.dart';
+import 'package:neoscore/pages/session/sessionpassive.dart';
+import 'package:neoscore/pages/history/history.dart';
+import 'package:neoscore/pages/insights/insights.dart';
+import 'package:neoscore/pages/settings/settings.dart';
 import 'package:provider/provider.dart';
 
 void main() {
   runApp(ChangeNotifierProvider(
-      create: (context) => NavigationModel(), child: NeuralFLIGHT()));
+      create: (context) => NavigationModel(), child: Neoscore()));
 }
 
 /// Main class.
-class NeuralFLIGHT extends StatelessWidget {
-  NeuralFLIGHT({super.key});
+class Neoscore extends StatelessWidget {
+  Neoscore({super.key});
 
   final List<Widget> pages = [
     const SessionPassive(),
@@ -29,7 +29,7 @@ class NeuralFLIGHT extends StatelessWidget {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(fontFamily: 'DM Sans'),
-        title: 'neuralflight',
+        title: 'Neoscore',
         routes: {
           '/account': (context) => const Account(),
           '/settings': (context) => const Settings()

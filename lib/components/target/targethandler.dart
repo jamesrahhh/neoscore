@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:neuralflight/components/target/target.dart';
+import 'package:neoscore/components/target/target.dart';
 
 class TargetHandler {
   static List<Target> targets = [

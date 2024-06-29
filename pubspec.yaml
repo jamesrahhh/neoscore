@@ -1,5 +1,5 @@
-name: neuralflight
-description: "NeuralFLIGHT App"
+name: neoscore
+description: "A no-nonsense Flutter mobile app to keep track of archery scores and manage scoresheets."
 publish_to: 'none'
 version: 0.1.0
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:neuralflight/components/scoresheet/scorehandler.dart';
-import 'package:neuralflight/components/target/targethandler.dart';
-import 'package:neuralflight/pages/session/scorekeyboard.dart';
+import 'package:neoscore/components/scoresheet/scorehandler.dart';
+import 'package:neoscore/components/target/targethandler.dart';
+import 'package:neoscore/pages/session/scorekeyboard.dart';
 
 class ScoresheetRow extends StatefulWidget {
   final Function() refreshSessionState;

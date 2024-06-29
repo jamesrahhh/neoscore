@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:neuralflight/components/navigation/navigationglobaldrawer.dart';
+import 'package:neoscore/components/navigation/navigationglobaldrawer.dart';
 
 /// Page for presenting various user statistics and trends.
 class Insights extends StatefulWidget {
