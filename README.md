@@ -1,2 +1,2 @@
 # Neoscore
-A no-nonsense Flutter app to keep track of archery scores and manage scoresheets.
+A no-nonsense Flutter mobile app to keep track of archery scores and manage scoresheets.
