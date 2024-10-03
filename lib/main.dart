@@ -1,48 +1,32 @@
 import 'package:flutter/material.dart';
-import 'package:neoscore/components/navigation/navigationmodel.dart';
-import 'package:neoscore/pages/account/account.dart';
-import 'package:neoscore/pages/session/sessionactive.dart';
-import 'package:neoscore/pages/session/sessionpassive.dart';
-import 'package:neoscore/pages/history/history.dart';
-import 'package:neoscore/pages/insights/insights.dart';
-import 'package:neoscore/pages/settings/settings.dart';
-import 'package:provider/provider.dart';
 
 void main() {
-  runApp(ChangeNotifierProvider(
-      create: (context) => NavigationModel(), child: Neoscore()));
+  runApp(const Neoscore());
 }
 
-/// Main class.
 class Neoscore extends StatelessWidget {
-  Neoscore({super.key});
-
-  final List<Widget> pages = [
-    const SessionPassive(),
-    const History(),
-    const Insights()
-  ];
+  const Neoscore({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final int pageIndex = Provider.of<NavigationModel>(context).pageIndex;
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(fontFamily: 'DM Sans'),
-        title: 'Neoscore',
-        routes: {
-          '/account': (context) => const Account(),
-          '/settings': (context) => const Settings()
-        },
-        onGenerateRoute: (settings) {
-          final arguments = settings.arguments;
-          if (settings.name == '/sessionactive' && arguments is int) {
-            return MaterialPageRoute(builder: (context) {
-              return SessionActive(scoresheetIndex: arguments);
-            });
-          }
-          return null;
-        },
-        home: pages[pageIndex]);
+      title: 'Neoscore',
+      theme: ThemeData(
+        useMaterial3: true,
+      ),
+      home: const Home(),
+    );
+  }
+}
+
+class Home extends StatelessWidget {
+  const Home({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+        child: Text('Neoscore',
+            style: TextStyle(
+                decoration: TextDecoration.none, color: Colors.white)));
   }
 }

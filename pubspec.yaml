@@ -1,34 +1,19 @@
 name: neoscore
-description: "A no-nonsense Flutter mobile app to keep track of archery scores and manage scoresheets."
 publish_to: 'none'
 version: 0.1.0
 
 environment:
-  sdk: '>=3.2.3 <4.0.0'
+  sdk: ^3.5.3
 
 dependencies:
-  camera: ^0.10.5+8
   flutter:
     sdk: flutter
-  flutter_launcher_icons: ^0.13.1
-  path: ^1.8.3
-  path_provider: ^2.1.1
-  provider: ^6.1.2
+  cupertino_icons: ^1.0.8
 
-flutter_launcher_icons:
-  image_path: "assets/icons/appicon.jpg"
-  android: true
-  ios: true
-  min_android_sdk: 21
-  
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^3.0.1
+  flutter_lints: ^5.0.0
 
 flutter:
-  fonts:
-    - family: DM Sans
-      fonts:
-        - asset: assets/fonts/DMSans-VariableFont_opsz,wght.ttf
   uses-material-design: true
