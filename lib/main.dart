@@ -56,7 +56,6 @@ class Neoscore extends StatelessWidget {
               errorContainer: Colors.white,
             ),
             fontFamily: 'Montserrat',
-            useMaterial3: true,
             visualDensity: FlexColorScheme.comfortablePlatformDensity),
         darkTheme: FlexThemeData.dark(
             textTheme: _textTheme.apply(
@@ -74,7 +73,6 @@ class Neoscore extends StatelessWidget {
               errorContainer: Colors.black,
             ),
             fontFamily: 'Montserrat',
-            useMaterial3: true,
             visualDensity: FlexColorScheme.comfortablePlatformDensity),
         themeMode: ThemeMode.system,
         home: const Home(),
