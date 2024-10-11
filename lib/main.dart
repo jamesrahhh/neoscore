@@ -1,5 +1,6 @@
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
+import 'package:neoscore/ui/widgets/circleicon.dart';
 
 void main() {
   runApp(const Neoscore());
@@ -23,8 +24,9 @@ class Neoscore extends StatelessWidget {
         TextStyle(fontVariations: <FontVariation>[FontVariation('wght', 700)]),
     titleSmall:
         TextStyle(fontVariations: <FontVariation>[FontVariation('wght', 600)]),
-    titleMedium:
-        TextStyle(fontVariations: <FontVariation>[FontVariation('wght', 600)]),
+    titleMedium: TextStyle(
+        fontSize: 35,
+        fontVariations: <FontVariation>[FontVariation('wght', 600)]),
     titleLarge:
         TextStyle(fontVariations: <FontVariation>[FontVariation('wght', 600)]),
     bodySmall:
@@ -88,10 +90,18 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Center(
-      child: Text(
-        'Neoscore',
-        style: Theme.of(context).textTheme.titleLarge,
-      ),
+      child:
+          Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+        Padding(
+            padding: const EdgeInsets.all(6.0), child: CircleIcon(radius: 35)),
+        Padding(
+          padding: const EdgeInsets.all(6.0),
+          child: Text(
+            'Neoscore',
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
+        ),
+      ]),
     ));
   }
 }
