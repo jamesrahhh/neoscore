@@ -6,12 +6,10 @@ class TransparentCircleArea extends StatelessWidget {
   const TransparentCircleArea({super.key, required this.radius, this.child});
 
   @override
-  Widget build(BuildContext context) {
-    return ClipPath(
-      clipper: TransparentClipper(radius: radius),
-      child: child,
-    );
-  }
+  Widget build(BuildContext context) => ClipPath(
+        clipper: TransparentClipper(radius: radius),
+        child: child,
+      );
 }
 
 class TransparentClipper extends CustomClipper<Path> {
@@ -19,16 +17,12 @@ class TransparentClipper extends CustomClipper<Path> {
   TransparentClipper({required this.radius});
 
   @override
-  Path getClip(Size size) {
-    return Path()
-      ..addRect(Rect.fromPoints(Offset(0, 0), Offset(size.width, size.height)))
-      ..addOval(Rect.fromCircle(
-          center: Offset(size.width / 2, size.height / 2), radius: radius))
-      ..fillType = PathFillType.evenOdd;
-  }
+  Path getClip(Size size) => Path()
+    ..addRect(Rect.fromPoints(Offset(0, 0), Offset(size.width, size.height)))
+    ..addOval(Rect.fromCircle(
+        center: Offset(size.width / 2, size.height / 2), radius: radius))
+    ..fillType = PathFillType.evenOdd;
 
   @override
-  bool shouldReclip(CustomClipper<Path> oldClipper) {
-    return true;
-  }
+  bool shouldReclip(CustomClipper<Path> oldClipper) => true;
 }

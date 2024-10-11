@@ -38,70 +38,67 @@ class Neoscore extends StatelessWidget {
   );
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Neoscore',
-      theme: FlexThemeData.light(
-          textTheme: _textTheme.apply(
-            bodyColor: Colors.black,
-            displayColor: Colors.black,
-          ),
-          colors: const FlexSchemeColor(
-            primary: Colors.black,
-            primaryContainer: Colors.black,
-            secondary: Colors.black,
-            secondaryContainer: Colors.black,
-            tertiary: Colors.black,
-            tertiaryContainer: Colors.white,
-            error: Colors.red,
-            errorContainer: Colors.white,
-          ),
-          fontFamily: 'Montserrat',
-          useMaterial3: true,
-          visualDensity: FlexColorScheme.comfortablePlatformDensity),
-      darkTheme: FlexThemeData.dark(
-          textTheme: _textTheme.apply(
-            bodyColor: Colors.white,
-            displayColor: Colors.white,
-          ),
-          colors: const FlexSchemeColor(
-            primary: Colors.white,
-            primaryContainer: Colors.white,
-            secondary: Colors.white,
-            secondaryContainer: Colors.white,
-            tertiary: Colors.white,
-            tertiaryContainer: Colors.white,
-            error: Colors.red,
-            errorContainer: Colors.black,
-          ),
-          fontFamily: 'Montserrat',
-          useMaterial3: true,
-          visualDensity: FlexColorScheme.comfortablePlatformDensity),
-      themeMode: ThemeMode.system,
-      home: const Home(),
-    );
-  }
+  Widget build(BuildContext context) => MaterialApp(
+        title: 'Neoscore',
+        theme: FlexThemeData.light(
+            textTheme: _textTheme.apply(
+              bodyColor: Colors.black,
+              displayColor: Colors.black,
+            ),
+            colors: const FlexSchemeColor(
+              primary: Colors.black,
+              primaryContainer: Colors.black,
+              secondary: Colors.black,
+              secondaryContainer: Colors.black,
+              tertiary: Colors.black,
+              tertiaryContainer: Colors.white,
+              error: Colors.red,
+              errorContainer: Colors.white,
+            ),
+            fontFamily: 'Montserrat',
+            useMaterial3: true,
+            visualDensity: FlexColorScheme.comfortablePlatformDensity),
+        darkTheme: FlexThemeData.dark(
+            textTheme: _textTheme.apply(
+              bodyColor: Colors.white,
+              displayColor: Colors.white,
+            ),
+            colors: const FlexSchemeColor(
+              primary: Colors.white,
+              primaryContainer: Colors.white,
+              secondary: Colors.white,
+              secondaryContainer: Colors.white,
+              tertiary: Colors.white,
+              tertiaryContainer: Colors.white,
+              error: Colors.red,
+              errorContainer: Colors.black,
+            ),
+            fontFamily: 'Montserrat',
+            useMaterial3: true,
+            visualDensity: FlexColorScheme.comfortablePlatformDensity),
+        themeMode: ThemeMode.system,
+        home: const Home(),
+      );
 }
 
 class Home extends StatelessWidget {
   const Home({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        body: Center(
-      child:
-          Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-        Padding(
-            padding: const EdgeInsets.all(6.0), child: CircleIcon(radius: 35)),
-        Padding(
-          padding: const EdgeInsets.all(6.0),
-          child: Text(
-            'Neoscore',
-            style: Theme.of(context).textTheme.titleMedium,
+  Widget build(BuildContext context) => Scaffold(
+          body: Center(
+        child:
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+          Padding(
+              padding: const EdgeInsets.all(6.0),
+              child: CircleIcon(radius: 35)),
+          Padding(
+            padding: const EdgeInsets.all(6.0),
+            child: Text(
+              'Neoscore',
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
           ),
-        ),
-      ]),
-    ));
-  }
+        ]),
+      ));
 }
