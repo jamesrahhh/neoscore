@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:neoscore/ui/widgets/circleicon.dart';
+
+import '../widgets/circleicon.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -9,9 +10,8 @@ class Home extends StatelessWidget {
           body: Center(
         child:
             Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-          Padding(
-              padding: const EdgeInsets.all(6.0),
-              child: CircleIcon(radius: 35)),
+          const Padding(
+              padding: EdgeInsets.all(6.0), child: CircleIcon(radius: 35)),
           Padding(
             padding: const EdgeInsets.all(6.0),
             child: Text(
