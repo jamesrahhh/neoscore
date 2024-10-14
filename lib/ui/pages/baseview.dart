@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 
 import '../widgets/circleicon.dart';
+import '../widgets/navigation.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
 
   @override
   Widget build(BuildContext context) => Scaffold(
-          body: Center(
+      bottomNavigationBar: const Navigation(),
+      body: Center(
         child:
             Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
           const Padding(
