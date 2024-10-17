@@ -3,9 +3,9 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-import 'firebase_options.dart';
 import 'ui/pages/baseview.dart';
-import 'ui/theme.dart';
+import 'utils/firebase_options.dart';
+import 'utils/theme.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,6 +32,6 @@ class Neoscore extends StatelessWidget {
         title: 'Neoscore',
         theme: lightTheme,
         darkTheme: darkTheme,
-        home: const Home(),
+        home: const BaseView(),
       );
 }

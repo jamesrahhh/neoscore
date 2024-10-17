@@ -54,7 +54,7 @@ final ThemeData darkTheme = FlexThemeData.dark(
     ),
     colors: const FlexSchemeColor(
       primary: Colors.white,
-      primaryContainer: Colors.white,
+      primaryContainer: Colors.grey,
       secondary: Colors.white,
       secondaryContainer: Colors.white,
       tertiary: Colors.white,
