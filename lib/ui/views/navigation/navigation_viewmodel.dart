@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 
-class NavigationModel extends ChangeNotifier {
+class NavigationViewModel extends ChangeNotifier {
   int _pageIndex = 0;
 
   int get pageIndex => _pageIndex;

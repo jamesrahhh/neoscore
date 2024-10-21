@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../widgets/circleicon.dart';
+import '../shared/circle_icon.dart';
 
 class ScoresheetCard extends StatelessWidget {
   const ScoresheetCard({super.key});

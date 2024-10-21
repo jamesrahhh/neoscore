@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../widgets/circleicon.dart';
+import '../../widgets/shared/circle_icon.dart';
 
 class SettingsView extends StatelessWidget {
   const SettingsView({super.key});

@@ -1,7 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 
-import 'transparentcirclearea.dart';
+import 'transparent_circle_area.dart';
 
 class CircleIcon extends StatelessWidget {
   const CircleIcon({super.key, required this.radius});
