@@ -10,15 +10,17 @@ class CircleIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => TransparentCircleArea(
-      radius: radius / 3,
-      child: Container(
-        width: radius,
-        height: radius,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(radius / 2),
-          gradient: const LinearGradient(
+        radius: radius / 3,
+        child: Container(
+          width: radius,
+          height: radius,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(radius / 2),
+            gradient: const LinearGradient(
               colors: <Color>[Colors.green, Colors.greenAccent],
-              transform: GradientRotation(pi / 4)),
+              transform: GradientRotation(pi / 4),
+            ),
+          ),
         ),
-      ));
+      );
 }
