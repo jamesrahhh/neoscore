@@ -23,6 +23,6 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   fonts:
-    - family: Montserrat
+    - family: Roboto
       fonts:
-        - asset: fonts/Montserrat-VariableFont_wght.ttf
+        - asset: fonts/Roboto-Regular.ttf
