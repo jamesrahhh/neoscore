@@ -1,26 +1,42 @@
 import 'package:flutter/material.dart';
 
 const TextTheme _baseTextTheme = TextTheme(
-  displaySmall:
-      TextStyle(fontVariations: <FontVariation>[FontVariation('wght', 800)]),
+  displaySmall: TextStyle(
+    fontSize: 16,
+    fontVariations: <FontVariation>[FontVariation('wght', 800)],
+  ),
   displayMedium: TextStyle(
-      fontSize: 28,
-      fontVariations: <FontVariation>[FontVariation('wght', 800)]),
-  displayLarge:
-      TextStyle(fontVariations: <FontVariation>[FontVariation('wght', 800)]),
-  titleSmall:
-      TextStyle(fontVariations: <FontVariation>[FontVariation('wght', 400)]),
+    fontSize: 20,
+    fontVariations: <FontVariation>[FontVariation('wght', 800)],
+  ),
+  displayLarge: TextStyle(
+    fontSize: 28,
+    fontVariations: <FontVariation>[FontVariation('wght', 800)],
+  ),
+  titleSmall: TextStyle(
+    fontSize: 14,
+    fontVariations: <FontVariation>[FontVariation('wght', 400)],
+  ),
   titleMedium: TextStyle(
-      fontSize: 18,
-      fontVariations: <FontVariation>[FontVariation('wght', 400)]),
-  titleLarge:
-      TextStyle(fontVariations: <FontVariation>[FontVariation('wght', 400)]),
-  bodySmall:
-      TextStyle(fontVariations: <FontVariation>[FontVariation('wght', 400)]),
-  bodyMedium:
-      TextStyle(fontVariations: <FontVariation>[FontVariation('wght', 400)]),
-  bodyLarge:
-      TextStyle(fontVariations: <FontVariation>[FontVariation('wght', 400)]),
+    fontSize: 18,
+    fontVariations: <FontVariation>[FontVariation('wght', 400)],
+  ),
+  titleLarge: TextStyle(
+    fontSize: 24,
+    fontVariations: <FontVariation>[FontVariation('wght', 400)],
+  ),
+  bodySmall: TextStyle(
+    fontSize: 14,
+    fontVariations: <FontVariation>[FontVariation('wght', 400)],
+  ),
+  bodyMedium: TextStyle(
+    fontSize: 18,
+    fontVariations: <FontVariation>[FontVariation('wght', 400)],
+  ),
+  bodyLarge: TextStyle(
+    fontSize: 20,
+    fontVariations: <FontVariation>[FontVariation('wght', 400)],
+  ),
 );
 
 final ThemeData _baseTheme = ThemeData(
