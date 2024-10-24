@@ -6,21 +6,31 @@ class ScoresheetView extends StatelessWidget {
   const ScoresheetView({super.key});
 
   @override
-  Widget build(BuildContext context) => Column(
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.fromLTRB(18.0, 18.0, 18.0, 0.0),
-            child: Row(
-              children: <Widget>[
-                Text(
-                  'Generic Header',
-                  style: Theme.of(context).textTheme.displayMedium,
-                ),
-              ],
+  Widget build(BuildContext context) => Scrollbar(
+        thickness: 8.0,
+        radius: const Radius.circular(4.0),
+        interactive: true,
+        child: CustomScrollView(
+          slivers: <Widget>[
+            const SliverAppBar(
+              flexibleSpace: Placeholder(),
+              floating: true,
+              title: Text('Title'),
             ),
-          ),
-          const ScoresheetCard(),
-          const ScoresheetCard(),
-        ],
+            const SliverPadding(
+                padding: EdgeInsets.fromLTRB(0.0, 14.0, 0.0, 0.0)),
+            SliverGrid.builder(
+              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                maxCrossAxisExtent: 500.0,
+                mainAxisExtent: 160.0,
+                mainAxisSpacing: 8.0,
+                crossAxisSpacing: 8.0,
+              ),
+              itemBuilder: (BuildContext context, int index) =>
+                  ScoresheetCard(index: index),
+              itemCount: 20,
+            ),
+          ],
+        ),
       );
 }

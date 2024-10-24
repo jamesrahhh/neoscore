@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 
 class ScoresheetCard extends StatelessWidget {
-  const ScoresheetCard({super.key});
+  const ScoresheetCard({super.key, required this.index});
+
+  final int index;
 
   @override
   Widget build(BuildContext context) => Padding(
-        padding: const EdgeInsets.fromLTRB(18.0, 18.0, 18.0, 0.0),
+        padding: const EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 0.0),
         child: Card(
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(8.0)),
+          ),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
@@ -15,7 +20,7 @@ class ScoresheetCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text(
-                      'Scoresheet Name',
+                      'Scoresheet ${index + 1}',
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
                     const Icon(Icons.more_vert),
@@ -23,7 +28,10 @@ class ScoresheetCard extends StatelessWidget {
                 ),
                 Divider(
                   color: Theme.of(context).colorScheme.secondary,
-                )
+                ),
+                const Placeholder(
+                  fallbackHeight: 90,
+                ),
               ],
             ),
           ),
