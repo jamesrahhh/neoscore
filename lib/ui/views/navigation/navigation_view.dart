@@ -19,7 +19,7 @@ class _NavigationViewState extends State<NavigationView> {
   @override
   Widget build(BuildContext context) =>
       ChangeNotifierProvider<NavigationViewModel>(
-        create: (BuildContext context) => NavigationViewModel(),
+        create: (_) => NavigationViewModel(),
         child: Scaffold(
           backgroundColor: Theme.of(context).colorScheme.surface,
           bottomNavigationBar: const Bar(),
