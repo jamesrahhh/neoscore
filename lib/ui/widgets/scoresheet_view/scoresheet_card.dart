@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../views/scoresheet/scoresheet_viewmodel.dart';
+import 'score_icon.dart';
 
 class ScoresheetCard extends StatelessWidget {
   const ScoresheetCard({super.key, required this.index});
@@ -29,9 +33,25 @@ class ScoresheetCard extends StatelessWidget {
                 Divider(
                   color: Theme.of(context).colorScheme.secondary,
                 ),
-                const Placeholder(
-                  fallbackHeight: 90,
-                ),
+                Column(
+                  children: List<Widget>.generate(
+                      2,
+                      (int endIndex) => Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: List<Widget>.generate(
+                                Provider.of<ScoresheetViewModel>(context)
+                                    .getScoresheet(index)
+                                    .shotsPerEnd,
+                                (int shotIndex) => ScoreIcon(
+                                      value: Provider.of<ScoresheetViewModel>(
+                                              context)
+                                          .getScoresheet(index)
+                                          .scoreData[endIndex][shotIndex]
+                                          .toString(),
+                                      color: Colors.blueAccent,
+                                    )),
+                          )),
+                )
               ],
             ),
           ),
