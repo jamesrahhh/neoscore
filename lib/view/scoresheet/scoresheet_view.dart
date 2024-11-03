@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../widgets/scoresheet_view/scoresheet_card.dart';
 import 'scoresheet_viewmodel.dart';
+import 'widgets/scoresheet_card.dart';
 
 class ScoresheetView extends StatelessWidget {
   const ScoresheetView({super.key});

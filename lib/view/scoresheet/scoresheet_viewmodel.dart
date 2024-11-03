@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 
-import '../../../utils/scoresheet/scoresheet.dart';
+import '../../common/scoresheet/scoresheet.dart';
 
 class ScoresheetViewModel extends ChangeNotifier {
   final List<Scoresheet> _scoresheets = <Scoresheet>[

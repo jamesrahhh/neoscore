@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../widgets/navigation_view/bar.dart';
 import '../scoresheet/scoresheet_view.dart';
 import '../settings/settings_view.dart';
 import 'navigation_viewmodel.dart';
+import 'widgets/bar.dart';
 
 class NavigationView extends StatefulWidget {
   const NavigationView({super.key});

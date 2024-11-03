@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../views/navigation/navigation_viewmodel.dart';
+import '../navigation_viewmodel.dart';
 
 class Bar extends StatefulWidget {
   const Bar({super.key});
