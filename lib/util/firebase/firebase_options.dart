@@ -54,7 +54,7 @@ class DefaultFirebaseOptions {
     appId: '1:564358351992:android:12e67eb179f7fa6121f18d',
     messagingSenderId: '564358351992',
     projectId: 'neoscoreapp',
-    storageBucket: 'neoscoreapp.appspot.com',
+    storageBucket: 'neoscoreapp.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
@@ -62,7 +62,8 @@ class DefaultFirebaseOptions {
     appId: '1:564358351992:ios:1693fbe179588b2621f18d',
     messagingSenderId: '564358351992',
     projectId: 'neoscoreapp',
-    storageBucket: 'neoscoreapp.appspot.com',
+    storageBucket: 'neoscoreapp.firebasestorage.app',
     iosBundleId: 'com.neoscore.neoscore',
   );
+
 }

@@ -2,7 +2,7 @@
   "project_info": {
     "project_number": "564358351992",
     "project_id": "neoscoreapp",
-    "storage_bucket": "neoscoreapp.appspot.com"
+    "storage_bucket": "neoscoreapp.firebasestorage.app"
   },
   "client": [
     {
