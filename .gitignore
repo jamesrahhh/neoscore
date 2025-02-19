@@ -62,6 +62,7 @@ unlinked.ds
 unlinked_spec.ds
 
 # Android related
+**/android/app/.cxx/
 **/android/**/gradle-wrapper.jar
 .gradle/
 **/android/captures/
