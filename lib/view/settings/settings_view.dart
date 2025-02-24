@@ -5,12 +5,9 @@ class SettingsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Center(
-        child: Padding(
-          padding: const EdgeInsets.all(6.0),
-          child: Text(
-            'Settings',
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
-        ),
-      );
+    child: Padding(
+      padding: const EdgeInsets.all(6.0),
+      child: Text('Settings', style: Theme.of(context).textTheme.titleMedium),
+    ),
+  );
 }

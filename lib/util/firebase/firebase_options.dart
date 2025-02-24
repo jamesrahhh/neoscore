@@ -65,5 +65,5 @@ class DefaultFirebaseOptions {
     storageBucket: 'neoscoreapp.firebasestorage.app',
     iosBundleId: 'com.neoscore.neoscore',
   );
-
 }
+

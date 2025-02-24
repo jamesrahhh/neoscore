@@ -8,9 +8,9 @@ class Neoscore extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => MaterialApp(
-        title: 'Neoscore',
-        theme: lightTheme,
-        darkTheme: darkTheme,
-        home: const NavigationView(),
-      );
+    title: 'Neoscore',
+    theme: lightTheme,
+    darkTheme: darkTheme,
+    home: const NavigationView(),
+  );
 }

@@ -8,22 +8,19 @@ class ScoreIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Padding(
-        padding: const EdgeInsets.all(4.0),
-        child: Column(
-          children: <Widget>[
-            Text(
-              value,
-              style: Theme.of(context).textTheme.bodyMedium,
-            ),
-            Container(
-              height: 3.0,
-              width: 10.0,
-              decoration: BoxDecoration(
-                color: color,
-                borderRadius: const BorderRadius.all(Radius.circular(1.5)),
-              ),
-            ),
-          ],
+    padding: const EdgeInsets.all(4.0),
+    child: Column(
+      children: <Widget>[
+        Text(value, style: Theme.of(context).textTheme.bodyMedium),
+        Container(
+          height: 3.0,
+          width: 10.0,
+          decoration: BoxDecoration(
+            color: color,
+            borderRadius: const BorderRadius.all(Radius.circular(1.5)),
+          ),
         ),
-      );
+      ],
+    ),
+  );
 }

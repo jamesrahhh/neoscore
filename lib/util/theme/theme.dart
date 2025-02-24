@@ -39,9 +39,7 @@ const TextTheme _baseTextTheme = TextTheme(
   ),
 );
 
-final ThemeData _baseTheme = ThemeData(
-  fontFamily: 'Roboto',
-);
+final ThemeData _baseTheme = ThemeData(fontFamily: 'Roboto');
 
 final ThemeData lightTheme = _baseTheme.copyWith(
   brightness: Brightness.light,

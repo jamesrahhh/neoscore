@@ -1,8 +1,9 @@
 class Scoresheet {
-  Scoresheet(
-      {required this.scoreData,
-      required this.shotsPerEnd,
-      required this.highestScore});
+  Scoresheet({
+    required this.scoreData,
+    required this.shotsPerEnd,
+    required this.highestScore,
+  });
 
   List<List<int>> scoreData;
   int shotsPerEnd;
