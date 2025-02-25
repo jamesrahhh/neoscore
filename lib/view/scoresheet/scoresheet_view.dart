@@ -44,6 +44,23 @@ class ScoresheetView extends StatelessWidget {
                   ),
                 ],
               ),
-            ),
-      );
+              SliverGrid.builder(
+                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                  maxCrossAxisExtent: 500.0,
+                  mainAxisExtent: 160.0,
+                  mainAxisSpacing: 8.0,
+                  crossAxisSpacing: 8.0,
+                ),
+                itemBuilder:
+                    (BuildContext context, int index) =>
+                        ScoresheetCard(index: index),
+                itemCount:
+                    Provider.of<ScoresheetViewModel>(
+                      context,
+                    ).getScoresheetAmount,
+              ),
+            ],
+          ),
+        ),
+  );
 }

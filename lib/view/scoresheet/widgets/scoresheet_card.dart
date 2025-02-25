@@ -13,25 +13,28 @@ class ScoresheetCard extends StatelessWidget {
   Widget build(BuildContext context) => Padding(
     padding: const EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 0.0),
     child: Container(
-      decoration: BoxDecoration(
-        border: Border.all(color: Theme.of(context).colorScheme.onSecondary),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Text(
-                  'Scoresheet ${index + 1}',
-                  style: Theme.of(context).textTheme.titleMedium,
-                ),
-                const Icon(Icons.more_vert),
-              ],
+      color: Theme.of(context).colorScheme.primary,
+      child: Column(
+        children: <Widget>[
+          Container(
+            color: Theme.of(context).colorScheme.tertiary,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text(
+                    'Scoresheet ${index + 1}',
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                  const Icon(Icons.more_vert),
+                ],
+              ),
             ),
-            Divider(color: Theme.of(context).colorScheme.onSecondary),
-            Column(
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
               children: List<Widget>.generate(
                 2,
                 (int endIndex) => Row(
@@ -52,8 +55,8 @@ class ScoresheetCard extends StatelessWidget {
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     ),
   );
