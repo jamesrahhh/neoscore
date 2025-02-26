@@ -11,7 +11,7 @@ class ScoresheetViewModel extends ChangeNotifier {
         <int>[1, 2, 3, 4, 5],
       ],
       shotsPerEnd: 5,
-      highestScore: 6,
+      highestScore: 5,
     ),
     Scoresheet(
       scoreData: <List<int>>[
@@ -20,16 +20,16 @@ class ScoresheetViewModel extends ChangeNotifier {
         <int>[6, 6, 6, 6, 6],
       ],
       shotsPerEnd: 5,
-      highestScore: 6,
+      highestScore: 5,
     ),
     Scoresheet(
       scoreData: <List<int>>[
-        <int>[5, 5, 4, 4, 3],
-        <int>[6, 6, 5, 4, 4],
-        <int>[5, 5, 5, 4, 2],
+        <int>[10, 7, 5],
+        <int>[9, 5, 4],
+        <int>[10, 9, 7],
       ],
-      shotsPerEnd: 5,
-      highestScore: 6,
+      shotsPerEnd: 3,
+      highestScore: 10,
     ),
   ];
 
