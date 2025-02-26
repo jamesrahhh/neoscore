@@ -12,12 +12,12 @@ class ScoresheetCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Padding(
     padding: const EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 0.0),
-    child: Container(
-      color: Theme.of(context).colorScheme.primary,
+    child: ColoredBox(
+      color: Theme.of(context).colorScheme.surfaceContainer,
       child: Column(
         children: <Widget>[
-          Container(
-            color: Theme.of(context).colorScheme.tertiary,
+          ColoredBox(
+            color: Theme.of(context).colorScheme.primary,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(

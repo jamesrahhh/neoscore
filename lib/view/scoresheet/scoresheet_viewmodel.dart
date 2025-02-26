@@ -38,4 +38,13 @@ class ScoresheetViewModel extends ChangeNotifier {
   }
 
   int get getScoresheetAmount => _scoresheets.length;
+
+  int _pageIndex = 0;
+
+  int get pageIndex => _pageIndex;
+
+  void setPage(int index) {
+    _pageIndex = index;
+    notifyListeners();
+  }
 }
