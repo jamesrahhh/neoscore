@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../common/scoresheet/scoresheet.dart';
+import '../../../util/theme/colors.dart';
 import '../scoresheet_viewmodel.dart';
 import 'score_icon.dart';
 
@@ -16,6 +17,7 @@ class ScoresheetEditor extends StatelessWidget {
       context,
       listen: false,
     ).getScoresheet(index);
+    final ThemeColors themeColors = Theme.of(context).extension<ThemeColors>()!;
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -42,7 +44,9 @@ class ScoresheetEditor extends StatelessWidget {
                     value:
                         scoresheet.target.formattedScores[scoresheet
                             .scoreData[endIndex][shotIndex]],
-                    color: Colors.blueAccent,
+                    color:
+                        themeColors.colors![scoresheet.target.colors[scoresheet
+                            .scoreData[endIndex][shotIndex]]],
                   ),
                 ) +
                 <Widget>[

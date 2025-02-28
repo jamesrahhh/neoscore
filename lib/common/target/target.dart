@@ -1,7 +1,5 @@
 // ignore_for_file: non_constant_identifier_names
 
-import 'package:flutter/material.dart';
-
 class Target {
   Target({
     required this.formattedScores,
@@ -11,7 +9,7 @@ class Target {
 
   Target.NFAA({
     this.formattedScores = const <String>['M', '1', '2', '3', '4', '5', 'X'],
-    this.colors = const <Color>[],
+    this.colors = const <int>[5, 3, 3, 3, 3, 3, 4],
     this.highestScore = 5,
   });
 
@@ -29,11 +27,11 @@ class Target {
       '9',
       '10',
     ],
-    this.colors = const <Color>[],
+    this.colors = const <int>[5, 4, 4, 6, 6, 2, 2, 0, 0, 1, 1],
     this.highestScore = 10,
   });
 
   List<String> formattedScores;
-  List<Color> colors;
+  List<int> colors;
   int highestScore;
 }
