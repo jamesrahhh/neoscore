@@ -19,14 +19,9 @@ class _ScoresheetViewState extends State<ScoresheetView> {
   ];
 
   @override
-  Widget build(BuildContext context) =>
-      ChangeNotifierProvider<ScoresheetViewModel>(
-        create: (_) => ScoresheetViewModel(),
-        builder:
-            (BuildContext context, _) => Consumer<ScoresheetViewModel>(
-              builder:
-                  (BuildContext context, ScoresheetViewModel scoresheet, _) =>
-                      _pages[scoresheet.pageIndex],
-            ),
-      );
+  Widget build(BuildContext context) => Consumer<ScoresheetViewModel>(
+    builder:
+        (BuildContext context, ScoresheetViewModel scoresheet, _) =>
+            _pages[scoresheet.pageIndex],
+  );
 }

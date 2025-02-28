@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../scoresheet/scoresheet_view.dart';
+import '../scoresheet/scoresheet_viewmodel.dart';
 import '../settings/settings_view.dart';
 import 'navigation_viewmodel.dart';
 import 'widgets/bar.dart';
@@ -17,17 +18,23 @@ class _NavigationViewState extends State<NavigationView> {
   final List<Widget> _pages = const <Widget>[ScoresheetView(), SettingsView()];
 
   @override
-  Widget build(BuildContext context) =>
+  Widget build(BuildContext context) => MultiProvider(
+    providers: <ChangeNotifierProvider<ChangeNotifier>>[
       ChangeNotifierProvider<NavigationViewModel>(
         create: (_) => NavigationViewModel(),
-        child: Scaffold(
-          backgroundColor: Theme.of(context).colorScheme.surface,
-          bottomNavigationBar: const Bar(),
-          body: Consumer<NavigationViewModel>(
-            builder:
-                (BuildContext context, NavigationViewModel navigation, _) =>
-                    _pages[navigation.pageIndex],
-          ),
-        ),
-      );
+      ),
+      ChangeNotifierProvider<ScoresheetViewModel>(
+        create: (_) => ScoresheetViewModel(),
+      ),
+    ],
+    child: Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.surface,
+      bottomNavigationBar: const Bar(),
+      body: Consumer<NavigationViewModel>(
+        builder:
+            (BuildContext context, NavigationViewModel navigation, _) =>
+                _pages[navigation.pageIndex],
+      ),
+    ),
+  );
 }
