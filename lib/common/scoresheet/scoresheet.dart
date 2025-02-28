@@ -1,18 +1,22 @@
+import '../target/target.dart';
+
 class Scoresheet {
   Scoresheet({
     required this.scoreData,
+    required this.target,
     required this.shotsPerEnd,
-    required this.highestScore,
+    required this.ends,
   });
 
   List<List<int>> scoreData;
+  Target target;
   int shotsPerEnd;
-  int highestScore;
+  int ends;
 
   int getTotalScoreEnd(int end) {
     int total = 0;
     for (final int shot in scoreData[end]) {
-      total += shot;
+      total += shot > target.highestScore ? target.highestScore : shot;
     }
     return total;
   }
@@ -31,7 +35,7 @@ class Scoresheet {
     int total = 0;
     for (final List<int> end in scoreData) {
       for (final int shot in end) {
-        total += shot;
+        total += shot > target.highestScore ? target.highestScore : shot;
       }
     }
     return total;

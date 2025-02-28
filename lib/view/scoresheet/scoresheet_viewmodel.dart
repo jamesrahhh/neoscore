@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 
 import '../../common/scoresheet/scoresheet.dart';
+import '../../common/target/target.dart';
 
 class ScoresheetViewModel extends ChangeNotifier {
   final List<Scoresheet> _scoresheets = <Scoresheet>[
@@ -11,7 +12,8 @@ class ScoresheetViewModel extends ChangeNotifier {
         <int>[1, 2, 3, 4, 5],
       ],
       shotsPerEnd: 5,
-      highestScore: 5,
+      ends: 20,
+      target: Target.NFAA(),
     ),
     Scoresheet(
       scoreData: <List<int>>[
@@ -20,7 +22,8 @@ class ScoresheetViewModel extends ChangeNotifier {
         <int>[6, 6, 6, 6, 6],
       ],
       shotsPerEnd: 5,
-      highestScore: 5,
+      ends: 12,
+      target: Target.NFAA(),
     ),
     Scoresheet(
       scoreData: <List<int>>[
@@ -29,7 +32,8 @@ class ScoresheetViewModel extends ChangeNotifier {
         <int>[10, 9, 7],
       ],
       shotsPerEnd: 3,
-      highestScore: 10,
+      ends: 20,
+      target: Target.USA(),
     ),
   ];
 
