@@ -10,19 +10,16 @@ class ScoreIcon extends StatelessWidget {
   Widget build(BuildContext context) => Padding(
     padding: const EdgeInsets.all(4.0),
     child: SizedBox(
-      width: 25,
-      child: Column(
-        children: <Widget>[
-          Text(value, style: Theme.of(context).textTheme.bodyMedium),
-          Container(
-            height: 3.0,
-            width: 10.0,
-            decoration: BoxDecoration(
-              color: color,
-              borderRadius: const BorderRadius.all(Radius.circular(1.5)),
-            ),
-          ),
-        ],
+      width: 35.0,
+      height: 35.0,
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.all(Radius.circular(4)),
+          color: color,
+        ),
+        child: Center(
+          child: Text(value, style: Theme.of(context).textTheme.bodyMedium),
+        ),
       ),
     ),
   );
