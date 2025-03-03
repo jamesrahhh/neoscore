@@ -15,7 +15,7 @@ class ScoresheetView extends StatefulWidget {
 class _ScoresheetViewState extends State<ScoresheetView> {
   final List<Widget> _pages = const <Widget>[
     ScoresheetBrowser(),
-    ScoresheetEditor(index: 1),
+    ScoresheetEditor(),
   ];
 
   @override

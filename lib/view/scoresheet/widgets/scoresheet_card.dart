@@ -26,18 +26,30 @@ class ScoresheetCard extends StatelessWidget {
           children: <Widget>[
             ColoredBox(
               color: Theme.of(context).colorScheme.primary,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Text(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
                       'Scoresheet ${index + 1}',
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
-                    const Icon(Icons.more_vert),
-                  ],
-                ),
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.more_vert),
+                    onPressed: () {
+                      Provider.of<ScoresheetViewModel>(
+                        context,
+                        listen: false,
+                      ).setScoresheet(index);
+                      Provider.of<ScoresheetViewModel>(
+                        context,
+                        listen: false,
+                      ).setPage(1);
+                    },
+                  ),
+                ],
               ),
             ),
             Padding(

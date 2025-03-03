@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 
-class ScoreIcon extends StatelessWidget {
-  const ScoreIcon({super.key, required this.value, required this.color});
-
-  final String value;
-  final Color color;
+class EmptyScoreIcon extends StatelessWidget {
+  const EmptyScoreIcon({super.key});
 
   @override
   Widget build(BuildContext context) => Padding(
@@ -15,10 +12,7 @@ class ScoreIcon extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: const BorderRadius.all(Radius.circular(4)),
-          color: color,
-        ),
-        child: Center(
-          child: Text(value, style: Theme.of(context).textTheme.bodyMedium),
+          border: Border.all(color: Colors.grey),
         ),
       ),
     ),
