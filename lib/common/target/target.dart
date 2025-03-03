@@ -9,7 +9,7 @@ class Target {
 
   Target.NFAA({
     this.formattedScores = const <String>['M', '1', '2', '3', '4', '5', 'X'],
-    this.colors = const <int>[5, 3, 3, 3, 3, 3, 4],
+    this.colors = const <int>[5, 3, 3, 3, 3, 4, 4],
     this.highestScore = 5,
   });
 
