@@ -51,4 +51,13 @@ class ScoresheetViewModel extends ChangeNotifier {
     _pageIndex = index;
     notifyListeners();
   }
+
+  int _scoresheetIndex = 0;
+
+  int get scoresheetIndex => _scoresheetIndex;
+
+  void setScoresheet(int index) {
+    _scoresheetIndex = index;
+    notifyListeners();
+  }
 }

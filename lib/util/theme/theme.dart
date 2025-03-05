@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'colors.dart';
+
 const TextTheme _baseTextTheme = TextTheme(
   displaySmall: TextStyle(
     fontSize: 16,
@@ -55,15 +57,29 @@ final ThemeData lightTheme = _baseTheme.copyWith(
     onPrimary: Color(0xFF575757),
     onSecondary: Color(0xFF575757),
     onSurface: Color(0xFF575757),
-    outline: Color(0xFFE8E8E8),
-    primary: Colors.white,
-    primaryContainer: Color(0xFFE8E8E8),
-    secondary: Color(0xFFE8E8E8),
-    shadow: Color(0xFFE8E8E8),
-    surface: Color(0xFFF7F7F7),
-    surfaceContainer: Colors.white,
-    surfaceContainerLow: Colors.white,
+    outline: Color(0xFFE4E0E2),
+    primary: Color(0xFFEDEBE8),
+    primaryContainer: Color(0xFFE4E0E2),
+    secondary: Color(0xFFE4E0E2),
+    shadow: Color(0xFFE4E0E2),
+    surface: Color(0xFFFFFAF3),
+    surfaceContainer: Color(0xFFF3F2ED),
+    surfaceContainerLow: Color(0xFFF3F2ED),
+    tertiary: Color(0xFF969696),
   ),
+  extensions: <ThemeExtension<dynamic>>[
+    const ThemeColors(
+      colors: <Color>[
+        Colors.red,
+        Colors.yellow,
+        Colors.lightBlue,
+        Colors.blue,
+        Colors.white,
+        Colors.grey,
+        Colors.black,
+      ],
+    ),
+  ],
 );
 
 final ThemeData darkTheme = _baseTheme.copyWith(
@@ -90,4 +106,17 @@ final ThemeData darkTheme = _baseTheme.copyWith(
     surfaceContainerLow: Color(0xFF111111),
     tertiary: Color(0xFF707070),
   ),
+  extensions: <ThemeExtension<dynamic>>[
+    const ThemeColors(
+      colors: <Color>[
+        Colors.red,
+        Colors.yellow,
+        Colors.lightBlue,
+        Colors.blue,
+        Colors.white,
+        Colors.grey,
+        Colors.black,
+      ],
+    ),
+  ],
 );
