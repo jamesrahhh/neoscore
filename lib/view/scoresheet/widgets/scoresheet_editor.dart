@@ -2,20 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../common/scoresheet/scoresheet.dart';
+import '../../../util/theme/colors.dart';
 import '../scoresheet_viewmodel.dart';
+import 'empty_score_icon.dart';
 import 'score_icon.dart';
 
 class ScoresheetEditor extends StatelessWidget {
-  const ScoresheetEditor({super.key, required this.index});
-
-  final int index;
+  const ScoresheetEditor({super.key});
 
   @override
   Widget build(BuildContext context) {
     final Scoresheet scoresheet = Provider.of<ScoresheetViewModel>(
       context,
       listen: false,
-    ).getScoresheet(index);
+    ).getScoresheet(
+      Provider.of<ScoresheetViewModel>(context, listen: false).scoresheetIndex,
+    );
+    final ThemeColors themeColors = Theme.of(context).extension<ThemeColors>()!;
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -30,29 +33,91 @@ class ScoresheetEditor extends StatelessWidget {
         ),
       ),
       body: Column(
-        children: List<Widget>.generate(
-          2,
-          (int endIndex) => Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children:
-                <Widget>[Text('${endIndex + 1}')] +
-                List<Widget>.generate(
-                  scoresheet.shotsPerEnd,
-                  (int shotIndex) => ScoreIcon(
-                    value:
-                        scoresheet.target.formattedScores[scoresheet
-                            .scoreData[endIndex][shotIndex]],
-                    color: Colors.blueAccent,
+        children:
+            List<Widget>.generate(
+              scoresheet.ends,
+              (int endIndex) => Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(left: 24.0, right: 8.0),
+                    child: SizedBox(width: 24, child: Text('${endIndex + 1}')),
                   ),
-                ) +
-                <Widget>[
-                  Text(
-                    '${scoresheet.getSingleScoreEnd(endIndex, scoresheet.target.formattedScores.length - 1)}',
+                  Expanded(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: List<Widget>.generate(scoresheet.shotsPerEnd, (
+                        int shotIndex,
+                      ) {
+                        if (scoresheet.scoreData.length <= endIndex ||
+                            scoresheet.scoreData[endIndex].length <=
+                                shotIndex) {
+                          return const EmptyScoreIcon();
+                        } else {
+                          return ScoreIcon(
+                            value:
+                                scoresheet.target.formattedScores[scoresheet
+                                    .scoreData[endIndex][shotIndex]],
+                            color:
+                                themeColors.colors![scoresheet
+                                    .target
+                                    .colors[scoresheet
+                                    .scoreData[endIndex][shotIndex]]],
+                          );
+                        }
+                      }),
+                    ),
                   ),
-                  Text('${scoresheet.getTotalScoreEnd(endIndex)}'),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 16.0, right: 14.0),
+                    child: SizedBox(
+                      width: 8,
+                      child: Text(
+                        '${scoresheet.getSingleScoreEnd(endIndex, scoresheet.target.formattedScores.length - 1)}',
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 14.0, right: 24.0),
+                    child: SizedBox(
+                      width: 24,
+                      child: Text('${scoresheet.getTotalScoreEnd(endIndex)}'),
+                    ),
+                  ),
                 ],
-          ),
-        ),
+              ),
+            ) +
+            <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      top: 8.0,
+                      left: 16.0,
+                      right: 6.0,
+                    ),
+                    child: SizedBox(
+                      width: 24,
+                      child: Text(
+                        '${scoresheet.getSingleScore(scoresheet.target.formattedScores.length - 1)}',
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      top: 8.0,
+                      left: 6.0,
+                      right: 24.0,
+                    ),
+                    child: SizedBox(
+                      width: 24,
+                      child: Text('${scoresheet.getTotalScore}'),
+                    ),
+                  ),
+                ],
+              ),
+            ],
       ),
     );
   }
