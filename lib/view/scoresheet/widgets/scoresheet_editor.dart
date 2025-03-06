@@ -32,7 +32,13 @@ class ScoresheetEditor extends StatelessWidget {
           icon: const Icon(Icons.arrow_left),
         ),
       ),
-      body: Column(
+      body: GridView(
+        gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+          maxCrossAxisExtent: 500,
+          mainAxisExtent: 48.0,
+          mainAxisSpacing: 4.0,
+          crossAxisSpacing: 4.0,
+        ),
         children:
             List<Widget>.generate(
               scoresheet.ends,
@@ -92,11 +98,7 @@ class ScoresheetEditor extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
                   Padding(
-                    padding: const EdgeInsets.only(
-                      top: 8.0,
-                      left: 16.0,
-                      right: 6.0,
-                    ),
+                    padding: const EdgeInsets.only(left: 16.0, right: 6.0),
                     child: SizedBox(
                       width: 24,
                       child: Text(
@@ -105,11 +107,7 @@ class ScoresheetEditor extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(
-                      top: 8.0,
-                      left: 6.0,
-                      right: 24.0,
-                    ),
+                    padding: const EdgeInsets.only(left: 6.0, right: 24.0),
                     child: SizedBox(
                       width: 24,
                       child: Text('${scoresheet.getTotalScore}'),
