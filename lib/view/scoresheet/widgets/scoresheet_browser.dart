@@ -25,15 +25,12 @@ class ScoresheetBrowser extends StatelessWidget {
       child: CustomScrollView(
         slivers: <Widget>[
           const SliverAppBar(floating: true, title: Text('Scoresheets')),
-          const SliverPadding(
-            padding: EdgeInsets.fromLTRB(0.0, 14.0, 0.0, 0.0),
-          ),
+          const SliverPadding(padding: EdgeInsets.only(top: 10.0)),
           SliverGrid.builder(
             gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
               maxCrossAxisExtent: 500.0,
               mainAxisExtent: 160.0,
-              mainAxisSpacing: 8.0,
-              crossAxisSpacing: 8.0,
+              mainAxisSpacing: 10.0,
             ),
             itemBuilder:
                 (BuildContext context, int index) =>
