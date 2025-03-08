@@ -11,11 +11,7 @@ class ScoresheetBrowser extends StatelessWidget {
   Widget build(BuildContext context) => Scaffold(
     floatingActionButton: FloatingActionButton(
       elevation: 0,
-      onPressed:
-          () => Provider.of<ScoresheetViewModel>(
-            context,
-            listen: false,
-          ).setPage(1),
+      onPressed: () => Provider.of<ScoresheetViewModel>(context).setPage(1),
       child: const Icon(Icons.add),
     ),
     body: Scrollbar(

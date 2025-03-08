@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../../../common/scoresheet/scoresheet.dart';
 import '../../../util/theme/colors.dart';
 import '../scoresheet_viewmodel.dart';
+import 'empty_score_icon.dart';
 import 'score_icon.dart';
 
 class ScoresheetCard extends StatelessWidget {
@@ -15,7 +16,6 @@ class ScoresheetCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final Scoresheet scoresheet = Provider.of<ScoresheetViewModel>(
       context,
-      listen: false,
     ).getScoresheet(index);
     final ThemeColors themeColors = Theme.of(context).extension<ThemeColors>()!;
     return Padding(
@@ -59,19 +59,25 @@ class ScoresheetCard extends StatelessWidget {
                   2,
                   (int endIndex) => Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: List<Widget>.generate(
-                      scoresheet.shotsPerEnd,
-                      (int shotIndex) => ScoreIcon(
-                        value:
-                            scoresheet.target.formattedScores[scoresheet
-                                .scoreData[endIndex][shotIndex]],
-                        color:
-                            themeColors.colors![scoresheet
-                                .target
-                                .colors[scoresheet
-                                .scoreData[endIndex][shotIndex]]],
-                      ),
-                    ),
+                    children: List<Widget>.generate(scoresheet.shotsPerEnd, (
+                      int shotIndex,
+                    ) {
+                      if (scoresheet.scoreData.length <= endIndex ||
+                          scoresheet.scoreData[endIndex].length <= shotIndex) {
+                        return const EmptyScoreIcon();
+                      } else {
+                        return ScoreIcon(
+                          value:
+                              scoresheet.target.formattedScores[scoresheet
+                                  .scoreData[endIndex][shotIndex]],
+                          color:
+                              themeColors.colors![scoresheet
+                                  .target
+                                  .colors[scoresheet
+                                  .scoreData[endIndex][shotIndex]]],
+                        );
+                      }
+                    }),
                   ),
                 ),
               ),

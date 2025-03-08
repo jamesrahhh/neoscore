@@ -6,6 +6,7 @@ import '../../../util/theme/colors.dart';
 import '../scoresheet_viewmodel.dart';
 import 'empty_score_icon.dart';
 import 'score_icon.dart';
+import 'score_keyboard.dart';
 
 class ScoresheetEditor extends StatelessWidget {
   const ScoresheetEditor({super.key});
@@ -14,7 +15,6 @@ class ScoresheetEditor extends StatelessWidget {
   Widget build(BuildContext context) {
     final Scoresheet scoresheet = Provider.of<ScoresheetViewModel>(
       context,
-      listen: false,
     ).getScoresheet(
       Provider.of<ScoresheetViewModel>(context, listen: false).scoresheetIndex,
     );
@@ -50,28 +50,45 @@ class ScoresheetEditor extends StatelessWidget {
                     child: SizedBox(width: 24, child: Text('${endIndex + 1}')),
                   ),
                   Expanded(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: List<Widget>.generate(scoresheet.shotsPerEnd, (
-                        int shotIndex,
-                      ) {
-                        if (scoresheet.scoreData.length <= endIndex ||
-                            scoresheet.scoreData[endIndex].length <=
-                                shotIndex) {
-                          return const EmptyScoreIcon();
-                        } else {
-                          return ScoreIcon(
-                            value:
-                                scoresheet.target.formattedScores[scoresheet
-                                    .scoreData[endIndex][shotIndex]],
-                            color:
-                                themeColors.colors![scoresheet
-                                    .target
-                                    .colors[scoresheet
-                                    .scoreData[endIndex][shotIndex]]],
-                          );
-                        }
-                      }),
+                    child: InkWell(
+                      onTap:
+                          () => showModalBottomSheet<void>(
+                            context: context,
+                            builder:
+                                (_) => ListenableProvider<
+                                  ScoresheetViewModel
+                                >.value(
+                                  value: Provider.of<ScoresheetViewModel>(
+                                    context,
+                                    listen: false,
+                                  ),
+                                  child: ScoreKeyboard(endIndex: endIndex),
+                                ),
+                          ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: List<Widget>.generate(
+                          scoresheet.shotsPerEnd,
+                          (int shotIndex) {
+                            if (scoresheet.scoreData.length <= endIndex ||
+                                scoresheet.scoreData[endIndex].length <=
+                                    shotIndex) {
+                              return const EmptyScoreIcon();
+                            } else {
+                              return ScoreIcon(
+                                value:
+                                    scoresheet.target.formattedScores[scoresheet
+                                        .scoreData[endIndex][shotIndex]],
+                                color:
+                                    themeColors.colors![scoresheet
+                                        .target
+                                        .colors[scoresheet
+                                        .scoreData[endIndex][shotIndex]]],
+                              );
+                            }
+                          },
+                        ),
+                      ),
                     ),
                   ),
                   Padding(
