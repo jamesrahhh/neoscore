@@ -124,9 +124,9 @@ class ScoresheetEditor extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 6.0, right: 24.0),
+                    padding: const EdgeInsets.only(left: 6.0, right: 14.0),
                     child: SizedBox(
-                      width: 24,
+                      width: 34,
                       child: Text('${scoresheet.getTotalScore}'),
                     ),
                   ),
