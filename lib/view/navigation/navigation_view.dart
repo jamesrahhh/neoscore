@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../scoresheet/scoresheet_model.dart';
 import '../scoresheet/scoresheet_view.dart';
 import '../scoresheet/scoresheet_viewmodel.dart';
 import '../settings/settings_view.dart';
@@ -26,14 +27,15 @@ class _NavigationViewState extends State<NavigationView> {
       ChangeNotifierProvider<ScoresheetViewModel>(
         create: (_) => ScoresheetViewModel(),
       ),
+      ChangeNotifierProvider<ScoresheetModel>(create: (_) => ScoresheetModel()),
     ],
     child: Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
       bottomNavigationBar: const Bar(),
       body: Consumer<NavigationViewModel>(
         builder:
-            (BuildContext context, NavigationViewModel navigation, _) =>
-                _pages[navigation.pageIndex],
+            (BuildContext context, NavigationViewModel model, _) =>
+                _pages[model.pageIndex],
       ),
     ),
   );

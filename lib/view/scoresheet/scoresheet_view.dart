@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'scoresheet_browser.dart';
+import 'scoresheet_editor.dart';
 import 'scoresheet_viewmodel.dart';
-import 'widgets/scoresheet_browser.dart';
-import 'widgets/scoresheet_editor.dart';
 
 class ScoresheetView extends StatefulWidget {
   const ScoresheetView({super.key});
@@ -19,9 +19,6 @@ class _ScoresheetViewState extends State<ScoresheetView> {
   ];
 
   @override
-  Widget build(BuildContext context) => Consumer<ScoresheetViewModel>(
-    builder:
-        (BuildContext context, ScoresheetViewModel scoresheet, _) =>
-            _pages[scoresheet.pageIndex],
-  );
+  Widget build(BuildContext context) =>
+      _pages[Provider.of<ScoresheetViewModel>(context).pageIndex];
 }

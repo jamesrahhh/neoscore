@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../common/scoresheet/scoresheet.dart';
-import '../../../util/theme/colors.dart';
+import '../scoresheet_model.dart';
 import '../scoresheet_viewmodel.dart';
-import 'empty_score_icon.dart';
-import 'score_icon.dart';
+import 'score_row.dart';
 
 class ScoresheetCard extends StatelessWidget {
   const ScoresheetCard({super.key, required this.index});
@@ -14,10 +12,6 @@ class ScoresheetCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Scoresheet scoresheet = Provider.of<ScoresheetViewModel>(
-      context,
-    ).getScoresheet(index);
-    final ThemeColors themeColors = Theme.of(context).extension<ThemeColors>()!;
     return Padding(
       padding: const EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 0.0),
       child: ColoredBox(
@@ -39,7 +33,7 @@ class ScoresheetCard extends StatelessWidget {
                   IconButton(
                     icon: const Icon(Icons.more_vert),
                     onPressed: () {
-                      Provider.of<ScoresheetViewModel>(
+                      Provider.of<ScoresheetModel>(
                         context,
                         listen: false,
                       ).setScoresheet(index);
@@ -57,28 +51,8 @@ class ScoresheetCard extends StatelessWidget {
               child: Column(
                 children: List<Widget>.generate(
                   2,
-                  (int endIndex) => Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: List<Widget>.generate(scoresheet.shotsPerEnd, (
-                      int shotIndex,
-                    ) {
-                      if (scoresheet.scoreData.length <= endIndex ||
-                          scoresheet.scoreData[endIndex].length <= shotIndex) {
-                        return const EmptyScoreIcon();
-                      } else {
-                        return ScoreIcon(
-                          value:
-                              scoresheet.target.formattedScores[scoresheet
-                                  .scoreData[endIndex][shotIndex]],
-                          color:
-                              themeColors.colors![scoresheet
-                                  .target
-                                  .colors[scoresheet
-                                  .scoreData[endIndex][shotIndex]]],
-                        );
-                      }
-                    }),
-                  ),
+                  (int endIndex) =>
+                      ScoreRow(scoresheetIndex: index, endIndex: endIndex),
                 ),
               ),
             ),

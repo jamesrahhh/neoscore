@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../scoresheet_viewmodel.dart';
-import 'scoresheet_card.dart';
+import 'scoresheet_model.dart';
+import 'scoresheet_viewmodel.dart';
+import 'widgets/scoresheet_card.dart';
 
 class ScoresheetBrowser extends StatelessWidget {
   const ScoresheetBrowser({super.key});
@@ -11,7 +12,11 @@ class ScoresheetBrowser extends StatelessWidget {
   Widget build(BuildContext context) => Scaffold(
     floatingActionButton: FloatingActionButton(
       elevation: 0,
-      onPressed: () => Provider.of<ScoresheetViewModel>(context).setPage(1),
+      onPressed:
+          () => Provider.of<ScoresheetViewModel>(
+            context,
+            listen: false,
+          ).setPage(1),
       child: const Icon(Icons.add),
     ),
     body: Scrollbar(
@@ -32,7 +37,10 @@ class ScoresheetBrowser extends StatelessWidget {
                 (BuildContext context, int index) =>
                     ScoresheetCard(index: index),
             itemCount:
-                Provider.of<ScoresheetViewModel>(context).getScoresheetAmount,
+                Provider.of<ScoresheetModel>(
+                  context,
+                  listen: false,
+                ).getScoresheetAmount,
           ),
         ],
       ),

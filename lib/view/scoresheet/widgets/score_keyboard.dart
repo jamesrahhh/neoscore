@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../common/scoresheet/scoresheet.dart';
 import '../../../util/theme/colors.dart';
-import '../scoresheet_viewmodel.dart';
-import 'empty_score_icon.dart';
+import '../scoresheet_model.dart';
 import 'score_icon.dart';
+import 'score_row.dart';
 
 class ScoreKeyboard extends StatelessWidget {
   const ScoreKeyboard({super.key, required this.endIndex});
@@ -14,36 +13,19 @@ class ScoreKeyboard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Scoresheet scoresheet = Provider.of<ScoresheetViewModel>(
-      context,
-    ).getScoresheet(
-      Provider.of<ScoresheetViewModel>(context, listen: false).scoresheetIndex,
-    );
     final ThemeColors themeColors = Theme.of(context).extension<ThemeColors>()!;
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
         children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: List<Widget>.generate(scoresheet.shotsPerEnd, (
-              int shotIndex,
-            ) {
-              if (scoresheet.scoreData.length <= endIndex ||
-                  scoresheet.scoreData[endIndex].length <= shotIndex) {
-                return const EmptyScoreIcon();
-              } else {
-                return ScoreIcon(
-                  value:
-                      scoresheet.target.formattedScores[scoresheet
-                          .scoreData[endIndex][shotIndex]],
-                  color:
-                      themeColors.colors![scoresheet.target.colors[scoresheet
-                          .scoreData[endIndex][shotIndex]]],
-                );
-              }
-            }),
+          ScoreRow(
+            scoresheetIndex:
+                Provider.of<ScoresheetModel>(
+                  context,
+                  listen: false,
+                ).scoresheetIndex,
+            endIndex: endIndex,
           ),
           const Padding(padding: EdgeInsets.all(8.0), child: Divider()),
           Expanded(
@@ -57,26 +39,34 @@ class ScoreKeyboard extends StatelessWidget {
               ),
               children:
                   List<Widget>.generate(
-                    scoresheet.target.formattedScores.length,
+                    Provider.of<ScoresheetModel>(
+                      context,
+                      listen: false,
+                    ).getCurrentTarget().formattedScores.length,
                     (int index) => InkWell(
                       onTap:
-                          () => Provider.of<ScoresheetViewModel>(
+                          () => Provider.of<ScoresheetModel>(
                             context,
                             listen: false,
                           ).addScore(endIndex, index),
                       child: ScoreIcon(
-                        value: scoresheet.target.formattedScores[index],
+                        value:
+                            Provider.of<ScoresheetModel>(
+                              context,
+                              listen: false,
+                            ).getCurrentTarget().formattedScores[index],
                         color:
-                            themeColors.colors![scoresheet
-                                .target
-                                .colors[index]],
+                            themeColors.colors![Provider.of<ScoresheetModel>(
+                              context,
+                              listen: false,
+                            ).getCurrentTarget().colors[index]],
                       ),
                     ),
                   ) +
                   <Widget>[
                     InkWell(
                       onTap:
-                          () => Provider.of<ScoresheetViewModel>(
+                          () => Provider.of<ScoresheetModel>(
                             context,
                             listen: false,
                           ).deleteScore(endIndex),
