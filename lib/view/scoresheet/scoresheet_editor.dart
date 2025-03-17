@@ -11,28 +11,28 @@ class ScoresheetEditor extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text('Editor'),
-        leading: IconButton(
-          onPressed:
-              () => Provider.of<ScoresheetViewModel>(
-                context,
-                listen: false,
-              ).setPage(0),
-          icon: const Icon(Icons.arrow_left),
+    return CustomScrollView(
+      slivers: <Widget>[
+        SliverAppBar(
+          centerTitle: true,
+          title: const Text('Editor'),
+          leading: IconButton(
+            onPressed:
+                () => Provider.of<ScoresheetViewModel>(
+                  context,
+                  listen: false,
+                ).setPage(0),
+            icon: const Icon(Icons.arrow_left),
+          ),
         ),
-      ),
-      body: GridView(
-        gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-          maxCrossAxisExtent: 500,
-          mainAxisExtent: 48.0,
-          mainAxisSpacing: 4.0,
-          crossAxisSpacing: 4.0,
-        ),
-        children:
-            List<Widget>.generate(
+        SliverGrid.builder(
+          gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+            maxCrossAxisExtent: 500,
+            mainAxisExtent: 48.0,
+            mainAxisSpacing: 4.0,
+            crossAxisSpacing: 4.0,
+          ),
+          itemCount:
               Provider.of<ScoresheetModel>(context, listen: false)
                   .getScoresheet(
                     Provider.of<ScoresheetModel>(
@@ -41,7 +41,8 @@ class ScoresheetEditor extends StatelessWidget {
                     ).scoresheetIndex,
                   )
                   .ends,
-              (int endIndex) => InkWell(
+          itemBuilder:
+              (BuildContext context, int endIndex) => InkWell(
                 onTap:
                     () => showModalBottomSheet<void>(
                       context: context,
@@ -63,42 +64,36 @@ class ScoresheetEditor extends StatelessWidget {
                   endIndex: endIndex,
                 ),
               ),
-            ) +
-            <Widget>[
-              Consumer<ScoresheetModel>(
-                builder:
-                    (_, ScoresheetModel scoresheet, __) => Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(
-                            left: 16.0,
-                            right: 6.0,
-                          ),
-                          child: SizedBox(
-                            width: 24,
-                            child: Text(
-                              '${scoresheet.getCurrentScoresheet().getSingleScore(scoresheet.getCurrentTarget().formattedScores.length - 1)}',
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                            left: 6.0,
-                            right: 14.0,
-                          ),
-                          child: SizedBox(
-                            width: 34,
-                            child: Text(
-                              '${scoresheet.getCurrentScoresheet().getTotalScore}',
-                            ),
-                          ),
-                        ),
-                      ],
+        ),
+        SliverToBoxAdapter(
+          child: SizedBox(
+            height: 44,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(left: 16.0, right: 6.0),
+                  child: SizedBox(
+                    width: 24,
+                    child: Text(
+                      '${Provider.of<ScoresheetModel>(context).getCurrentScoresheet().getSingleScore(Provider.of<ScoresheetModel>(context, listen: false).getCurrentTarget().formattedScores.length - 1)}',
                     ),
-              ),
-            ],
-      ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 6.0, right: 14.0),
+                  child: SizedBox(
+                    width: 34,
+                    child: Text(
+                      '${Provider.of<ScoresheetModel>(context).getCurrentScoresheet().getTotalScore}',
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

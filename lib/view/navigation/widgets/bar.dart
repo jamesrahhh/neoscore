@@ -3,14 +3,9 @@ import 'package:provider/provider.dart';
 
 import '../navigation_viewmodel.dart';
 
-class Bar extends StatefulWidget {
+class Bar extends StatelessWidget {
   const Bar({super.key});
 
-  @override
-  State<Bar> createState() => _BarState();
-}
-
-class _BarState extends State<Bar> {
   @override
   Widget build(BuildContext context) => BottomNavigationBar(
     onTap:

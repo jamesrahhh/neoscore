@@ -22,6 +22,7 @@ class ScoreRow extends StatelessWidget {
     final ThemeColors themeColors = Theme.of(context).extension<ThemeColors>()!;
     final Scoresheet scoresheet = Provider.of<ScoresheetModel>(
       context,
+      listen: false,
     ).getScoresheet(scoresheetIndex);
 
     return Selector<ScoresheetModel, List<int>>(
@@ -39,24 +40,35 @@ class ScoreRow extends StatelessWidget {
               child: SizedBox(width: 24, child: Text('${endIndex + 1}')),
             ),
             Expanded(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: List<Widget>.generate(scoresheet.shotsPerEnd, (
-                  int shotIndex,
-                ) {
-                  if (scoresheet.scoreData.length <= endIndex ||
-                      end.length <= shotIndex) {
-                    return const EmptyScoreIcon();
-                  } else {
-                    return ScoreIcon(
-                      value: scoresheet.target.formattedScores[end[shotIndex]],
-                      color:
-                          themeColors.colors![scoresheet
-                              .target
-                              .colors[end[shotIndex]]],
-                    );
-                  }
-                }),
+              child: Selector<ScoresheetModel, List<int>>(
+                selector:
+                    (_, ScoresheetModel scoresheetModel) =>
+                        scoresheetModel
+                            .getScoresheet(scoresheetIndex)
+                            .scoreData[endIndex],
+                builder:
+                    (_, List<int> end, __) => Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: List<Widget>.generate(scoresheet.shotsPerEnd, (
+                        int shotIndex,
+                      ) {
+                        if (scoresheet.scoreData.length <= endIndex ||
+                            end.length <= shotIndex) {
+                          return const EmptyScoreIcon();
+                        } else {
+                          return ScoreIcon(
+                            value:
+                                scoresheet
+                                    .target
+                                    .formattedScores[end[shotIndex]],
+                            color:
+                                themeColors.colors![scoresheet
+                                    .target
+                                    .colors[end[shotIndex]]],
+                          );
+                        }
+                      }),
+                    ),
               ),
             ),
             Padding(
