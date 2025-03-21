@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 
 import 'scoresheet_browser.dart';
 import 'scoresheet_editor.dart';
-import 'scoresheet_model.dart';
 import 'scoresheet_viewmodel.dart';
 
 class ScoresheetView extends StatefulWidget {
@@ -20,8 +19,6 @@ class _ScoresheetViewState extends State<ScoresheetView> {
   ];
 
   @override
-  Widget build(BuildContext context) => ChangeNotifierProvider<ScoresheetModel>(
-    create: (_) => ScoresheetModel(),
-    child: _pages[Provider.of<ScoresheetViewModel>(context).pageIndex],
-  );
+  Widget build(BuildContext context) =>
+      _pages[Provider.of<ScoresheetViewModel>(context).pageIndex];
 }

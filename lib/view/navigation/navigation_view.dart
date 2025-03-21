@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../scoresheet/scoresheet_model.dart';
 import '../scoresheet/scoresheet_view.dart';
 import '../scoresheet/scoresheet_viewmodel.dart';
 import '../settings/settings_view.dart';
@@ -26,6 +27,7 @@ class _NavigationViewState extends State<NavigationView> {
       ChangeNotifierProvider<ScoresheetViewModel>(
         create: (_) => ScoresheetViewModel(),
       ),
+      ChangeNotifierProvider<ScoresheetModel>(create: (_) => ScoresheetModel()),
     ],
     builder:
         (BuildContext context, _) => Scaffold(
