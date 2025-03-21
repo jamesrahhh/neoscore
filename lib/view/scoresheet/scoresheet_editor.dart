@@ -52,7 +52,19 @@ class ScoresheetEditor extends StatelessWidget {
                               context,
                               listen: false,
                             ),
-                            child: ScoreKeyboard(endIndex: endIndex),
+                            child: ScoreKeyboard(
+                              endIndex:
+                                  endIndex >
+                                          Provider.of<ScoresheetModel>(
+                                            context,
+                                            listen: false,
+                                          ).getCurrentScoresheet().getLastEnd
+                                      ? Provider.of<ScoresheetModel>(
+                                        context,
+                                        listen: false,
+                                      ).getCurrentScoresheet().getLastEnd
+                                      : endIndex,
+                            ),
                           ),
                     ),
                 child: Column(

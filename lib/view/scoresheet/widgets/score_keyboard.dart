@@ -62,22 +62,71 @@ class ScoreKeyboard extends StatelessWidget {
                       listen: false,
                     ).getCurrentTarget().formattedScores.length,
                     (int index) => InkWell(
-                      onTap:
-                          () => Provider.of<ScoresheetModel>(
-                            context,
-                            listen: false,
-                          ).addScore(endIndex, index),
+                      onTap: () {
+                        Provider.of<ScoresheetModel>(
+                          context,
+                          listen: false,
+                        ).addScore(
+                          endIndex,
+                          Provider.of<ScoresheetModel>(
+                                context,
+                                listen: false,
+                              ).getCurrentTarget().formattedScores.length -
+                              index -
+                              1,
+                        );
+                        if (Provider.of<ScoresheetModel>(context, listen: false)
+                                    .getCurrentScoresheet()
+                                    .scoreData[endIndex]
+                                    .length ==
+                                Provider.of<ScoresheetModel>(
+                                  context,
+                                  listen: false,
+                                ).getCurrentScoresheet().shotsPerEnd &&
+                            endIndex <=
+                                Provider.of<ScoresheetModel>(
+                                  context,
+                                  listen: false,
+                                ).getCurrentScoresheet().ends) {
+                          Navigator.pop(context);
+                          showModalBottomSheet<void>(
+                            context: context,
+                            builder:
+                                (_) =>
+                                    ListenableProvider<ScoresheetModel>.value(
+                                      value: Provider.of<ScoresheetModel>(
+                                        context,
+                                        listen: false,
+                                      ),
+                                      child: ScoreKeyboard(
+                                        endIndex: endIndex + 1,
+                                      ),
+                                    ),
+                          );
+                        }
+                      },
                       child: ScoreIcon(
                         value:
-                            Provider.of<ScoresheetModel>(
-                              context,
-                              listen: false,
-                            ).getCurrentTarget().formattedScores[index],
+                            Provider.of<ScoresheetModel>(context, listen: false)
+                                .getCurrentTarget()
+                                .formattedScores[Provider.of<ScoresheetModel>(
+                                  context,
+                                  listen: false,
+                                ).getCurrentTarget().formattedScores.length -
+                                index -
+                                1],
                         colors:
                             themeColors.colors![Provider.of<ScoresheetModel>(
-                              context,
-                              listen: false,
-                            ).getCurrentTarget().colors[index]],
+                                  context,
+                                  listen: false,
+                                )
+                                .getCurrentTarget()
+                                .colors[Provider.of<ScoresheetModel>(
+                                  context,
+                                  listen: false,
+                                ).getCurrentTarget().formattedScores.length -
+                                index -
+                                1]],
                       ),
                     ),
                   ) +

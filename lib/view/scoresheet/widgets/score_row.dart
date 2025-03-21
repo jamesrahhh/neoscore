@@ -37,7 +37,7 @@ class ScoreRow extends StatelessWidget {
                         .scoreData[endIndex],
             builder:
                 (_, List<int> end, __) => Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: List<Widget>.generate(scoresheet.shotsPerEnd, (
                     int shotIndex,
                   ) {

@@ -13,23 +13,23 @@ class Scoresheet {
   int shotsPerEnd;
   int ends;
 
-  int getTotalScoreEnd(int end) {
-    if (end >= scoreData.length) {
+  int getTotalScoreEnd(int endIndex) {
+    if (endIndex >= scoreData.length) {
       return 0;
     }
     int total = 0;
-    for (final int shot in scoreData[end]) {
+    for (final int shot in scoreData[endIndex]) {
       total += shot > target.highestScore ? target.highestScore : shot;
     }
     return total;
   }
 
-  int getSingleScoreEnd(int end, int score) {
-    if (end >= scoreData.length) {
+  int getSingleScoreEnd(int endIndex, int score) {
+    if (endIndex >= scoreData.length) {
       return 0;
     }
     int total = 0;
-    for (final int shot in scoreData[end]) {
+    for (final int shot in scoreData[endIndex]) {
       if (shot == score) {
         total++;
       }
@@ -57,5 +57,14 @@ class Scoresheet {
       }
     }
     return total;
+  }
+
+  int get getLastEnd {
+    for (int endIndex = 0; endIndex < ends; endIndex++) {
+      if (scoreData[endIndex].length < shotsPerEnd) {
+        return endIndex;
+      }
+    }
+    return ends - 1;
   }
 }
