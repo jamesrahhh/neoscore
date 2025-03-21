@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../../util/theme/colors.dart';
 import '../scoresheet_model.dart';
+import 'empty_score_icon.dart';
 import 'score_icon.dart';
 import 'score_row.dart';
 
@@ -15,27 +16,44 @@ class ScoreKeyboard extends StatelessWidget {
   Widget build(BuildContext context) {
     final ThemeColors themeColors = Theme.of(context).extension<ThemeColors>()!;
 
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        children: <Widget>[
-          ScoreRow(
-            scoresheetIndex:
-                Provider.of<ScoresheetModel>(
-                  context,
-                  listen: false,
-                ).scoresheetIndex,
-            endIndex: endIndex,
+    return Column(
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.only(left: 16, right: 16, top: 8),
+          child: Column(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(bottom: 2),
+                child: Align(
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    '${endIndex + 1}',
+                    style: Theme.of(context).textTheme.displaySmall,
+                  ),
+                ),
+              ),
+              ScoreRow(
+                scoresheetIndex:
+                    Provider.of<ScoresheetModel>(
+                      context,
+                      listen: false,
+                    ).scoresheetIndex,
+                endIndex: endIndex,
+              ),
+            ],
           ),
-          const Padding(padding: EdgeInsets.all(8.0), child: Divider()),
-          Expanded(
+        ),
+        const Padding(padding: EdgeInsets.all(8), child: Divider()),
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.only(left: 8, right: 8),
             child: GridView(
               physics: const NeverScrollableScrollPhysics(),
               gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                maxCrossAxisExtent: 190.0,
-                mainAxisExtent: 54.0,
-                mainAxisSpacing: 4.0,
-                crossAxisSpacing: 4.0,
+                maxCrossAxisExtent: 190,
+                mainAxisExtent: 54,
+                mainAxisSpacing: 8,
+                crossAxisSpacing: 6,
               ),
               children:
                   List<Widget>.generate(
@@ -55,7 +73,7 @@ class ScoreKeyboard extends StatelessWidget {
                               context,
                               listen: false,
                             ).getCurrentTarget().formattedScores[index],
-                        color:
+                        colors:
                             themeColors.colors![Provider.of<ScoresheetModel>(
                               context,
                               listen: false,
@@ -70,16 +88,13 @@ class ScoreKeyboard extends StatelessWidget {
                             context,
                             listen: false,
                           ).deleteScore(endIndex),
-                      child: const ScoreIcon(
-                        value: 'Delete',
-                        color: Colors.black12,
-                      ),
+                      child: const EmptyScoreIcon(child: Icon(Icons.delete)),
                     ),
                   ],
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

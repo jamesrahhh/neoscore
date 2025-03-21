@@ -10,27 +10,27 @@ class ScoresheetEditor extends StatelessWidget {
   const ScoresheetEditor({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return CustomScrollView(
-      slivers: <Widget>[
-        SliverAppBar(
-          centerTitle: true,
-          title: const Text('Editor'),
-          leading: IconButton(
-            onPressed:
-                () => Provider.of<ScoresheetViewModel>(
-                  context,
-                  listen: false,
-                ).setPage(0),
-            icon: const Icon(Icons.arrow_left),
-          ),
+  Widget build(BuildContext context) => CustomScrollView(
+    slivers: <Widget>[
+      SliverAppBar(
+        centerTitle: true,
+        title: const Text('Editor'),
+        leading: IconButton(
+          onPressed:
+              () => Provider.of<ScoresheetViewModel>(
+                context,
+                listen: false,
+              ).setPage(0),
+          icon: const Icon(Icons.arrow_left),
         ),
-        SliverGrid.builder(
+      ),
+      SliverPadding(
+        padding: const EdgeInsets.only(left: 16, right: 16),
+        sliver: SliverGrid.builder(
           gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
             maxCrossAxisExtent: 500,
-            mainAxisExtent: 48.0,
-            mainAxisSpacing: 4.0,
-            crossAxisSpacing: 4.0,
+            mainAxisExtent: 66,
+            crossAxisSpacing: 4,
           ),
           itemCount:
               Provider.of<ScoresheetModel>(context, listen: false)
@@ -55,45 +55,105 @@ class ScoresheetEditor extends StatelessWidget {
                             child: ScoreKeyboard(endIndex: endIndex),
                           ),
                     ),
-                child: ScoreRow(
-                  scoresheetIndex:
-                      Provider.of<ScoresheetModel>(
-                        context,
-                        listen: false,
-                      ).scoresheetIndex,
-                  endIndex: endIndex,
+                child: Column(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 2),
+                      child: Align(
+                        alignment: Alignment.topLeft,
+                        child:
+                            endIndex == 0
+                                ? Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    Text(
+                                      'end ${endIndex + 1}',
+                                      style:
+                                          Theme.of(
+                                            context,
+                                          ).textTheme.displaySmall,
+                                    ),
+                                    Row(
+                                      children: <Widget>[
+                                        Align(
+                                          alignment: Alignment.centerRight,
+                                          child: Text(
+                                            "${Provider.of<ScoresheetModel>(context, listen: false).getCurrentTarget().formattedScores.last.toLowerCase()}'s",
+                                            style:
+                                                Theme.of(
+                                                  context,
+                                                ).textTheme.displaySmall,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 34,
+                                          child: Align(
+                                            alignment: Alignment.centerRight,
+                                            child: Text(
+                                              'total',
+                                              style:
+                                                  Theme.of(
+                                                    context,
+                                                  ).textTheme.displaySmall,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                )
+                                : Text(
+                                  '${endIndex + 1}',
+                                  style:
+                                      Theme.of(context).textTheme.displaySmall,
+                                ),
+                      ),
+                    ),
+                    ScoreRow(
+                      scoresheetIndex:
+                          Provider.of<ScoresheetModel>(
+                            context,
+                            listen: false,
+                          ).scoresheetIndex,
+                      endIndex: endIndex,
+                    ),
+                  ],
                 ),
               ),
         ),
-        SliverToBoxAdapter(
-          child: SizedBox(
-            height: 44,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(left: 16.0, right: 6.0),
-                  child: SizedBox(
-                    width: 24,
-                    child: Text(
-                      '${Provider.of<ScoresheetModel>(context).getCurrentScoresheet().getSingleScore(Provider.of<ScoresheetModel>(context, listen: false).getCurrentTarget().formattedScores.length - 1)}',
+      ),
+      SliverToBoxAdapter(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            Align(
+              alignment: Alignment.centerRight,
+              child: Consumer<ScoresheetModel>(
+                builder:
+                    (_, ScoresheetModel scoresheetModel, __) => Text(
+                      '${scoresheetModel.getCurrentScoresheet().getSingleScore(scoresheetModel.getCurrentTarget().formattedScores.length - 1)}',
                     ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 6.0, right: 14.0),
-                  child: SizedBox(
-                    width: 34,
-                    child: Text(
-                      '${Provider.of<ScoresheetModel>(context).getCurrentScoresheet().getTotalScore}',
-                    ),
-                  ),
-                ),
-              ],
+              ),
             ),
-          ),
+            Padding(
+              padding: const EdgeInsets.only(left: 16, right: 16),
+              child: SizedBox(
+                height: 54,
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: Consumer<ScoresheetModel>(
+                    builder:
+                        (_, ScoresheetModel scoresheetModel, __) => Text(
+                          '${scoresheetModel.getCurrentScoresheet().getTotalScore}',
+                        ),
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
-      ],
-    );
-  }
+      ),
+    ],
+  );
 }
