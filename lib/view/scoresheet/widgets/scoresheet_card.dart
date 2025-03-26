@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../scoresheet_editorview.dart';
 import '../scoresheet_model.dart';
-import '../scoresheet_viewmodel.dart';
 import 'score_row.dart';
 
 class ScoresheetCard extends StatelessWidget {
@@ -33,14 +33,21 @@ class ScoresheetCard extends StatelessWidget {
                   IconButton(
                     icon: const Icon(Icons.more_vert),
                     onPressed: () {
-                      Provider.of<ScoresheetModel>(
+                      Navigator.push(
                         context,
-                        listen: false,
-                      ).setScoresheet(index);
-                      Provider.of<ScoresheetViewModel>(
-                        context,
-                        listen: false,
-                      ).setPage(1);
+                        MaterialPageRoute<ScoresheetEditorView>(
+                          builder:
+                              (_) => ListenableProvider<ScoresheetModel>.value(
+                                value: Provider.of<ScoresheetModel>(
+                                  context,
+                                  listen: false,
+                                ),
+                                child: ScoresheetEditorView(
+                                  scoresheetIndex: index,
+                                ),
+                              ),
+                        ),
+                      );
                     },
                   ),
                 ],

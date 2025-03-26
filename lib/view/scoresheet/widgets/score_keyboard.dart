@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../common/target/target.dart';
 import '../../../util/theme/colors.dart';
 import '../scoresheet_model.dart';
 import 'empty_score_icon.dart';
@@ -8,13 +9,23 @@ import 'score_icon.dart';
 import 'score_row.dart';
 
 class ScoreKeyboard extends StatelessWidget {
-  const ScoreKeyboard({super.key, required this.endIndex});
+  const ScoreKeyboard({
+    super.key,
+    required this.scoresheetIndex,
+    required this.endIndex,
+  });
 
+  final int scoresheetIndex;
   final int endIndex;
 
   @override
   Widget build(BuildContext context) {
     final ThemeColors themeColors = Theme.of(context).extension<ThemeColors>()!;
+    final Target target =
+        Provider.of<ScoresheetModel>(
+          context,
+          listen: false,
+        ).getScoresheet(scoresheetIndex).target;
 
     return Column(
       children: <Widget>[
@@ -32,14 +43,7 @@ class ScoreKeyboard extends StatelessWidget {
                   ),
                 ),
               ),
-              ScoreRow(
-                scoresheetIndex:
-                    Provider.of<ScoresheetModel>(
-                      context,
-                      listen: false,
-                    ).scoresheetIndex,
-                endIndex: endIndex,
-              ),
+              ScoreRow(scoresheetIndex: scoresheetIndex, endIndex: endIndex),
             ],
           ),
         ),
@@ -57,37 +61,30 @@ class ScoreKeyboard extends StatelessWidget {
               ),
               children:
                   List<Widget>.generate(
-                    Provider.of<ScoresheetModel>(
-                      context,
-                      listen: false,
-                    ).getCurrentTarget().formattedScores.length,
+                    target.formattedScores.length,
                     (int index) => InkWell(
                       onTap: () {
                         Provider.of<ScoresheetModel>(
                           context,
                           listen: false,
                         ).addScore(
+                          scoresheetIndex,
                           endIndex,
-                          Provider.of<ScoresheetModel>(
-                                context,
-                                listen: false,
-                              ).getCurrentTarget().formattedScores.length -
-                              index -
-                              1,
+                          target.formattedScores.length - index - 1,
                         );
                         if (Provider.of<ScoresheetModel>(context, listen: false)
-                                    .getCurrentScoresheet()
+                                    .getScoresheet(scoresheetIndex)
                                     .scoreData[endIndex]
                                     .length ==
                                 Provider.of<ScoresheetModel>(
                                   context,
                                   listen: false,
-                                ).getCurrentScoresheet().shotsPerEnd &&
+                                ).getScoresheet(scoresheetIndex).shotsPerEnd &&
                             endIndex <=
                                 Provider.of<ScoresheetModel>(
                                   context,
                                   listen: false,
-                                ).getCurrentScoresheet().ends) {
+                                ).getScoresheet(scoresheetIndex).ends) {
                           Navigator.pop(context);
                           showModalBottomSheet<void>(
                             context: context,
@@ -99,7 +96,14 @@ class ScoreKeyboard extends StatelessWidget {
                                         listen: false,
                                       ),
                                       child: ScoreKeyboard(
-                                        endIndex: endIndex + 1,
+                                        scoresheetIndex: scoresheetIndex,
+                                        endIndex:
+                                            Provider.of<ScoresheetModel>(
+                                                  context,
+                                                  listen: false,
+                                                )
+                                                .getScoresheet(scoresheetIndex)
+                                                .getLastEnd,
                                       ),
                                     ),
                           );
@@ -107,24 +111,15 @@ class ScoreKeyboard extends StatelessWidget {
                       },
                       child: ScoreIcon(
                         value:
-                            Provider.of<ScoresheetModel>(context, listen: false)
-                                .getCurrentTarget()
-                                .formattedScores[Provider.of<ScoresheetModel>(
-                                  context,
-                                  listen: false,
-                                ).getCurrentTarget().formattedScores.length -
+                            target.formattedScores[target
+                                    .formattedScores
+                                    .length -
                                 index -
                                 1],
                         colors:
-                            themeColors.colors![Provider.of<ScoresheetModel>(
-                                  context,
-                                  listen: false,
-                                )
-                                .getCurrentTarget()
-                                .colors[Provider.of<ScoresheetModel>(
-                                  context,
-                                  listen: false,
-                                ).getCurrentTarget().formattedScores.length -
+                            themeColors.colors![target.colors[target
+                                    .formattedScores
+                                    .length -
                                 index -
                                 1]],
                       ),
@@ -136,7 +131,7 @@ class ScoreKeyboard extends StatelessWidget {
                           () => Provider.of<ScoresheetModel>(
                             context,
                             listen: false,
-                          ).deleteScore(endIndex),
+                          ).deleteScore(scoresheetIndex, endIndex),
                       child: const EmptyScoreIcon(child: Icon(Icons.delete)),
                     ),
                   ],

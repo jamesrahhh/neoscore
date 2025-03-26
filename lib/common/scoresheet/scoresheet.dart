@@ -13,6 +13,20 @@ class Scoresheet {
   int shotsPerEnd;
   int ends;
 
+  void addScore(int endIndex, int value) {
+    if (scoreData[endIndex].length < shotsPerEnd) {
+      scoreData[endIndex] = <int>[...scoreData[endIndex], value];
+      scoreData[endIndex].sort((int a, int b) => b.compareTo(a));
+    }
+  }
+
+  void deleteScore(int endIndex) {
+    if (scoreData[endIndex].isNotEmpty) {
+      scoreData[endIndex] = <int>[...scoreData[endIndex]];
+      scoreData[endIndex].removeLast();
+    }
+  }
+
   int getTotalScoreEnd(int endIndex) {
     if (endIndex >= scoreData.length) {
       return 0;
