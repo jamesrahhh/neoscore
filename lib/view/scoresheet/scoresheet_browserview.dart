@@ -20,7 +20,7 @@ class ScoresheetBrowserView extends StatelessWidget {
           SliverGrid.builder(
             gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
               maxCrossAxisExtent: 500,
-              mainAxisExtent: 160,
+              mainAxisExtent: 194,
               mainAxisSpacing: 10,
             ),
             itemBuilder: (_, int index) => ScoresheetCard(index: index),

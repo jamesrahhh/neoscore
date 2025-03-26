@@ -57,46 +57,15 @@ class ScoresheetModel extends ChangeNotifier {
     return _scoresheets[index];
   }
 
-  Scoresheet getCurrentScoresheet() {
-    return _scoresheets[_scoresheetIndex];
-  }
+  int get getScoresheetAmount => _scoresheets.length;
 
-  Target getCurrentTarget() {
-    return getScoresheet(_scoresheetIndex).target;
-  }
-
-  int _scoresheetIndex = 0;
-
-  int get scoresheetIndex => _scoresheetIndex;
-
-  void setScoresheet(int index) {
-    _scoresheetIndex = index;
+  void addScore(int scoresheetIndex, int endIndex, int value) {
+    _scoresheets[scoresheetIndex].addScore(endIndex, value);
     notifyListeners();
   }
 
-  int get getScoresheetAmount => _scoresheets.length;
-
-  void addScore(int endIndex, int value) {
-    if (_scoresheets[scoresheetIndex].scoreData[endIndex].length <
-        _scoresheets[scoresheetIndex].shotsPerEnd) {
-      _scoresheets[scoresheetIndex].scoreData[endIndex] = <int>[
-        ..._scoresheets[scoresheetIndex].scoreData[endIndex],
-      ];
-      _scoresheets[scoresheetIndex].scoreData[endIndex].add(value);
-      _scoresheets[scoresheetIndex].scoreData[endIndex].sort(
-        (int a, int b) => b.compareTo(a),
-      );
-      notifyListeners();
-    }
-  }
-
-  void deleteScore(int endIndex) {
-    if (_scoresheets[scoresheetIndex].scoreData[endIndex].isNotEmpty) {
-      _scoresheets[scoresheetIndex].scoreData[endIndex] = <int>[
-        ..._scoresheets[scoresheetIndex].scoreData[endIndex],
-      ];
-      _scoresheets[scoresheetIndex].scoreData[endIndex].removeLast();
-      notifyListeners();
-    }
+  void deleteScore(int scoresheetIndex, int endIndex) {
+    _scoresheets[scoresheetIndex].deleteScore(endIndex);
+    notifyListeners();
   }
 }

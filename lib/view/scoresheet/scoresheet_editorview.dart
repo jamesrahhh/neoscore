@@ -45,68 +45,9 @@ class ScoresheetEditorView extends StatelessWidget {
                               ),
                             ),
                       ),
-                  child: Column(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 2),
-                        child: Align(
-                          alignment: Alignment.topLeft,
-                          child:
-                              endIndex == 0
-                                  ? Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: <Widget>[
-                                      Text(
-                                        'end ${endIndex + 1}',
-                                        style:
-                                            Theme.of(
-                                              context,
-                                            ).textTheme.displaySmall,
-                                      ),
-                                      Row(
-                                        children: <Widget>[
-                                          Align(
-                                            alignment: Alignment.centerRight,
-                                            child: Text(
-                                              "${Provider.of<ScoresheetModel>(context, listen: false).getScoresheet(scoresheetIndex).target.formattedScores.last.toLowerCase()}'s",
-                                              style:
-                                                  Theme.of(
-                                                    context,
-                                                  ).textTheme.displaySmall,
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            width: 34,
-                                            child: Align(
-                                              alignment: Alignment.centerRight,
-                                              child: Text(
-                                                'total',
-                                                style:
-                                                    Theme.of(
-                                                      context,
-                                                    ).textTheme.displaySmall,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  )
-                                  : Text(
-                                    '${endIndex + 1}',
-                                    style:
-                                        Theme.of(
-                                          context,
-                                        ).textTheme.displaySmall,
-                                  ),
-                        ),
-                      ),
-                      ScoreRow(
-                        scoresheetIndex: scoresheetIndex,
-                        endIndex: endIndex,
-                      ),
-                    ],
+                  child: ScoreRow(
+                    scoresheetIndex: scoresheetIndex,
+                    endIndex: endIndex,
                   ),
                 ),
           ),

@@ -31,21 +31,7 @@ class ScoreKeyboard extends StatelessWidget {
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.only(left: 16, right: 16, top: 8),
-          child: Column(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(bottom: 2),
-                child: Align(
-                  alignment: Alignment.topLeft,
-                  child: Text(
-                    '${endIndex + 1}',
-                    style: Theme.of(context).textTheme.displaySmall,
-                  ),
-                ),
-              ),
-              ScoreRow(scoresheetIndex: scoresheetIndex, endIndex: endIndex),
-            ],
-          ),
+          child: ScoreRow(scoresheetIndex: scoresheetIndex, endIndex: endIndex),
         ),
         const Padding(padding: EdgeInsets.all(8), child: Divider()),
         Expanded(
