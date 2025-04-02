@@ -13,53 +13,67 @@ class ScoresheetCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 0.0),
+      padding: const EdgeInsets.only(left: 10, right: 10),
       child: ColoredBox(
         color: Theme.of(context).colorScheme.surfaceContainer,
         child: Column(
           children: <Widget>[
-            ColoredBox(
-              color: Theme.of(context).colorScheme.primary,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      'Scoresheet ${index + 1}',
-                      style: Theme.of(context).textTheme.titleMedium,
+            InkWell(
+              onTap:
+                  () => Navigator.push(
+                    context,
+                    MaterialPageRoute<ScoresheetEditorView>(
+                      builder:
+                          (_) => ListenableProvider<ScoresheetModel>.value(
+                            value: Provider.of<ScoresheetModel>(
+                              context,
+                              listen: false,
+                            ),
+                            child: ScoresheetEditorView(scoresheetIndex: index),
+                          ),
                     ),
                   ),
-                  IconButton(
-                    icon: const Icon(Icons.more_vert),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute<ScoresheetEditorView>(
-                          builder:
-                              (_) => ListenableProvider<ScoresheetModel>.value(
-                                value: Provider.of<ScoresheetModel>(
-                                  context,
-                                  listen: false,
-                                ),
-                                child: ScoresheetEditorView(
-                                  scoresheetIndex: index,
-                                ),
-                              ),
-                        ),
-                      );
-                    },
-                  ),
-                ],
+
+              child: Padding(
+                padding: const EdgeInsets.only(left: 8, right: 8, top: 8),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8),
+                      child: Text(
+                        'Scoresheet ${index + 1}',
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                    ),
+                    const Icon(Icons.more_vert),
+                  ],
+                ),
               ),
             ),
+            const Padding(
+              padding: EdgeInsets.only(left: 24, right: 24, top: 4, bottom: 4),
+              child: Divider(),
+            ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.only(left: 16, right: 16),
               child: Column(
                 children: List<Widget>.generate(
                   2,
-                  (int endIndex) =>
-                      ScoreRow(scoresheetIndex: index, endIndex: endIndex),
+                  (int endIndex) => ScoreRow(
+                    scoresheetIndex: index,
+                    endIndex:
+                        Provider.of<ScoresheetModel>(
+                                  context,
+                                ).getScoresheet(index).getLastEnd ==
+                                0
+                            ? endIndex
+                            : Provider.of<ScoresheetModel>(
+                                  context,
+                                ).getScoresheet(index).getLastEnd +
+                                endIndex -
+                                1,
+                  ),
                 ),
               ),
             ),
