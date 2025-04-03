@@ -57,6 +57,18 @@ class ScoresheetModel extends ChangeNotifier {
     return _scoresheets[index];
   }
 
+  int createScoresheet(int shotsPerEnd, int ends, Target target) {
+    _scoresheets.add(
+      Scoresheet(
+        scoreData: List<List<int>>.generate(ends, (_) => <int>[]),
+        ends: ends,
+        shotsPerEnd: shotsPerEnd,
+        target: target,
+      ),
+    );
+    return getScoresheetAmount - 1;
+  }
+
   int get getScoresheetAmount => _scoresheets.length;
 
   void addScore(int scoresheetIndex, int endIndex, int value) {

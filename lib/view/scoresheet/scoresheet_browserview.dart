@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'scoresheet_model.dart';
+import 'widgets/scoresheet_browserbottombar.dart';
 import 'widgets/scoresheet_card.dart';
 
 class ScoresheetBrowserView extends StatelessWidget {
@@ -9,6 +10,8 @@ class ScoresheetBrowserView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Scaffold(
+    floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+    floatingActionButton: const ScoresheetBrowserBottomBar(),
     backgroundColor: Theme.of(context).colorScheme.primary,
     body: Scrollbar(
       thickness: 8,
@@ -43,13 +46,12 @@ class ScoresheetBrowserView extends StatelessWidget {
               mainAxisExtent: 204,
               mainAxisSpacing: 10,
             ),
-            itemBuilder: (_, int index) => ScoresheetCard(index: index % 2),
+            itemBuilder: (_, int index) => ScoresheetCard(index: index),
             itemCount:
                 Provider.of<ScoresheetModel>(
                   context,
                   listen: false,
-                ).getScoresheetAmount *
-                10,
+                ).getScoresheetAmount,
           ),
         ],
       ),

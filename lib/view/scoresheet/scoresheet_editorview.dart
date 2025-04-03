@@ -14,7 +14,10 @@ class ScoresheetEditorView extends StatelessWidget {
   Widget build(BuildContext context) => Scaffold(
     body: CustomScrollView(
       slivers: <Widget>[
-        const SliverAppBar(centerTitle: true, title: Text('Editor')),
+        SliverAppBar(
+          centerTitle: true,
+          title: Text('Scoresheet ${scoresheetIndex + 1}'),
+        ),
         SliverPadding(
           padding: const EdgeInsets.only(left: 16, right: 16),
           sliver: SliverGrid.builder(

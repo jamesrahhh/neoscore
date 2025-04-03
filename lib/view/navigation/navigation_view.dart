@@ -5,7 +5,6 @@ import '../scoresheet/scoresheet_browserview.dart';
 import '../scoresheet/scoresheet_model.dart';
 import '../settings/settings_view.dart';
 import 'navigation_viewmodel.dart';
-import 'widgets/bar.dart';
 
 class NavigationView extends StatefulWidget {
   const NavigationView({super.key});
@@ -30,8 +29,8 @@ class _NavigationViewState extends State<NavigationView> {
     ],
     builder:
         (BuildContext context, _) => Scaffold(
+          extendBody: true,
           backgroundColor: Theme.of(context).colorScheme.surface,
-          bottomNavigationBar: const Bar(),
           body: _pages[Provider.of<NavigationViewModel>(context).pageIndex],
         ),
   );
