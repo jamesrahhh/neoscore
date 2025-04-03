@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../scoresheet_editorview.dart';
-import '../scoresheet_model.dart';
-import 'score_row.dart';
+import '../../../common/widgets/score_row.dart';
+import '../../../util/scoresheet/scoresheet_model.dart';
+import '../../editor/editor_view.dart';
 
-class ScoresheetCard extends StatelessWidget {
-  const ScoresheetCard({super.key, required this.index});
+class BrowserCard extends StatelessWidget {
+  const BrowserCard({super.key, required this.index});
 
   final int index;
 
@@ -22,14 +22,14 @@ class ScoresheetCard extends StatelessWidget {
               onTap:
                   () => Navigator.push(
                     context,
-                    MaterialPageRoute<ScoresheetEditorView>(
+                    MaterialPageRoute<EditorView>(
                       builder:
                           (_) => ListenableProvider<ScoresheetModel>.value(
                             value: Provider.of<ScoresheetModel>(
                               context,
                               listen: false,
                             ),
-                            child: ScoresheetEditorView(scoresheetIndex: index),
+                            child: EditorView(scoresheetIndex: index),
                           ),
                     ),
                   ),

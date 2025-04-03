@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../../common/scoresheet/scoresheet.dart';
 import '../../../util/theme/colors.dart';
-import '../scoresheet_model.dart';
+import '../../util/scoresheet/scoresheet_model.dart';
 import 'empty_score_icon.dart';
 import 'score_icon.dart';
 

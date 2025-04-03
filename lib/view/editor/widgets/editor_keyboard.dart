@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../common/target/target.dart';
+import '../../../common/widgets/empty_score_icon.dart';
+import '../../../common/widgets/score_icon.dart';
+import '../../../common/widgets/score_row.dart';
+import '../../../util/scoresheet/scoresheet_model.dart';
 import '../../../util/theme/colors.dart';
-import '../scoresheet_model.dart';
-import 'empty_score_icon.dart';
-import 'score_icon.dart';
-import 'score_row.dart';
 
-class ScoreKeyboard extends StatelessWidget {
-  const ScoreKeyboard({
+class EditorKeyboard extends StatelessWidget {
+  const EditorKeyboard({
     super.key,
     required this.scoresheetIndex,
     required this.endIndex,
@@ -81,7 +81,7 @@ class ScoreKeyboard extends StatelessWidget {
                                         context,
                                         listen: false,
                                       ),
-                                      child: ScoreKeyboard(
+                                      child: EditorKeyboard(
                                         scoresheetIndex: scoresheetIndex,
                                         endIndex:
                                             Provider.of<ScoresheetModel>(

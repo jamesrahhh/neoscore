@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../common/target/target.dart';
-import '../scoresheet_editorview.dart';
-import '../scoresheet_model.dart';
+import '../../../util/scoresheet/scoresheet_model.dart';
+import '../../editor/editor_view.dart';
 
-class ScoresheetCreateDialog extends StatelessWidget {
-  const ScoresheetCreateDialog({super.key});
+class BrowserScoresheetCreationDialog extends StatelessWidget {
+  const BrowserScoresheetCreationDialog({super.key});
 
   @override
   Widget build(BuildContext context) => Dialog(
@@ -14,11 +14,11 @@ class ScoresheetCreateDialog extends StatelessWidget {
       onPressed:
           () => Navigator.pushReplacement(
             context,
-            MaterialPageRoute<ScoresheetEditorView>(
+            MaterialPageRoute<EditorView>(
               builder:
                   (_) => ListenableProvider<ScoresheetModel>.value(
                     value: Provider.of<ScoresheetModel>(context, listen: false),
-                    child: ScoresheetEditorView(
+                    child: EditorView(
                       scoresheetIndex: Provider.of<ScoresheetModel>(
                         context,
                         listen: false,

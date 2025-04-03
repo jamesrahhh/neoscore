@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'scoresheet_model.dart';
-import 'widgets/score_keyboard.dart';
-import 'widgets/score_row.dart';
+import '../../common/widgets/score_row.dart';
+import '../../util/scoresheet/scoresheet_model.dart';
+import 'widgets/editor_keyboard.dart';
 
-class ScoresheetEditorView extends StatelessWidget {
-  const ScoresheetEditorView({super.key, required this.scoresheetIndex});
+class EditorView extends StatelessWidget {
+  const EditorView({super.key, required this.scoresheetIndex});
 
   final int scoresheetIndex;
 
   @override
   Widget build(BuildContext context) => Scaffold(
     body: CustomScrollView(
+      physics: const AlwaysScrollableScrollPhysics(),
       slivers: <Widget>[
         SliverAppBar(
           centerTitle: true,
@@ -42,7 +43,7 @@ class ScoresheetEditorView extends StatelessWidget {
                                 context,
                                 listen: false,
                               ),
-                              child: ScoreKeyboard(
+                              child: EditorKeyboard(
                                 scoresheetIndex: scoresheetIndex,
                                 endIndex: endIndex,
                               ),

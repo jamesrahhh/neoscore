@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../scoresheet/scoresheet_browserview.dart';
-import '../scoresheet/scoresheet_model.dart';
+import '../../util/scoresheet/scoresheet_model.dart';
+import '../browser/browser_view.dart';
 import '../settings/settings_view.dart';
 import 'navigation_viewmodel.dart';
 
@@ -14,10 +14,7 @@ class NavigationView extends StatefulWidget {
 }
 
 class _NavigationViewState extends State<NavigationView> {
-  final List<Widget> _pages = const <Widget>[
-    ScoresheetBrowserView(),
-    SettingsView(),
-  ];
+  final List<Widget> _pages = const <Widget>[BrowserView(), SettingsView()];
 
   @override
   Widget build(BuildContext context) => MultiProvider(

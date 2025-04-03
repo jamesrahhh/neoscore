@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../util/scoresheet/scoresheet_model.dart';
 import '../../navigation/widgets/navigation_bottombar.dart';
-import '../scoresheet_model.dart';
-import 'scoresheet_create_dialog.dart';
+import 'browser_scoresheetcreationdialog.dart';
 
-class ScoresheetBrowserBottomBar extends StatelessWidget {
-  const ScoresheetBrowserBottomBar({super.key});
+class BrowserBottomBar extends StatelessWidget {
+  const BrowserBottomBar({super.key});
 
   @override
   Widget build(BuildContext context) => Row(
@@ -38,7 +38,7 @@ class ScoresheetBrowserBottomBar extends StatelessWidget {
                         context,
                         listen: false,
                       ),
-                      child: const ScoresheetCreateDialog(),
+                      child: const BrowserScoresheetCreationDialog(),
                     ),
               ),
           child: Icon(Icons.add, color: Theme.of(context).colorScheme.surface),

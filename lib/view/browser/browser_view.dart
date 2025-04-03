@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'scoresheet_model.dart';
-import 'widgets/scoresheet_browserbottombar.dart';
-import 'widgets/scoresheet_card.dart';
+import '../../util/scoresheet/scoresheet_model.dart';
+import 'widgets/browser_bottombar.dart';
+import 'widgets/browser_card.dart';
 
-class ScoresheetBrowserView extends StatelessWidget {
-  const ScoresheetBrowserView({super.key});
+class BrowserView extends StatelessWidget {
+  const BrowserView({super.key});
 
   @override
   Widget build(BuildContext context) => Scaffold(
     floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-    floatingActionButton: const ScoresheetBrowserBottomBar(),
+    floatingActionButton: const BrowserBottomBar(),
     backgroundColor: Theme.of(context).colorScheme.primary,
     body: Scrollbar(
       thickness: 8,
@@ -46,7 +46,7 @@ class ScoresheetBrowserView extends StatelessWidget {
               mainAxisExtent: 204,
               mainAxisSpacing: 10,
             ),
-            itemBuilder: (_, int index) => ScoresheetCard(index: index),
+            itemBuilder: (_, int index) => BrowserCard(index: index),
             itemCount:
                 Provider.of<ScoresheetModel>(
                   context,
