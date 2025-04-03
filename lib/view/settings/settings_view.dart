@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../common/widgets/logo.dart';
 import '../navigation/widgets/navigation_bottombar.dart';
 
 class SettingsView extends StatelessWidget {
@@ -13,13 +14,7 @@ class SettingsView extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(6.0),
-            child: Text(
-              'Settings',
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
-          ),
+          const Padding(padding: EdgeInsets.all(6.0), child: Logo()),
           TextButton(
             onPressed: () => showLicensePage(context: context),
             child: Text(
