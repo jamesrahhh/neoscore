@@ -21,20 +21,35 @@ class BrowserView extends StatelessWidget {
         slivers: <Widget>[
           SliverAppBar(
             floating: true,
-            title: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            title: Column(
               children: <Widget>[
-                SearchBar(
-                  constraints: BoxConstraints.tight(const Size(275, 30)),
-                  leading: const Icon(Icons.search),
-                  hintText: 'Search scoresheets...',
-                  textStyle: WidgetStateProperty.all(
-                    Theme.of(context).textTheme.bodySmall,
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    SearchBar(
+                      constraints: BoxConstraints.tight(const Size(275, 30)),
+                      leading: const Icon(Icons.search),
+                      hintText: 'Search scoresheets...',
+                      textStyle: WidgetStateProperty.all(
+                        Theme.of(context).textTheme.bodySmall,
+                      ),
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.filter_alt),
+                      onPressed: () => VoidCallback,
+                    ),
+                  ],
                 ),
-                IconButton(
-                  icon: const Icon(Icons.filter_alt),
-                  onPressed: () => VoidCallback,
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 12),
+                  child: Row(
+                    children: <Widget>[
+                      Text(
+                        'Last synced: never!!!',
+                        style: Theme.of(context).textTheme.displaySmall,
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
