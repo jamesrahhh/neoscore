@@ -17,7 +17,11 @@ class EditorView extends StatelessWidget {
       slivers: <Widget>[
         SliverAppBar(
           centerTitle: true,
-          title: Text('Scoresheet ${scoresheetIndex + 1}'),
+          title: Text(
+            Provider.of<ScoresheetModel>(
+              context,
+            ).getScoresheet(scoresheetIndex).name,
+          ),
         ),
         SliverPadding(
           padding: const EdgeInsets.only(left: 16, right: 16),

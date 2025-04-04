@@ -4,62 +4,16 @@ import '../../common/scoresheet/scoresheet.dart';
 import '../../common/target/target.dart';
 
 class ScoresheetModel extends ChangeNotifier {
-  final List<Scoresheet> _scoresheets = <Scoresheet>[
-    Scoresheet(
-      scoreData: <List<int>>[
-        <int>[],
-        <int>[],
-        <int>[],
-        <int>[],
-        <int>[],
-        <int>[],
-        <int>[],
-        <int>[],
-        <int>[],
-        <int>[],
-        <int>[],
-        <int>[],
-        <int>[],
-        <int>[],
-        <int>[],
-        <int>[],
-        <int>[],
-        <int>[],
-        <int>[],
-        <int>[],
-      ],
-      shotsPerEnd: 3,
-      ends: 20,
-      target: Target.USA(),
-    ),
-    Scoresheet(
-      scoreData: <List<int>>[
-        <int>[6, 6, 6, 6, 6],
-        <int>[6, 6, 6, 6, 6],
-        <int>[6, 6, 6, 6, 6],
-        <int>[6, 6, 6, 6, 6],
-        <int>[6, 6, 6, 6, 6],
-        <int>[6, 6, 6, 6, 6],
-        <int>[6, 6, 6, 6, 6],
-        <int>[6, 6, 6, 6, 6],
-        <int>[6, 6, 6, 6, 6],
-        <int>[6, 6, 6, 6, 6],
-        <int>[6, 6, 6, 6, 6],
-        <int>[6, 6, 6, 6, 6],
-      ],
-      shotsPerEnd: 5,
-      ends: 12,
-      target: Target.NFAA(),
-    ),
-  ];
+  final List<Scoresheet> _scoresheets = <Scoresheet>[];
 
   Scoresheet getScoresheet(int index) {
     return _scoresheets[index];
   }
 
-  int createScoresheet(int shotsPerEnd, int ends, Target target) {
+  int createScoresheet(String name, int shotsPerEnd, int ends, Target target) {
     _scoresheets.add(
       Scoresheet(
+        name: name,
         scoreData: List<List<int>>.generate(ends, (_) => <int>[]),
         ends: ends,
         shotsPerEnd: shotsPerEnd,

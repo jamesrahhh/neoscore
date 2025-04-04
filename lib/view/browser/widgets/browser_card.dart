@@ -42,7 +42,10 @@ class BrowserCard extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(left: 8),
                       child: Text(
-                        'Scoresheet ${index + 1}',
+                        Provider.of<ScoresheetModel>(
+                          context,
+                          listen: false,
+                        ).getScoresheet(index).name,
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
                     ),
