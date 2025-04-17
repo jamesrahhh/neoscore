@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../common/widgets/score_row.dart';
-import '../../../util/scoresheet/scoresheet_model.dart';
 import '../../editor/editor_view.dart';
+import '../../editor/scoresheet_model.dart';
+import '../../navigation/scoresheet_managermodel.dart';
+import '../../widgets/score_row.dart';
 
 class BrowserCard extends StatelessWidget {
   const BrowserCard({super.key, required this.index});
@@ -24,13 +25,14 @@ class BrowserCard extends StatelessWidget {
                     context,
                     MaterialPageRoute<EditorView>(
                       builder:
-                          (_) => ListenableProvider<ScoresheetModel>.value(
-                            value: Provider.of<ScoresheetModel>(
-                              context,
-                              listen: false,
-                            ),
-                            child: EditorView(scoresheetIndex: index),
-                          ),
+                          (_) =>
+                              ListenableProvider<ScoresheetManagerModel>.value(
+                                value: Provider.of<ScoresheetManagerModel>(
+                                  context,
+                                  listen: false,
+                                ),
+                                child: EditorView(scoresheetIndex: index),
+                              ),
                     ),
                   ),
 
@@ -45,7 +47,7 @@ class BrowserCard extends StatelessWidget {
                         Provider.of<ScoresheetModel>(
                           context,
                           listen: false,
-                        ).getScoresheet(index).name,
+                        ).name,
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
                     ),
@@ -64,16 +66,10 @@ class BrowserCard extends StatelessWidget {
                 children: List<Widget>.generate(
                   2,
                   (int endIndex) => ScoreRow(
-                    scoresheetIndex: index,
                     endIndex:
-                        Provider.of<ScoresheetModel>(
-                                  context,
-                                ).getScoresheet(index).getLastEnd ==
-                                0
+                        Provider.of<ScoresheetModel>(context).getLastEnd == 0
                             ? endIndex
-                            : Provider.of<ScoresheetModel>(
-                                  context,
-                                ).getScoresheet(index).getLastEnd +
+                            : Provider.of<ScoresheetModel>(context).getLastEnd +
                                 endIndex -
                                 1,
                   ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../util/scoresheet/scoresheet_model.dart';
+import '../navigation/scoresheet_managermodel.dart';
 import 'widgets/browser_bottombar.dart';
 import 'widgets/browser_card.dart';
 
@@ -63,7 +63,7 @@ class BrowserView extends StatelessWidget {
             ),
             itemBuilder: (_, int index) => BrowserCard(index: index),
             itemCount:
-                Provider.of<ScoresheetModel>(
+                Provider.of<ScoresheetManagerModel>(
                   context,
                   listen: false,
                 ).getScoresheetAmount,

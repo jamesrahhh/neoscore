@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../common/target/target.dart';
-import '../../../util/scoresheet/scoresheet_model.dart';
 import '../../editor/editor_view.dart';
+import '../../navigation/scoresheet_managermodel.dart';
 
 class BrowserScoresheetCreationDialog extends StatefulWidget {
   const BrowserScoresheetCreationDialog({super.key});
@@ -98,23 +98,27 @@ class _BrowserScoresheetCreationDialogState
                     context,
                     MaterialPageRoute<EditorView>(
                       builder:
-                          (_) => ListenableProvider<ScoresheetModel>.value(
-                            value: Provider.of<ScoresheetModel>(
-                              context,
-                              listen: false,
-                            ),
-                            child: EditorView(
-                              scoresheetIndex: Provider.of<ScoresheetModel>(
-                                context,
-                                listen: false,
-                              ).createScoresheet(
-                                _nameController.value.text,
-                                int.parse(_shotsPerEndController.value.text),
-                                int.parse(_endsController.value.text),
-                                _selectedTarget!,
+                          (_) =>
+                              ListenableProvider<ScoresheetManagerModel>.value(
+                                value: Provider.of<ScoresheetManagerModel>(
+                                  context,
+                                  listen: false,
+                                ),
+                                child: EditorView(
+                                  scoresheetIndex:
+                                      Provider.of<ScoresheetManagerModel>(
+                                        context,
+                                        listen: false,
+                                      ).createScoresheet(
+                                        _nameController.value.text,
+                                        int.parse(
+                                          _shotsPerEndController.value.text,
+                                        ),
+                                        int.parse(_endsController.value.text),
+                                        _selectedTarget!,
+                                      ),
+                                ),
                               ),
-                            ),
-                          ),
                     ),
                   );
                 },

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../util/scoresheet/scoresheet_model.dart';
+import '../../navigation/scoresheet_managermodel.dart';
 import '../../navigation/widgets/navigation_bottombar.dart';
 import 'browser_scoresheetcreationdialog.dart';
 
@@ -33,8 +33,8 @@ class BrowserBottomBar extends StatelessWidget {
               () => showDialog<void>(
                 context: context,
                 builder:
-                    (_) => ListenableProvider<ScoresheetModel>.value(
-                      value: Provider.of<ScoresheetModel>(
+                    (_) => ListenableProvider<ScoresheetManagerModel>.value(
+                      value: Provider.of<ScoresheetManagerModel>(
                         context,
                         listen: false,
                       ),

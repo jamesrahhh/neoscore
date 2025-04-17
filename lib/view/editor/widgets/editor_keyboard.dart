@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../common/target/target.dart';
-import '../../../common/widgets/empty_score_icon.dart';
-import '../../../common/widgets/score_icon.dart';
-import '../../../common/widgets/score_row.dart';
-import '../../../util/scoresheet/scoresheet_model.dart';
 import '../../../util/theme/colors.dart';
+import '../../widgets/empty_score_icon.dart';
+import '../../widgets/score_icon.dart';
+import '../../widgets/score_row.dart';
+import '../scoresheet_model.dart';
 
 class EditorKeyboard extends StatelessWidget {
   const EditorKeyboard({
@@ -22,16 +22,13 @@ class EditorKeyboard extends StatelessWidget {
   Widget build(BuildContext context) {
     final ThemeColors themeColors = Theme.of(context).extension<ThemeColors>()!;
     final Target target =
-        Provider.of<ScoresheetModel>(
-          context,
-          listen: false,
-        ).getScoresheet(scoresheetIndex).target;
+        Provider.of<ScoresheetModel>(context, listen: false).target;
 
     return Column(
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.only(left: 16, right: 16, top: 8),
-          child: ScoreRow(scoresheetIndex: scoresheetIndex, endIndex: endIndex),
+          child: ScoreRow(endIndex: endIndex),
         ),
         const Padding(padding: EdgeInsets.all(8), child: Divider()),
         Expanded(
@@ -54,46 +51,9 @@ class EditorKeyboard extends StatelessWidget {
                           context,
                           listen: false,
                         ).addScore(
-                          scoresheetIndex,
                           endIndex,
                           target.formattedScores.length - index - 1,
                         );
-                        if (Provider.of<ScoresheetModel>(context, listen: false)
-                                    .getScoresheet(scoresheetIndex)
-                                    .scoreData[endIndex]
-                                    .length ==
-                                Provider.of<ScoresheetModel>(
-                                  context,
-                                  listen: false,
-                                ).getScoresheet(scoresheetIndex).shotsPerEnd &&
-                            endIndex <=
-                                Provider.of<ScoresheetModel>(
-                                  context,
-                                  listen: false,
-                                ).getScoresheet(scoresheetIndex).ends) {
-                          Navigator.pop(context);
-                          showModalBottomSheet<void>(
-                            context: context,
-                            builder:
-                                (_) =>
-                                    ListenableProvider<ScoresheetModel>.value(
-                                      value: Provider.of<ScoresheetModel>(
-                                        context,
-                                        listen: false,
-                                      ),
-                                      child: EditorKeyboard(
-                                        scoresheetIndex: scoresheetIndex,
-                                        endIndex:
-                                            Provider.of<ScoresheetModel>(
-                                                  context,
-                                                  listen: false,
-                                                )
-                                                .getScoresheet(scoresheetIndex)
-                                                .getLastEnd,
-                                      ),
-                                    ),
-                          );
-                        }
                       },
                       child: ScoreIcon(
                         value:
@@ -117,7 +77,7 @@ class EditorKeyboard extends StatelessWidget {
                           () => Provider.of<ScoresheetModel>(
                             context,
                             listen: false,
-                          ).deleteScore(scoresheetIndex, endIndex),
+                          ).deleteScore(endIndex),
                       child: const EmptyScoreIcon(child: Icon(Icons.delete)),
                     ),
                   ],
