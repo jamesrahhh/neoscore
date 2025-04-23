@@ -17,6 +17,7 @@ class ScoresheetModel extends ChangeNotifier {
         value,
       ];
       _scoresheet.scoreData[endIndex].sort((int a, int b) => b.compareTo(a));
+      notifyListeners();
     }
   }
 
@@ -26,6 +27,7 @@ class ScoresheetModel extends ChangeNotifier {
         ..._scoresheet.scoreData[endIndex],
       ];
       _scoresheet.scoreData[endIndex].removeLast();
+      notifyListeners();
     }
   }
 
