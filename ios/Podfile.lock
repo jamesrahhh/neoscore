@@ -1256,7 +1256,7 @@ PODS:
     - GoogleUtilities/Network (~> 8.0)
     - "GoogleUtilities/NSData+zlib (~> 8.0)"
     - nanopb (~> 3.30910.0)
-  - FirebaseAppCheckInterop (11.11.0)
+  - FirebaseAppCheckInterop (11.12.0)
   - FirebaseAuth (11.10.0):
     - FirebaseAppCheckInterop (~> 11.0)
     - FirebaseAuthInterop (~> 11.0)
@@ -1266,7 +1266,7 @@ PODS:
     - GoogleUtilities/Environment (~> 8.0)
     - GTMSessionFetcher/Core (< 5.0, >= 3.4)
     - RecaptchaInterop (~> 101.0)
-  - FirebaseAuthInterop (11.11.0)
+  - FirebaseAuthInterop (11.12.0)
   - FirebaseCore (11.10.0):
     - FirebaseCoreInternal (~> 11.10.0)
     - GoogleUtilities/Environment (~> 8.0)
@@ -1327,7 +1327,7 @@ PODS:
     - FirebaseSharedSwift (~> 11.0)
     - GoogleUtilities/Environment (~> 8.0)
     - "GoogleUtilities/NSData+zlib (~> 8.0)"
-  - FirebaseRemoteConfigInterop (11.11.0)
+  - FirebaseRemoteConfigInterop (11.12.0)
   - FirebaseSessions (11.10.0):
     - FirebaseCore (~> 11.10.0)
     - FirebaseCoreExtension (~> 11.10.0)
@@ -1337,7 +1337,7 @@ PODS:
     - GoogleUtilities/UserDefaults (~> 8.0)
     - nanopb (~> 3.30910.0)
     - PromisesSwift (~> 2.1)
-  - FirebaseSharedSwift (11.11.0)
+  - FirebaseSharedSwift (11.12.0)
   - Flutter (1.0.0)
   - GoogleAppMeasurement (11.10.0):
     - GoogleAppMeasurement/AdIdSupport (= 11.10.0)
@@ -1564,9 +1564,9 @@ SPEC CHECKSUMS:
   firebase_performance: c047897b19a2e07c3b227efe4802c4646d30fdd5
   FirebaseABTesting: dfc10eb6cc08fe3b391ac9e5aa40396d43ea6675
   FirebaseAnalytics: 4e42333f02cf78ed93703a5c36f36dd518aebdef
-  FirebaseAppCheckInterop: f23709c9ce92d810aa53ff4ce12ad3e666a3c7be
+  FirebaseAppCheckInterop: 73b173e5ec45192e2d522ad43f526a82ad10b852
   FirebaseAuth: c4146bdfdc87329f9962babd24dae89373f49a32
-  FirebaseAuthInterop: ac22ed402c2f4e3a8c63ebd3278af9a06073c1be
+  FirebaseAuthInterop: b583210c039a60ed3f1e48865e1f3da44a796595
   FirebaseCore: 8344daef5e2661eb004b177488d6f9f0f24251b7
   FirebaseCoreExtension: 6f357679327f3614e995dc7cf3f2d600bdc774ac
   FirebaseCoreInternal: ef4505d2afb1d0ebbc33162cb3795382904b5679
@@ -1576,9 +1576,9 @@ SPEC CHECKSUMS:
   FirebaseInstallations: 9980995bdd06ec8081dfb6ab364162bdd64245c3
   FirebasePerformance: f0bd14be05aaa1136cbb1c9aaaf87d213d0e6fbf
   FirebaseRemoteConfig: 10695bc0ce3b103e3706a5578c43f2a9f69d5aaa
-  FirebaseRemoteConfigInterop: 85bdce8babed7814816496bb6f082bc05b0a45e1
+  FirebaseRemoteConfigInterop: 82b81fd06ee550cbeff40004e2c106daedf73e38
   FirebaseSessions: 9b3b30947b97a15370e0902ee7a90f50ef60ead6
-  FirebaseSharedSwift: b1d32c3b29a911dc174bcf363f2f70bda9509d2f
+  FirebaseSharedSwift: d2475748a2d2a36242ed13baa34b2acda846c925
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   GoogleAppMeasurement: 36684bfb3ee034e2b42b4321eb19da3a1b81e65d
   GoogleDataTransport: aae35b7ea0c09004c3797d53c8c41f66f219d6a7
@@ -1592,6 +1592,6 @@ SPEC CHECKSUMS:
   PromisesSwift: 9d77319bbe72ebf6d872900551f7eeba9bce2851
   RecaptchaInterop: 11e0b637842dfb48308d242afc3f448062325aba
 
-PODFILE CHECKSUM: a57f30d18f102dd3ce366b1d62a55ecbef2158e5
+PODFILE CHECKSUM: 251cb053df7158f337c0712f2ab29f4e0fa474ce
 
 COCOAPODS: 1.16.2
