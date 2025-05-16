@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-import '../../editor/editor_view.dart';
-import '../../editor/scoresheet_model.dart';
-import '../../navigation/scoresheet_managermodel.dart';
-import '../../widgets/score_row.dart';
+import '../../../common/scoresheet/scoresheet_card.dart';
 
 class BrowserCard extends StatelessWidget {
-  const BrowserCard({super.key, required this.index});
+  const BrowserCard({super.key, required this.card});
 
-  final int index;
+  final ScoresheetCard card;
 
   @override
   Widget build(BuildContext context) {
@@ -20,22 +16,7 @@ class BrowserCard extends StatelessWidget {
         child: Column(
           children: <Widget>[
             InkWell(
-              onTap:
-                  () => Navigator.push(
-                    context,
-                    MaterialPageRoute<EditorView>(
-                      builder:
-                          (_) =>
-                              ListenableProvider<ScoresheetManagerModel>.value(
-                                value: Provider.of<ScoresheetManagerModel>(
-                                  context,
-                                  listen: false,
-                                ),
-                                child: EditorView(scoresheetIndex: index),
-                              ),
-                    ),
-                  ),
-
+              onTap: () => VoidCallback,
               child: Padding(
                 padding: const EdgeInsets.only(left: 8, right: 8, top: 8),
                 child: Row(
@@ -44,10 +25,7 @@ class BrowserCard extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(left: 8),
                       child: Text(
-                        Provider.of<ScoresheetModel>(
-                          context,
-                          listen: false,
-                        ).name,
+                        card.name,
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
                     ),
@@ -62,19 +40,7 @@ class BrowserCard extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.only(left: 16, right: 16),
-              child: Column(
-                children: List<Widget>.generate(
-                  2,
-                  (int endIndex) => ScoreRow(
-                    endIndex:
-                        Provider.of<ScoresheetModel>(context).getLastEnd == 0
-                            ? endIndex
-                            : Provider.of<ScoresheetModel>(context).getLastEnd +
-                                endIndex -
-                                1,
-                  ),
-                ),
-              ),
+              child: Text('ends: ${card.ends}'),
             ),
           ],
         ),

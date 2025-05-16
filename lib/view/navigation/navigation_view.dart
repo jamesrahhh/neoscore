@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../browser/browser_view.dart';
+import '../browser/browser_viewmodel.dart';
 import '../settings/settings_view.dart';
 import 'navigation_viewmodel.dart';
-import 'scoresheet_managermodel.dart';
 
 class NavigationView extends StatefulWidget {
   const NavigationView({super.key});
@@ -22,8 +22,8 @@ class _NavigationViewState extends State<NavigationView> {
       ChangeNotifierProvider<NavigationViewModel>(
         create: (_) => NavigationViewModel(),
       ),
-      ChangeNotifierProvider<ScoresheetManagerModel>(
-        create: (_) => ScoresheetManagerModel(),
+      ChangeNotifierProvider<BrowserViewModel>(
+        create: (_) => BrowserViewModel(),
       ),
     ],
     builder:

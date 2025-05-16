@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../util/theme/colors.dart';
-import '../editor/scoresheet_model.dart';
-import 'empty_score_icon.dart';
-import 'score_icon.dart';
+import '../../widgets/empty_score_icon.dart';
+import '../../widgets/score_icon.dart';
+import '../editor_viewmodel.dart';
 
-class ScoreRow extends StatelessWidget {
-  const ScoreRow({super.key, required this.endIndex});
+class EditorRow extends StatelessWidget {
+  const EditorRow({super.key, required this.endIndex});
 
   final int endIndex;
 
@@ -35,7 +35,7 @@ class ScoreRow extends StatelessWidget {
                             Align(
                               alignment: Alignment.centerRight,
                               child: Text(
-                                "${Provider.of<ScoresheetModel>(context, listen: false).target.formattedScores.last.toLowerCase()}'s",
+                                "${Provider.of<EditorViewModel>(context, listen: false).target.formattedScores.last.toLowerCase()}'s",
                                 style: Theme.of(context).textTheme.displaySmall,
                               ),
                             ),
@@ -64,36 +64,31 @@ class ScoreRow extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             Expanded(
-              child: Selector<ScoresheetModel, List<int>>(
+              child: Selector<EditorViewModel, List<int>>(
                 selector:
-                    (_, ScoresheetModel scoresheetModel) =>
-                        scoresheetModel.getEnd(endIndex),
+                    (_, EditorViewModel editorViewModel) =>
+                        editorViewModel.getEnd(endIndex),
                 builder:
                     (_, List<int> end, __) => Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: List<Widget>.generate(
-                        Provider.of<ScoresheetModel>(
+                        Provider.of<EditorViewModel>(
                           context,
                           listen: false,
                         ).shotsPerEnd,
                         (int shotIndex) {
-                          if (Provider.of<ScoresheetModel>(
-                                    context,
-                                    listen: false,
-                                  ).currentEnds <=
-                                  endIndex ||
-                              end.length <= shotIndex) {
+                          if (end.length <= shotIndex) {
                             return const EmptyScoreIcon();
                           } else {
                             return ScoreIcon(
                               value:
-                                  Provider.of<ScoresheetModel>(
+                                  Provider.of<EditorViewModel>(
                                     context,
                                     listen: false,
                                   ).target.formattedScores[end[shotIndex]],
                               colors:
                                   themeColors
-                                      .colors![Provider.of<ScoresheetModel>(
+                                      .colors![Provider.of<EditorViewModel>(
                                     context,
                                     listen: false,
                                   ).target.colors[end[shotIndex]]],
@@ -108,13 +103,13 @@ class ScoreRow extends StatelessWidget {
               padding: const EdgeInsets.only(left: 18),
               child: Align(
                 alignment: Alignment.centerRight,
-                child: Selector<ScoresheetModel, List<int>>(
+                child: Selector<EditorViewModel, List<int>>(
                   selector:
-                      (_, ScoresheetModel scoresheetModel) =>
-                          scoresheetModel.getEnd(endIndex),
+                      (_, EditorViewModel editorViewModel) =>
+                          editorViewModel.getEnd(endIndex),
                   builder:
                       (_, __, ___) => Text(
-                        '${Provider.of<ScoresheetModel>(context, listen: false).getSingleScoreEnd(endIndex, Provider.of<ScoresheetModel>(context, listen: false).target.formattedScores.length - 1)}',
+                        '${Provider.of<EditorViewModel>(context, listen: false).getSingleScoreEnd(endIndex: endIndex, score: Provider.of<EditorViewModel>(context, listen: false).target.formattedScores.length - 1)}',
                       ),
                 ),
               ),
@@ -123,13 +118,13 @@ class ScoreRow extends StatelessWidget {
               width: 34,
               child: Align(
                 alignment: Alignment.centerRight,
-                child: Selector<ScoresheetModel, List<int>>(
+                child: Selector<EditorViewModel, List<int>>(
                   selector:
-                      (_, ScoresheetModel scoresheetModel) =>
-                          scoresheetModel.getEnd(endIndex),
+                      (_, EditorViewModel editorViewModel) =>
+                          editorViewModel.getEnd(endIndex),
                   builder:
                       (_, __, ___) => Text(
-                        '${Provider.of<ScoresheetModel>(context, listen: false).getTotalScoreEnd(endIndex)}',
+                        '${Provider.of<EditorViewModel>(context, listen: false).getTotalScoreEnd(endIndex: endIndex)}',
                       ),
                 ),
               ),

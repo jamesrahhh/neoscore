@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../common/scoresheet/scoresheet.dart';
 import '../../../common/target/target.dart';
 import '../../editor/editor_view.dart';
-import '../../navigation/scoresheet_managermodel.dart';
+import '../../editor/editor_viewmodel.dart';
+import '../browser_viewmodel.dart';
 
 class BrowserScoresheetCreationDialog extends StatefulWidget {
   const BrowserScoresheetCreationDialog({super.key});
@@ -16,7 +18,7 @@ class BrowserScoresheetCreationDialog extends StatefulWidget {
 class _BrowserScoresheetCreationDialogState
     extends State<BrowserScoresheetCreationDialog> {
   final TextEditingController _nameController = TextEditingController();
-  Target? _selectedTarget = Target.USA();
+  final TextEditingController _targetController = TextEditingController();
   final TextEditingController _endsController = TextEditingController();
   final TextEditingController _shotsPerEndController = TextEditingController();
 
@@ -51,7 +53,7 @@ class _BrowserScoresheetCreationDialogState
                   DropdownMenu<Target>(
                     width: 500,
                     hintText: 'Target',
-                    onSelected: (Target? target) => _selectedTarget = target,
+                    controller: _targetController,
                     dropdownMenuEntries:
                         List<DropdownMenuEntry<Target>>.generate(
                           Target.getTargets.length,
@@ -93,32 +95,28 @@ class _BrowserScoresheetCreationDialogState
                 ),
               ),
               child: TextButton(
-                onPressed: () {
+                onPressed: () async {
+                  final Scoresheet scoresheet = Scoresheet(
+                    name: _nameController.value.text,
+                    target: Target.USA(),
+                    ends: int.parse(_endsController.value.text),
+                    shotsPerEnd: int.parse(_shotsPerEndController.value.text),
+                  );
+                  final int id = await Provider.of<BrowserViewModel>(
+                    context,
+                    listen: false,
+                  ).insertScoresheet(scoresheet: scoresheet);
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute<EditorView>(
-                      builder:
-                          (_) =>
-                              ListenableProvider<ScoresheetManagerModel>.value(
-                                value: Provider.of<ScoresheetManagerModel>(
-                                  context,
-                                  listen: false,
-                                ),
-                                child: EditorView(
-                                  scoresheetIndex:
-                                      Provider.of<ScoresheetManagerModel>(
-                                        context,
-                                        listen: false,
-                                      ).createScoresheet(
-                                        _nameController.value.text,
-                                        int.parse(
-                                          _shotsPerEndController.value.text,
-                                        ),
-                                        int.parse(_endsController.value.text),
-                                        _selectedTarget!,
-                                      ),
-                                ),
-                              ),
+                      builder: (_) {
+                        return ChangeNotifierProvider<EditorViewModel>(
+                          create:
+                              (_) => EditorViewModel(scoresheet: scoresheet),
+                          builder:
+                              (BuildContext context, _) => EditorView(id: id),
+                        );
+                      },
                     ),
                   );
                 },

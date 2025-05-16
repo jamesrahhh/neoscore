@@ -5,30 +5,25 @@ import '../../../common/target/target.dart';
 import '../../../util/theme/colors.dart';
 import '../../widgets/empty_score_icon.dart';
 import '../../widgets/score_icon.dart';
-import '../../widgets/score_row.dart';
-import '../scoresheet_model.dart';
+import '../editor_viewmodel.dart';
+import 'editor_row.dart';
 
 class EditorKeyboard extends StatelessWidget {
-  const EditorKeyboard({
-    super.key,
-    required this.scoresheetIndex,
-    required this.endIndex,
-  });
+  const EditorKeyboard({super.key, required this.endIndex});
 
-  final int scoresheetIndex;
   final int endIndex;
 
   @override
   Widget build(BuildContext context) {
     final ThemeColors themeColors = Theme.of(context).extension<ThemeColors>()!;
     final Target target =
-        Provider.of<ScoresheetModel>(context, listen: false).target;
+        Provider.of<EditorViewModel>(context, listen: false).target;
 
     return Column(
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.only(left: 16, right: 16, top: 8),
-          child: ScoreRow(endIndex: endIndex),
+          child: EditorRow(endIndex: endIndex),
         ),
         const Padding(padding: EdgeInsets.all(8), child: Divider()),
         Expanded(
@@ -47,12 +42,12 @@ class EditorKeyboard extends StatelessWidget {
                     target.formattedScores.length,
                     (int index) => InkWell(
                       onTap: () {
-                        Provider.of<ScoresheetModel>(
+                        Provider.of<EditorViewModel>(
                           context,
                           listen: false,
                         ).addScore(
-                          endIndex,
-                          target.formattedScores.length - index - 1,
+                          endIndex: endIndex,
+                          value: target.formattedScores.length - index - 1,
                         );
                       },
                       child: ScoreIcon(
@@ -74,10 +69,10 @@ class EditorKeyboard extends StatelessWidget {
                   <Widget>[
                     InkWell(
                       onTap:
-                          () => Provider.of<ScoresheetModel>(
+                          () => Provider.of<EditorViewModel>(
                             context,
                             listen: false,
-                          ).deleteScore(endIndex),
+                          ).deleteScore(endIndex: endIndex),
                       child: const EmptyScoreIcon(child: Icon(Icons.delete)),
                     ),
                   ],

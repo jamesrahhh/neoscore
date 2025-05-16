@@ -3,14 +3,12 @@ import 'package:flutter/widgets.dart';
 import '../../common/scoresheet/scoresheet.dart';
 import '../../common/target/target.dart';
 
-class ScoresheetModel extends ChangeNotifier {
-  ScoresheetModel(Scoresheet scoresheet) {
-    _scoresheet = scoresheet;
-  }
+class EditorViewModel extends ChangeNotifier {
+  EditorViewModel({required Scoresheet scoresheet}) : _scoresheet = scoresheet;
 
-  late Scoresheet _scoresheet;
+  final Scoresheet _scoresheet;
 
-  void addScore(int endIndex, int value) {
+  void addScore({required int endIndex, required int value}) {
     if (_scoresheet.scoreData[endIndex].length < _scoresheet.shotsPerEnd) {
       _scoresheet.scoreData[endIndex] = <int>[
         ..._scoresheet.scoreData[endIndex],
@@ -21,7 +19,7 @@ class ScoresheetModel extends ChangeNotifier {
     }
   }
 
-  void deleteScore(int endIndex) {
+  void deleteScore({required int endIndex}) {
     if (_scoresheet.scoreData[endIndex].isNotEmpty) {
       _scoresheet.scoreData[endIndex] = <int>[
         ..._scoresheet.scoreData[endIndex],
@@ -31,7 +29,7 @@ class ScoresheetModel extends ChangeNotifier {
     }
   }
 
-  int getTotalScoreEnd(int endIndex) {
+  int getTotalScoreEnd({required int endIndex}) {
     if (endIndex >= _scoresheet.scoreData.length) {
       return 0;
     }
@@ -45,7 +43,7 @@ class ScoresheetModel extends ChangeNotifier {
     return total;
   }
 
-  int getSingleScoreEnd(int endIndex, int score) {
+  int getSingleScoreEnd({required int endIndex, required int score}) {
     if (endIndex >= _scoresheet.scoreData.length) {
       return 0;
     }
@@ -71,7 +69,7 @@ class ScoresheetModel extends ChangeNotifier {
     return total;
   }
 
-  int getSingleScore(int score) {
+  int getSingleScore({required int score}) {
     int total = 0;
     for (final List<int> end in _scoresheet.scoreData) {
       for (final int shot in end) {
@@ -83,20 +81,9 @@ class ScoresheetModel extends ChangeNotifier {
     return total;
   }
 
-  int get getLastEnd {
-    for (int endIndex = 0; endIndex < _scoresheet.ends; endIndex++) {
-      if (_scoresheet.scoreData[endIndex].length < _scoresheet.shotsPerEnd) {
-        return endIndex;
-      }
-    }
-    return _scoresheet.ends - 1;
-  }
-
   int get shotsPerEnd => _scoresheet.shotsPerEnd;
 
   int get ends => _scoresheet.ends;
-
-  int get currentEnds => _scoresheet.scoreData.length;
 
   Target get target => _scoresheet.target;
 
