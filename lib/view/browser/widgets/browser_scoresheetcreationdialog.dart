@@ -96,29 +96,29 @@ class _BrowserScoresheetCreationDialogState
               ),
               child: TextButton(
                 onPressed: () async {
-                  final Scoresheet scoresheet = Scoresheet(
+                  final Scoresheet scoresheet = await Provider.of<
+                    BrowserViewModel
+                  >(context, listen: false).createScoresheet(
                     name: _nameController.value.text,
                     target: Target.USA(),
                     ends: int.parse(_endsController.value.text),
                     shotsPerEnd: int.parse(_shotsPerEndController.value.text),
                   );
-                  final int id = await Provider.of<BrowserViewModel>(
-                    context,
-                    listen: false,
-                  ).insertScoresheet(scoresheet: scoresheet);
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute<EditorView>(
-                      builder: (_) {
-                        return ChangeNotifierProvider<EditorViewModel>(
-                          create:
-                              (_) => EditorViewModel(scoresheet: scoresheet),
-                          builder:
-                              (BuildContext context, _) => EditorView(id: id),
-                        );
-                      },
-                    ),
-                  );
+                  if (context.mounted) {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute<EditorView>(
+                        builder: (_) {
+                          return ChangeNotifierProvider<EditorViewModel>(
+                            create:
+                                (_) => EditorViewModel(scoresheet: scoresheet),
+                            builder:
+                                (BuildContext context, _) => const EditorView(),
+                          );
+                        },
+                      ),
+                    );
+                  }
                 },
                 child: Text(
                   'Create scoresheet',

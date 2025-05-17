@@ -47,7 +47,7 @@ class EditorKeyboard extends StatelessWidget {
                           listen: false,
                         ).addScore(
                           endIndex: endIndex,
-                          value: target.formattedScores.length - index - 1,
+                          score: target.formattedScores.length - index - 1,
                         );
                       },
                       child: ScoreIcon(

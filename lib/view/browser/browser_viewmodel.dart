@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../common/scoresheet/scoresheet.dart';
 import '../../common/scoresheet/scoresheet_card.dart';
+import '../../common/target/target.dart';
 import '../../util/database/sqflite_model.dart';
 
 class BrowserViewModel extends ChangeNotifier {
@@ -10,12 +11,11 @@ class BrowserViewModel extends ChangeNotifier {
   }
 
   final SqfliteModel _sqfliteModel = SqfliteModel();
-  final int _pageSize = 5;
-  int _currentOffset = 0;
   bool _hasMore = true;
-  List<ScoresheetCard> _scoresheetCards = <ScoresheetCard>[];
+  bool _isLoading = false;
+  List<ScoresheetCard> _cards = <ScoresheetCard>[];
 
-  List<ScoresheetCard> get scoresheetCards => _scoresheetCards;
+  List<ScoresheetCard> get scoresheetCards => _cards;
   bool get hasMore => _hasMore;
 
   Future<void> _init() async {
@@ -24,46 +24,57 @@ class BrowserViewModel extends ChangeNotifier {
   }
 
   Future<void> queryCardsInit() async {
-    _scoresheetCards = <ScoresheetCard>[];
-    _currentOffset = 0;
+    _cards = <ScoresheetCard>[];
     _hasMore = true;
     await queryCards();
   }
 
   Future<void> queryCards() async {
-    if (!_hasMore) {
+    if (!_hasMore || _isLoading) {
       return;
     }
+    _isLoading = true;
 
     final List<ScoresheetCard> newCards = await _sqfliteModel.queryCards(
-      offset: _currentOffset,
-      limit: _pageSize,
+      offset: _cards.length,
+      limit: 10,
     );
-    _scoresheetCards.addAll(newCards);
-    _currentOffset += newCards.length;
-    _hasMore = newCards.length == _pageSize;
+    _cards.addAll(newCards);
+    _hasMore = newCards.length == 10;
+    _isLoading = false;
 
     notifyListeners();
   }
 
   Future<void> queryScoresheet() async {}
 
-  Future<int> insertScoresheet({required Scoresheet scoresheet}) async {
-    final int id = await _sqfliteModel.insertScoresheet(scoresheet: scoresheet);
+  Future<Scoresheet> createScoresheet({
+    required String name,
+    required Target target,
+    required int ends,
+    required int shotsPerEnd,
+  }) async {
+    final Scoresheet scoresheet = await _sqfliteModel.createScoresheet(
+      name: name,
+      target: target,
+      ends: ends,
+      shotsPerEnd: shotsPerEnd,
+    );
     await queryCardsInit();
-    return id;
+    return scoresheet;
   }
 
   Future<void> updateScoresheet({
     required Scoresheet scoresheet,
     required int id,
   }) async {
-    await _sqfliteModel.updateScoresheet(scoresheet: scoresheet, id: id);
-    await queryCardsInit();
+    await _sqfliteModel.updateScoresheet(scoresheet: scoresheet);
   }
 
   Future<void> deleteScoresheet({required int id}) async {
     await _sqfliteModel.deleteScoresheet(id: id);
+    _cards.removeWhere((ScoresheetCard card) => card.id == id);
+    notifyListeners();
   }
 
   @override

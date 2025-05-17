@@ -2,16 +2,17 @@ import 'package:sqflite/sqflite.dart';
 
 import '../../common/scoresheet/scoresheet.dart';
 import '../../common/scoresheet/scoresheet_card.dart';
+import '../../common/target/target.dart';
 
 class SqfliteModel {
-  late final Database _scoresheetsDatabase;
+  late final Database _database;
 
   Future<void> init() async {
-    _scoresheetsDatabase = await openDatabase(
+    _database = await openDatabase(
       'neoscore.db',
       version: 1,
-      onCreate: (Database db, _) async {
-        await db.execute(
+      onCreate: (Database database, _) async {
+        await database.execute(
           'CREATE TABLE scoresheets (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, ends INTEGER, shotsPerEnd INTEGER)',
         );
       },
@@ -22,7 +23,7 @@ class SqfliteModel {
     required int offset,
     required int limit,
   }) async {
-    final List<Map<String, Object?>> rows = await _scoresheetsDatabase.query(
+    final List<Map<String, Object?>> rows = await _database.query(
       'scoresheets',
       offset: offset,
       limit: limit,
@@ -37,25 +38,38 @@ class SqfliteModel {
     //implement
   }
 
-  Future<int> insertScoresheet({required Scoresheet scoresheet}) async {
-    return _scoresheetsDatabase.insert(
-      'scoresheets',
-      Scoresheet.toMap(scoresheet: scoresheet),
+  Future<Scoresheet> createScoresheet({
+    required String name,
+    required Target target,
+    required int ends,
+    required int shotsPerEnd,
+  }) async {
+    return Scoresheet(
+      id: await _database.insert('scoresheets', <String, Object?>{
+        'name': name,
+        'ends': ends,
+        'shotsPerEnd': shotsPerEnd,
+      }),
+      name: name,
+      target: target,
+      ends: ends,
+      shotsPerEnd: shotsPerEnd,
     );
   }
 
-  Future<void> updateScoresheet({
-    required Scoresheet scoresheet,
-    required int id,
-  }) async {
+  Future<void> updateScoresheet({required Scoresheet scoresheet}) async {
     //implement
   }
 
   Future<void> deleteScoresheet({required int id}) async {
-    //implement
+    await _database.delete(
+      'scoresheets',
+      where: 'id = ?',
+      whereArgs: <int>[id],
+    );
   }
 
   Future<void> close() async {
-    await _scoresheetsDatabase.close();
+    await _database.close();
   }
 }

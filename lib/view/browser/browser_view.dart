@@ -76,12 +76,12 @@ class BrowserView extends StatelessWidget {
                     gridDelegate:
                         const SliverGridDelegateWithMaxCrossAxisExtent(
                           maxCrossAxisExtent: 500,
-                          mainAxisExtent: 120,
+                          mainAxisExtent: 140,
                           mainAxisSpacing: 10,
                         ),
                     itemBuilder:
-                        (_, int index) => BrowserCard(
-                          card: browserViewModel.scoresheetCards[index],
+                        (_, int id) => BrowserCard(
+                          card: browserViewModel.scoresheetCards[id],
                         ),
                     itemCount: browserViewModel.scoresheetCards.length,
                   ),
@@ -89,7 +89,9 @@ class BrowserView extends StatelessWidget {
                     const SliverToBoxAdapter(
                       child: Padding(
                         padding: EdgeInsets.only(top: 16.0),
-                        child: Center(child: CircularProgressIndicator()),
+                        child: Center(
+                          child: CircularProgressIndicator(color: Colors.black),
+                        ),
                       ),
                     ),
                 ],

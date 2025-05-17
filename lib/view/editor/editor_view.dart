@@ -6,9 +6,7 @@ import 'widgets/editor_keyboard.dart';
 import 'widgets/editor_row.dart';
 
 class EditorView extends StatelessWidget {
-  const EditorView({super.key, required this.id});
-
-  final int id;
+  const EditorView({super.key});
 
   @override
   Widget build(BuildContext context) => Scaffold(

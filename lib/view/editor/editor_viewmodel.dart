@@ -8,25 +8,25 @@ class EditorViewModel extends ChangeNotifier {
 
   final Scoresheet _scoresheet;
 
-  void addScore({required int endIndex, required int value}) {
-    if (_scoresheet.scoreData[endIndex].length < _scoresheet.shotsPerEnd) {
-      _scoresheet.scoreData[endIndex] = <int>[
-        ..._scoresheet.scoreData[endIndex],
-        value,
-      ];
-      _scoresheet.scoreData[endIndex].sort((int a, int b) => b.compareTo(a));
-      notifyListeners();
+  void addScore({required int endIndex, required int score}) {
+    if (_scoresheet.scoreData[endIndex].length >= _scoresheet.shotsPerEnd) {
+      return;
     }
+    _scoresheet.scoreData[endIndex] = <int>[
+      ..._scoresheet.scoreData[endIndex],
+      score,
+    ];
+    _scoresheet.scoreData[endIndex].sort((int a, int b) => b.compareTo(a));
+    notifyListeners();
   }
 
   void deleteScore({required int endIndex}) {
-    if (_scoresheet.scoreData[endIndex].isNotEmpty) {
-      _scoresheet.scoreData[endIndex] = <int>[
-        ..._scoresheet.scoreData[endIndex],
-      ];
-      _scoresheet.scoreData[endIndex].removeLast();
-      notifyListeners();
+    if (_scoresheet.scoreData[endIndex].isEmpty) {
+      return;
     }
+    _scoresheet.scoreData[endIndex] = <int>[..._scoresheet.scoreData[endIndex]];
+    _scoresheet.scoreData[endIndex].removeLast();
+    notifyListeners();
   }
 
   int getTotalScoreEnd({required int endIndex}) {
