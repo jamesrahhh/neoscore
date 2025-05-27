@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../navigation/widgets/navigation_bottombar.dart';
 import '../widgets/logo.dart';
 
 class SettingsView extends StatelessWidget {
@@ -9,8 +8,6 @@ class SettingsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
     backgroundColor: Theme.of(context).colorScheme.primary,
-    floatingActionButton: const NavigationBottomBar(),
-    floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     body: Center(
       child: ColoredBox(
         color: Theme.of(context).colorScheme.surface,

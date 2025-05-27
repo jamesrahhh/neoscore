@@ -5,6 +5,7 @@ import '../browser/browser_view.dart';
 import '../browser/browser_viewmodel.dart';
 import '../settings/settings_view.dart';
 import 'navigation_viewmodel.dart';
+import 'widgets/navigation_bottombar.dart';
 
 class NavigationView extends StatefulWidget {
   const NavigationView({super.key});
@@ -28,8 +29,11 @@ class _NavigationViewState extends State<NavigationView> {
     ],
     builder:
         (BuildContext context, _) => Scaffold(
-          extendBody: true,
           backgroundColor: Theme.of(context).colorScheme.surface,
+          floatingActionButton: const NavigationBottomBar(),
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerFloat,
+
           body: _pages[Provider.of<NavigationViewModel>(context).pageIndex],
         ),
   );
