@@ -1,7 +1,6 @@
 import 'package:flutter/widgets.dart';
 
 import '../../common/scoresheet/scoresheet.dart';
-import '../../common/target/target.dart';
 
 class EditorViewModel extends ChangeNotifier {
   EditorViewModel({required Scoresheet scoresheet}) : _scoresheet = scoresheet;
@@ -9,32 +8,40 @@ class EditorViewModel extends ChangeNotifier {
   final Scoresheet _scoresheet;
 
   void addScore({required int endIndex, required int score}) {
-    if (_scoresheet.scoreData[endIndex].length >= _scoresheet.shotsPerEnd) {
+    while (endIndex >= _scoresheet.arrows.length) {
+      _scoresheet.arrows.add(<int>[]);
+    }
+    if (_scoresheet.arrows[endIndex].length >= _scoresheet.shotsPerEnd) {
       return;
     }
-    _scoresheet.scoreData[endIndex] = <int>[
-      ..._scoresheet.scoreData[endIndex],
+    _scoresheet.arrows[endIndex] = <int>[
+      ..._scoresheet.arrows[endIndex],
       score,
     ];
-    _scoresheet.scoreData[endIndex].sort((int a, int b) => b.compareTo(a));
+    _scoresheet.arrows[endIndex].sort((int a, int b) => b.compareTo(a));
     notifyListeners();
   }
 
   void deleteScore({required int endIndex}) {
-    if (_scoresheet.scoreData[endIndex].isEmpty) {
+    if (endIndex >= _scoresheet.arrows.length ||
+        _scoresheet.arrows[endIndex].isEmpty) {
       return;
     }
-    _scoresheet.scoreData[endIndex] = <int>[..._scoresheet.scoreData[endIndex]];
-    _scoresheet.scoreData[endIndex].removeLast();
+    _scoresheet.arrows[endIndex] = <int>[
+      ..._scoresheet.arrows[endIndex].sublist(
+        0,
+        _scoresheet.arrows[endIndex].length - 1,
+      ),
+    ];
     notifyListeners();
   }
 
   int getTotalScoreEnd({required int endIndex}) {
-    if (endIndex >= _scoresheet.scoreData.length) {
+    if (endIndex >= _scoresheet.arrows.length) {
       return 0;
     }
     int total = 0;
-    for (final int shot in _scoresheet.scoreData[endIndex]) {
+    for (final int shot in _scoresheet.arrows[endIndex]) {
       total +=
           shot > _scoresheet.target.highestScore
               ? _scoresheet.target.highestScore
@@ -44,11 +51,11 @@ class EditorViewModel extends ChangeNotifier {
   }
 
   int getSingleScoreEnd({required int endIndex, required int score}) {
-    if (endIndex >= _scoresheet.scoreData.length) {
+    if (endIndex >= _scoresheet.arrows.length) {
       return 0;
     }
     int total = 0;
-    for (final int shot in _scoresheet.scoreData[endIndex]) {
+    for (final int shot in _scoresheet.arrows[endIndex]) {
       if (shot == score) {
         total++;
       }
@@ -58,7 +65,7 @@ class EditorViewModel extends ChangeNotifier {
 
   int get getTotalScore {
     int total = 0;
-    for (final List<int> end in _scoresheet.scoreData) {
+    for (final List<int> end in _scoresheet.arrows) {
       for (final int shot in end) {
         total +=
             shot > _scoresheet.target.highestScore
@@ -71,7 +78,7 @@ class EditorViewModel extends ChangeNotifier {
 
   int getSingleScore({required int score}) {
     int total = 0;
-    for (final List<int> end in _scoresheet.scoreData) {
+    for (final List<int> end in _scoresheet.arrows) {
       for (final int shot in end) {
         if (shot == score) {
           total++;
@@ -81,13 +88,13 @@ class EditorViewModel extends ChangeNotifier {
     return total;
   }
 
-  int get shotsPerEnd => _scoresheet.shotsPerEnd;
+  List<int> getEnd(int endIndex) {
+    if (endIndex >= _scoresheet.arrows.length) {
+      return <int>[];
+    } else {
+      return _scoresheet.arrows[endIndex];
+    }
+  }
 
-  int get ends => _scoresheet.ends;
-
-  Target get target => _scoresheet.target;
-
-  String get name => _scoresheet.name;
-
-  List<int> getEnd(int endIndex) => _scoresheet.scoreData[endIndex];
+  Scoresheet get scoresheet => _scoresheet;
 }

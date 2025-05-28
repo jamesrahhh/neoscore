@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'browser_viewmodel.dart';
-import 'widgets/browser_bottombar.dart';
 import 'widgets/browser_card.dart';
 
 class BrowserView extends StatelessWidget {
@@ -10,8 +9,6 @@ class BrowserView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-    floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-    floatingActionButton: const BrowserBottomBar(),
     backgroundColor: Theme.of(context).colorScheme.primary,
     body: Scrollbar(
       thickness: 8,
@@ -86,11 +83,13 @@ class BrowserView extends StatelessWidget {
                     itemCount: browserViewModel.scoresheetCards.length,
                   ),
                   if (browserViewModel.hasMore)
-                    const SliverToBoxAdapter(
+                    SliverToBoxAdapter(
                       child: Padding(
-                        padding: EdgeInsets.only(top: 16.0),
+                        padding: const EdgeInsets.only(top: 48.0),
                         child: Center(
-                          child: CircularProgressIndicator(color: Colors.black),
+                          child: CircularProgressIndicator(
+                            color: Theme.of(context).colorScheme.onSurface,
+                          ),
                         ),
                       ),
                     ),

@@ -46,7 +46,9 @@ class BrowserViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> queryScoresheet() async {}
+  Future<Scoresheet> queryScoresheet({required int id}) async {
+    return _sqfliteModel.queryScoresheet(id: id);
+  }
 
   Future<Scoresheet> createScoresheet({
     required String name,
@@ -64,16 +66,13 @@ class BrowserViewModel extends ChangeNotifier {
     return scoresheet;
   }
 
-  Future<void> updateScoresheet({
-    required Scoresheet scoresheet,
-    required int id,
-  }) async {
+  Future<void> updateScoresheet({required Scoresheet scoresheet}) async {
     await _sqfliteModel.updateScoresheet(scoresheet: scoresheet);
   }
 
   Future<void> deleteScoresheet({required int id}) async {
     await _sqfliteModel.deleteScoresheet(id: id);
-    _cards.removeWhere((ScoresheetCard card) => card.id == id);
+    _cards.removeWhere((ScoresheetCard test) => test.id == id);
     notifyListeners();
   }
 

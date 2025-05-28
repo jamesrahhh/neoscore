@@ -13,7 +13,7 @@ class SqfliteModel {
       version: 1,
       onCreate: (Database database, _) async {
         await database.execute(
-          'CREATE TABLE scoresheets (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, ends INTEGER, shotsPerEnd INTEGER)',
+          'CREATE TABLE scoresheets (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, ends INTEGER, shotsPerEnd INTEGER, target TEXT, arrows TEXT)',
         );
       },
     );
@@ -23,19 +23,25 @@ class SqfliteModel {
     required int offset,
     required int limit,
   }) async {
-    final List<Map<String, Object?>> rows = await _database.query(
-      'scoresheets',
-      offset: offset,
-      limit: limit,
-      orderBy: 'id DESC',
-    );
-    return rows
+    return (await _database.query(
+          'scoresheets',
+          offset: offset,
+          limit: limit,
+          orderBy: 'id DESC',
+        ))
         .map((Map<String, Object?> row) => ScoresheetCard.fromMap(map: row))
         .toList();
   }
 
-  Future<void> queryScoresheet({required int id}) async {
-    //implement
+  Future<Scoresheet> queryScoresheet({required int id}) async {
+    return Scoresheet.fromMap(
+      map:
+          (await _database.query(
+            'scoresheets',
+            where: 'id = ?',
+            whereArgs: <int>[id],
+          ))[0],
+    );
   }
 
   Future<Scoresheet> createScoresheet({
@@ -49,16 +55,23 @@ class SqfliteModel {
         'name': name,
         'ends': ends,
         'shotsPerEnd': shotsPerEnd,
+        'target': target.name,
       }),
       name: name,
       target: target,
       ends: ends,
       shotsPerEnd: shotsPerEnd,
+      arrows: <List<int>>[],
     );
   }
 
   Future<void> updateScoresheet({required Scoresheet scoresheet}) async {
-    //implement
+    await _database.update(
+      'scoresheets',
+      Scoresheet.toMap(scoresheet: scoresheet),
+      where: 'id = ?',
+      whereArgs: <int>[scoresheet.id],
+    );
   }
 
   Future<void> deleteScoresheet({required int id}) async {

@@ -15,7 +15,7 @@ class ScoresheetCard {
       name: map['name'].toString(),
       ends: int.tryParse(map['ends'].toString()) ?? 0,
       shotsPerEnd: int.tryParse(map['shotsPerEnd'].toString()) ?? 0,
-      target: Target.USA(),
+      target: Target.fromName(map['target'].toString()),
     );
   }
 

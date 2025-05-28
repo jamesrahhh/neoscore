@@ -100,7 +100,9 @@ class _BrowserScoresheetCreationDialogState
                     BrowserViewModel
                   >(context, listen: false).createScoresheet(
                     name: _nameController.value.text,
-                    target: Target.USA(),
+                    target: Target.fromFormattedName(
+                      _targetController.value.text,
+                    ),
                     ends: int.parse(_endsController.value.text),
                     shotsPerEnd: int.parse(_shotsPerEndController.value.text),
                   );
@@ -109,11 +111,19 @@ class _BrowserScoresheetCreationDialogState
                       context,
                       MaterialPageRoute<EditorView>(
                         builder: (_) {
-                          return ChangeNotifierProvider<EditorViewModel>(
-                            create:
-                                (_) => EditorViewModel(scoresheet: scoresheet),
-                            builder:
-                                (BuildContext context, _) => const EditorView(),
+                          return ListenableProvider<BrowserViewModel>.value(
+                            value: Provider.of<BrowserViewModel>(
+                              context,
+                              listen: false,
+                            ),
+                            child: ChangeNotifierProvider<EditorViewModel>(
+                              create:
+                                  (_) =>
+                                      EditorViewModel(scoresheet: scoresheet),
+                              builder:
+                                  (BuildContext context, _) =>
+                                      const EditorView(),
+                            ),
                           );
                         },
                       ),

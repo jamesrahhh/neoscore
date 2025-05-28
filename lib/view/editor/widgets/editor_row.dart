@@ -35,7 +35,7 @@ class EditorRow extends StatelessWidget {
                             Align(
                               alignment: Alignment.centerRight,
                               child: Text(
-                                "${Provider.of<EditorViewModel>(context, listen: false).target.formattedScores.last.toLowerCase()}'s",
+                                "${Provider.of<EditorViewModel>(context, listen: false).scoresheet.target.formattedScores.last.toLowerCase()}'s",
                                 style: Theme.of(context).textTheme.displaySmall,
                               ),
                             ),
@@ -75,7 +75,7 @@ class EditorRow extends StatelessWidget {
                         Provider.of<EditorViewModel>(
                           context,
                           listen: false,
-                        ).shotsPerEnd,
+                        ).scoresheet.shotsPerEnd,
                         (int shotIndex) {
                           if (end.length <= shotIndex) {
                             return const EmptyScoreIcon();
@@ -83,15 +83,18 @@ class EditorRow extends StatelessWidget {
                             return ScoreIcon(
                               value:
                                   Provider.of<EditorViewModel>(
-                                    context,
-                                    listen: false,
-                                  ).target.formattedScores[end[shotIndex]],
+                                        context,
+                                        listen: false,
+                                      )
+                                      .scoresheet
+                                      .target
+                                      .formattedScores[end[shotIndex]],
                               colors:
                                   themeColors
                                       .colors![Provider.of<EditorViewModel>(
                                     context,
                                     listen: false,
-                                  ).target.colors[end[shotIndex]]],
+                                  ).scoresheet.target.colors[end[shotIndex]]],
                             );
                           }
                         },
@@ -109,7 +112,7 @@ class EditorRow extends StatelessWidget {
                           editorViewModel.getEnd(endIndex),
                   builder:
                       (_, __, ___) => Text(
-                        '${Provider.of<EditorViewModel>(context, listen: false).getSingleScoreEnd(endIndex: endIndex, score: Provider.of<EditorViewModel>(context, listen: false).target.formattedScores.length - 1)}',
+                        '${Provider.of<EditorViewModel>(context, listen: false).getSingleScoreEnd(endIndex: endIndex, score: Provider.of<EditorViewModel>(context, listen: false).scoresheet.target.formattedScores.length - 1)}',
                       ),
                 ),
               ),

@@ -17,69 +17,71 @@ class EditorKeyboard extends StatelessWidget {
   Widget build(BuildContext context) {
     final ThemeColors themeColors = Theme.of(context).extension<ThemeColors>()!;
     final Target target =
-        Provider.of<EditorViewModel>(context, listen: false).target;
+        Provider.of<EditorViewModel>(context, listen: false).scoresheet.target;
 
-    return Column(
-      children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.only(left: 16, right: 16, top: 8),
-          child: EditorRow(endIndex: endIndex),
-        ),
-        const Padding(padding: EdgeInsets.all(8), child: Divider()),
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.only(left: 8, right: 8),
-            child: GridView(
-              physics: const NeverScrollableScrollPhysics(),
-              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                maxCrossAxisExtent: 190,
-                mainAxisExtent: 54,
-                mainAxisSpacing: 8,
-                crossAxisSpacing: 6,
-              ),
-              children:
-                  List<Widget>.generate(
-                    target.formattedScores.length,
-                    (int index) => InkWell(
-                      onTap: () {
-                        Provider.of<EditorViewModel>(
-                          context,
-                          listen: false,
-                        ).addScore(
-                          endIndex: endIndex,
-                          score: target.formattedScores.length - index - 1,
-                        );
-                      },
-                      child: ScoreIcon(
-                        value:
-                            target.formattedScores[target
-                                    .formattedScores
-                                    .length -
-                                index -
-                                1],
-                        colors:
-                            themeColors.colors![target.colors[target
-                                    .formattedScores
-                                    .length -
-                                index -
-                                1]],
+    return SizedBox(
+      height: ((target.formattedScores.length + 1) / 3.0).ceil() * 62 + 120,
+      child: Column(
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.only(left: 16, right: 16, top: 8),
+            child: EditorRow(endIndex: endIndex),
+          ),
+          const Padding(padding: EdgeInsets.all(8), child: Divider()),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 8, right: 8),
+              child: GridView(
+                physics: const NeverScrollableScrollPhysics(),
+                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                  maxCrossAxisExtent: 190,
+                  mainAxisExtent: 54,
+                  mainAxisSpacing: 8,
+                  crossAxisSpacing: 6,
+                ),
+                children:
+                    List<Widget>.generate(
+                      target.formattedScores.length,
+                      (int index) => InkWell(
+                        onTap:
+                            () => Provider.of<EditorViewModel>(
+                              context,
+                              listen: false,
+                            ).addScore(
+                              endIndex: endIndex,
+                              score: target.formattedScores.length - index - 1,
+                            ),
+                        child: ScoreIcon(
+                          value:
+                              target.formattedScores[target
+                                      .formattedScores
+                                      .length -
+                                  index -
+                                  1],
+                          colors:
+                              themeColors.colors![target.colors[target
+                                      .formattedScores
+                                      .length -
+                                  index -
+                                  1]],
+                        ),
                       ),
-                    ),
-                  ) +
-                  <Widget>[
-                    InkWell(
-                      onTap:
-                          () => Provider.of<EditorViewModel>(
-                            context,
-                            listen: false,
-                          ).deleteScore(endIndex: endIndex),
-                      child: const EmptyScoreIcon(child: Icon(Icons.delete)),
-                    ),
-                  ],
+                    ) +
+                    <Widget>[
+                      InkWell(
+                        onTap:
+                            () => Provider.of<EditorViewModel>(
+                              context,
+                              listen: false,
+                            ).deleteScore(endIndex: endIndex),
+                        child: const EmptyScoreIcon(child: Icon(Icons.delete)),
+                      ),
+                    ],
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
