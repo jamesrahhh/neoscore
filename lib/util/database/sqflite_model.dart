@@ -56,6 +56,7 @@ class SqfliteModel {
         'ends': ends,
         'shotsPerEnd': shotsPerEnd,
         'target': target.name,
+        'arrows': '[[]]',
       }),
       name: name,
       target: target,
