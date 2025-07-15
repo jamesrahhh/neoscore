@@ -22,49 +22,44 @@ class SqfliteModel {
   Future<List<ScoresheetCard>> queryCards({
     required int offset,
     required int limit,
-  }) async {
-    return (await _database.query(
-          'scoresheets',
-          offset: offset,
-          limit: limit,
-          orderBy: 'id DESC',
-        ))
-        .map((Map<String, Object?> row) => ScoresheetCard.fromMap(map: row))
-        .toList();
-  }
+  }) async =>
+      (await _database.query(
+        'scoresheets',
+        offset: offset,
+        limit: limit,
+        orderBy: 'id DESC',
+      ))
+          .map((Map<String, Object?> row) => ScoresheetCard.fromMap(map: row))
+          .toList();
 
-  Future<Scoresheet> queryScoresheet({required int id}) async {
-    return Scoresheet.fromMap(
-      map:
-          (await _database.query(
-            'scoresheets',
-            where: 'id = ?',
-            whereArgs: <int>[id],
-          ))[0],
-    );
-  }
+  Future<Scoresheet> queryScoresheet({required int id}) async => Scoresheet.fromMap(
+        map: (await _database.query(
+          'scoresheets',
+          where: 'id = ?',
+          whereArgs: <int>[id],
+        ))[0],
+      );
 
   Future<Scoresheet> createScoresheet({
     required String name,
     required Target target,
     required int ends,
     required int shotsPerEnd,
-  }) async {
-    return Scoresheet(
-      id: await _database.insert('scoresheets', <String, Object?>{
-        'name': name,
-        'ends': ends,
-        'shotsPerEnd': shotsPerEnd,
-        'target': target.name,
-        'arrows': '[[]]',
-      }),
-      name: name,
-      target: target,
-      ends: ends,
-      shotsPerEnd: shotsPerEnd,
-      arrows: <List<int>>[],
-    );
-  }
+  }) async =>
+      Scoresheet(
+        id: await _database.insert('scoresheets', <String, Object?>{
+          'name': name,
+          'ends': ends,
+          'shotsPerEnd': shotsPerEnd,
+          'target': target.name,
+          'arrows': '[[]]',
+        }),
+        name: name,
+        target: target,
+        ends: ends,
+        shotsPerEnd: shotsPerEnd,
+        arrows: <List<int>>[],
+      );
 
   Future<void> updateScoresheet({required Scoresheet scoresheet}) async {
     await _database.update(

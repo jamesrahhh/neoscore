@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/widgets.dart';
@@ -26,8 +25,7 @@ class EditorViewModel extends ChangeNotifier {
   }
 
   void deleteScore({required int endIndex}) {
-    if (endIndex >= _scoresheet.arrows.length ||
-        _scoresheet.arrows[endIndex].isEmpty) {
+    if (endIndex >= _scoresheet.arrows.length || _scoresheet.arrows[endIndex].isEmpty) {
       return;
     }
     _scoresheet.arrows[endIndex] = <int>[
@@ -61,9 +59,7 @@ class EditorViewModel extends ChangeNotifier {
     }
     int total = 0;
     for (final int shot in _scoresheet.arrows[endIndex]) {
-      total += shot > _scoresheet.target.highestScore
-          ? _scoresheet.target.highestScore
-          : shot;
+      total += shot > _scoresheet.target.highestScore ? _scoresheet.target.highestScore : shot;
     }
     return total;
   }
@@ -85,9 +81,7 @@ class EditorViewModel extends ChangeNotifier {
     int total = 0;
     for (final List<int> end in _scoresheet.arrows) {
       for (final int shot in end) {
-        total += shot > _scoresheet.target.highestScore
-            ? _scoresheet.target.highestScore
-            : shot;
+        total += shot > _scoresheet.target.highestScore ? _scoresheet.target.highestScore : shot;
       }
     }
     return total;

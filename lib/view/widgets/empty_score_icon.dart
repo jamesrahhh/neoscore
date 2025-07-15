@@ -6,15 +6,15 @@ class EmptyScoreIcon extends StatelessWidget {
   final Widget? child;
 
   @override
-  Widget build(_) => SizedBox(
-    width: 48,
-    height: 48,
-    child: Container(
-      decoration: BoxDecoration(
-        borderRadius: const BorderRadius.all(Radius.circular(24)),
-        border: Border.all(color: Colors.grey),
-      ),
-      child: child,
-    ),
-  );
+  Widget build(BuildContext context) => SizedBox(
+        width: 48,
+        height: 48,
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            borderRadius: const BorderRadius.all(Radius.circular(24)),
+            border: Border.all(color: Colors.grey),
+          ),
+          child: child,
+        ),
+      );
 }

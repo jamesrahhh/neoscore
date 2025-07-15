@@ -11,9 +11,8 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-  FlutterError.onError =
-      (FlutterErrorDetails errorDetails) =>
-          FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
+  FlutterError.onError = (FlutterErrorDetails errorDetails) =>
+      FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
 
   PlatformDispatcher.instance.onError = (Object error, StackTrace stack) {
     FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);

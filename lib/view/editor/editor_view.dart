@@ -11,12 +11,10 @@ class EditorView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => PopScope(
-        onPopInvokedWithResult: (bool didPop, _) async {
-          Navigator.of(context).pop();
-          Provider.of<BrowserViewModel>(context, listen: false)
-              .updateScoresheet(
-            scoresheet:
-                Provider.of<EditorViewModel>(context, listen: false).scoresheet,
+        onPopInvokedWithResult: (_, __) {
+          Navigator.of(context).pop(); // TODO(jamesrahhh): fix bugged popping
+          Provider.of<BrowserViewModel>(context, listen: false).updateScoresheet(
+            scoresheet: Provider.of<EditorViewModel>(context, listen: false).scoresheet,
           );
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
@@ -41,18 +39,16 @@ class EditorView extends StatelessWidget {
                       ).scoresheet.name,
                     ),
                     Consumer<EditorViewModel>(
-                      builder: (BuildContext context,
-                              EditorViewModel editorViewModel, _) =>
-                          Text(
-                              'Average arrow: ${editorViewModel.getAverageArrow().toStringAsPrecision(4)}',
-                              style: Theme.of(context).textTheme.displaySmall),
+                      builder: (BuildContext context, EditorViewModel editorViewModel, _) => Text(
+                        'Average arrow: ${editorViewModel.getAverageArrow().toStringAsPrecision(4)}',
+                        style: Theme.of(context).textTheme.displaySmall,
+                      ),
                     ),
                   ],
                 ),
               ),
               SliverPadding(
-                padding: const EdgeInsets.only(
-                    top: 4, left: 16, right: 16, bottom: 8),
+                padding: const EdgeInsets.only(top: 4, left: 16, right: 16, bottom: 8),
                 sliver: SliverGrid.builder(
                   gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
                     maxCrossAxisExtent: 500,
@@ -85,8 +81,7 @@ class EditorView extends StatelessWidget {
                     Align(
                       alignment: Alignment.centerRight,
                       child: Consumer<EditorViewModel>(
-                        builder: (_, EditorViewModel editorViewModel, __) =>
-                            Text(
+                        builder: (BuildContext context, EditorViewModel editorViewModel, _) => Text(
                           '${editorViewModel.getSingleScore(score: editorViewModel.scoresheet.target.formattedScores.length - 1)}',
                         ),
                       ),
@@ -98,7 +93,7 @@ class EditorView extends StatelessWidget {
                         child: Align(
                           alignment: Alignment.centerRight,
                           child: Consumer<EditorViewModel>(
-                            builder: (_, EditorViewModel editorViewModel, __) =>
+                            builder: (BuildContext context, EditorViewModel editorViewModel, _) =>
                                 Text('${editorViewModel.getTotalScore}'),
                           ),
                         ),

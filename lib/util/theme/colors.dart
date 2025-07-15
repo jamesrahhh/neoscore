@@ -6,12 +6,8 @@ class ThemeColors extends ThemeExtension<ThemeColors> {
   final List<List<Color>>? colors;
 
   @override
-  ThemeExtension<ThemeColors> copyWith({List<List<Color>>? colors}) {
-    return ThemeColors(colors: colors);
-  }
+  ThemeExtension<ThemeColors> copyWith({List<List<Color>>? colors}) => ThemeColors(colors: colors);
 
   @override
-  ThemeExtension<ThemeColors> lerp(_, __) {
-    return this;
-  }
+  ThemeExtension<ThemeColors> lerp(_, __) => this;
 }

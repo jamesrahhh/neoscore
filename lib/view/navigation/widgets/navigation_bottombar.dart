@@ -17,8 +17,7 @@ class _NavigationBottomBarState extends State<NavigationBottomBar> {
 
   @override
   Widget build(BuildContext context) => Consumer<NavigationViewModel>(
-    builder:
-        (BuildContext context, NavigationViewModel model, _) => Row(
+        builder: (BuildContext context, NavigationViewModel model, _) => Row(
           mainAxisAlignment: MainAxisAlignment.center,
           spacing: 16,
           children: <Widget>[
@@ -45,7 +44,6 @@ class _NavigationBottomBarState extends State<NavigationBottomBar> {
                   ),
                 ),
               ),
-
             Container(
               width: _icons.length * 64,
               decoration: BoxDecoration(
@@ -67,20 +65,18 @@ class _NavigationBottomBarState extends State<NavigationBottomBar> {
                     height: 64,
                     width: 64,
                     child: InkWell(
-                      onTap:
-                          () => Provider.of<NavigationViewModel>(
-                            context,
-                            listen: false,
-                          ).setPage(index),
+                      onTap: () => Provider.of<NavigationViewModel>(
+                        context,
+                        listen: false,
+                      ).setPage(index),
                       child: Icon(
                         _icons[index],
                         size: index == model.pageIndex ? 28 : 24,
-                        color:
-                            index == model.pageIndex
-                                ? Theme.of(
-                                  context,
-                                ).textTheme.displayLarge!.color
-                                : Theme.of(context).iconTheme.color,
+                        color: index == model.pageIndex
+                            ? Theme.of(
+                                context,
+                              ).textTheme.displayLarge!.color
+                            : Theme.of(context).iconTheme.color,
                       ),
                     ),
                   ),
@@ -103,18 +99,16 @@ class _NavigationBottomBarState extends State<NavigationBottomBar> {
                   borderRadius: const BorderRadius.all(Radius.circular(10)),
                 ),
                 child: InkWell(
-                  onTap:
-                      () => showDialog<void>(
-                        context: context,
-                        builder:
-                            (_) => ListenableProvider<BrowserViewModel>.value(
-                              value: Provider.of<BrowserViewModel>(
-                                context,
-                                listen: false,
-                              ),
-                              child: const BrowserScoresheetCreationDialog(),
-                            ),
+                  onTap: () => showDialog<void>(
+                    context: context,
+                    builder: (_) => ListenableProvider<BrowserViewModel>.value(
+                      value: Provider.of<BrowserViewModel>(
+                        context,
+                        listen: false,
                       ),
+                      child: const BrowserScoresheetCreationDialog(),
+                    ),
+                  ),
                   child: Icon(
                     Icons.add,
                     color: Theme.of(context).colorScheme.surface,
@@ -123,5 +117,5 @@ class _NavigationBottomBarState extends State<NavigationBottomBar> {
               ),
           ],
         ),
-  );
+      );
 }

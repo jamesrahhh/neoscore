@@ -19,22 +19,19 @@ class _NavigationViewState extends State<NavigationView> {
 
   @override
   Widget build(BuildContext context) => MultiProvider(
-    providers: <ChangeNotifierProvider<ChangeNotifier>>[
-      ChangeNotifierProvider<NavigationViewModel>(
-        create: (_) => NavigationViewModel(),
-      ),
-      ChangeNotifierProvider<BrowserViewModel>(
-        create: (_) => BrowserViewModel(),
-      ),
-    ],
-    builder:
-        (BuildContext context, _) => Scaffold(
+        providers: <ChangeNotifierProvider<ChangeNotifier>>[
+          ChangeNotifierProvider<NavigationViewModel>(
+            create: (_) => NavigationViewModel(),
+          ),
+          ChangeNotifierProvider<BrowserViewModel>(
+            create: (_) => BrowserViewModel(),
+          ),
+        ],
+        builder: (BuildContext context, _) => Scaffold(
           backgroundColor: Theme.of(context).colorScheme.surface,
           floatingActionButton: const NavigationBottomBar(),
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerFloat,
-
+          floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
           body: _pages[Provider.of<NavigationViewModel>(context).pageIndex],
         ),
-  );
+      );
 }

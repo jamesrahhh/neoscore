@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -9,15 +10,14 @@ import '../editor_viewmodel.dart';
 import 'editor_row.dart';
 
 class EditorKeyboard extends StatelessWidget {
-  const EditorKeyboard({super.key, required this.endIndex});
+  const EditorKeyboard({required this.endIndex, super.key});
 
   final int endIndex;
 
   @override
   Widget build(BuildContext context) {
     final ThemeColors themeColors = Theme.of(context).extension<ThemeColors>()!;
-    final Target target =
-        Provider.of<EditorViewModel>(context, listen: false).scoresheet.target;
+    final Target target = Provider.of<EditorViewModel>(context, listen: false).scoresheet.target;
 
     return SizedBox(
       height: ((target.formattedScores.length + 1) / 3.0).ceil() * 62 + 120,
@@ -39,41 +39,29 @@ class EditorKeyboard extends StatelessWidget {
                   mainAxisSpacing: 8,
                   crossAxisSpacing: 6,
                 ),
-                children:
-                    List<Widget>.generate(
+                children: List<Widget>.generate(
                       target.formattedScores.length,
                       (int index) => InkWell(
-                        onTap:
-                            () => Provider.of<EditorViewModel>(
-                              context,
-                              listen: false,
-                            ).addScore(
-                              endIndex: endIndex,
-                              score: target.formattedScores.length - index - 1,
-                            ),
+                        onTap: () => Provider.of<EditorViewModel>(
+                          context,
+                          listen: false,
+                        ).addScore(
+                          endIndex: endIndex,
+                          score: target.formattedScores.length - index - 1,
+                        ),
                         child: ScoreIcon(
-                          value:
-                              target.formattedScores[target
-                                      .formattedScores
-                                      .length -
-                                  index -
-                                  1],
-                          colors:
-                              themeColors.colors![target.colors[target
-                                      .formattedScores
-                                      .length -
-                                  index -
-                                  1]],
+                          value: target.formattedScores[target.formattedScores.length - index - 1],
+                          colors: themeColors
+                              .colors![target.colors[target.formattedScores.length - index - 1]],
                         ),
                       ),
                     ) +
                     <Widget>[
                       InkWell(
-                        onTap:
-                            () => Provider.of<EditorViewModel>(
-                              context,
-                              listen: false,
-                            ).deleteScore(endIndex: endIndex),
+                        onTap: () => Provider.of<EditorViewModel>(
+                          context,
+                          listen: false,
+                        ).deleteScore(endIndex: endIndex),
                         child: const EmptyScoreIcon(child: Icon(Icons.delete)),
                       ),
                     ],
@@ -83,5 +71,11 @@ class EditorKeyboard extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty<int>('endIndex', endIndex));
   }
 }

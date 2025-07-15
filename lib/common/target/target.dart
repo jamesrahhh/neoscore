@@ -8,20 +8,20 @@ class Target {
   });
 
   factory Target.fromName(String name) => _targets.firstWhere(
-    (Target test) => test.name == name,
-    orElse: () => _targets[0],
-  );
+        (Target test) => test.name == name,
+        orElse: () => _targets[0],
+      );
 
   factory Target.fromFormattedName(String formattedName) => _targets.firstWhere(
-    (Target test) => test.formattedName == formattedName,
-    orElse: () => _targets[0],
-  );
+        (Target test) => test.formattedName == formattedName,
+        orElse: () => _targets[0],
+      );
 
-  String name;
-  String formattedName;
-  List<String> formattedScores;
-  List<int> colors;
-  int highestScore;
+  final String name;
+  final String formattedName;
+  final List<String> formattedScores;
+  final List<int> colors;
+  final int highestScore;
 
   static List<Target> get getTargets => _targets;
 

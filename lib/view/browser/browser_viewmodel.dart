@@ -46,9 +46,7 @@ class BrowserViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<Scoresheet> queryScoresheet({required int id}) async {
-    return _sqfliteModel.queryScoresheet(id: id);
-  }
+  Future<Scoresheet> queryScoresheet({required int id}) => _sqfliteModel.queryScoresheet(id: id);
 
   Future<Scoresheet> createScoresheet({
     required String name,
