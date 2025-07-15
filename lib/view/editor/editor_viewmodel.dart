@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:math';
+
 import 'package:flutter/widgets.dart';
 
 import '../../common/scoresheet/scoresheet.dart';
@@ -36,16 +39,31 @@ class EditorViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  double getAverageArrow() {
+    int arrows = 0;
+    double average = 0;
+    for (final List<int> end in _scoresheet.arrows) {
+      for (final int score in end) {
+        arrows++;
+        average += min(score, _scoresheet.target.highestScore);
+      }
+    }
+    if (arrows == 0) {
+      return 0;
+    } else {
+      return average / arrows;
+    }
+  }
+
   int getTotalScoreEnd({required int endIndex}) {
     if (endIndex >= _scoresheet.arrows.length) {
       return 0;
     }
     int total = 0;
     for (final int shot in _scoresheet.arrows[endIndex]) {
-      total +=
-          shot > _scoresheet.target.highestScore
-              ? _scoresheet.target.highestScore
-              : shot;
+      total += shot > _scoresheet.target.highestScore
+          ? _scoresheet.target.highestScore
+          : shot;
     }
     return total;
   }
@@ -67,10 +85,9 @@ class EditorViewModel extends ChangeNotifier {
     int total = 0;
     for (final List<int> end in _scoresheet.arrows) {
       for (final int shot in end) {
-        total +=
-            shot > _scoresheet.target.highestScore
-                ? _scoresheet.target.highestScore
-                : shot;
+        total += shot > _scoresheet.target.highestScore
+            ? _scoresheet.target.highestScore
+            : shot;
       }
     }
     return total;
