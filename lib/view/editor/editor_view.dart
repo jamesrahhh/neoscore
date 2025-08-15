@@ -11,16 +11,16 @@ class EditorView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => PopScope(
-        onPopInvokedWithResult: (_, __) {
-          Navigator.of(context).pop(); // TODO(jamesrahhh): fix bugged popping
-          Provider.of<BrowserViewModel>(context, listen: false).updateScoresheet(
-            scoresheet: Provider.of<EditorViewModel>(context, listen: false).scoresheet,
-          );
+        onPopInvokedWithResult: (_, __) async {
+          Navigator.of(context).pop();
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               content: Text('Scoresheet saved'),
               duration: Duration(seconds: 2),
             ),
+          );
+          await Provider.of<BrowserViewModel>(context, listen: false).updateScoresheet(
+            scoresheet: Provider.of<EditorViewModel>(context, listen: false).scoresheet,
           );
         },
         canPop: false,
