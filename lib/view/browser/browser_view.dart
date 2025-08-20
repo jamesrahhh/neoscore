@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -9,10 +11,11 @@ class BrowserView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.primary,
+        backgroundColor: Theme.of(context).colorScheme.surface,
+        extendBodyBehindAppBar: true,
         body: Scrollbar(
-          thickness: 8,
-          radius: const Radius.circular(4),
+          thickness: 6,
+          radius: const Radius.circular(3),
           interactive: true,
           child: Consumer<BrowserViewModel>(
             builder: (
@@ -32,40 +35,49 @@ class BrowserView extends StatelessWidget {
               child: CustomScrollView(
                 slivers: <Widget>[
                   SliverAppBar(
-                    floating: true,
-                    title: Column(
-                      children: <Widget>[
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            SearchBar(
-                              constraints: BoxConstraints.tight(
-                                const Size(275, 30),
-                              ),
-                              leading: const Icon(Icons.search),
-                              hintText: 'Search scoresheets...',
-                              textStyle: WidgetStateProperty.all(
-                                Theme.of(context).textTheme.bodySmall,
-                              ),
+                    pinned: true,
+                    backgroundColor: Theme.of(context).colorScheme.surface.withAlpha(150),
+                    toolbarHeight: 72,
+                    flexibleSpace: ClipRect(
+                      child: BackdropFilter(
+                        filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
+                        child: SafeArea(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 14),
+                            child: Column(
+                              children: <Widget>[
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    SearchBar(
+                                      constraints: BoxConstraints.tight(
+                                        const Size(275, 30),
+                                      ),
+                                      leading: const Icon(Icons.search),
+                                      hintText: 'Search scoresheets...',
+                                      textStyle: WidgetStateProperty.all(
+                                        Theme.of(context).textTheme.bodySmall,
+                                      ),
+                                    ),
+                                    IconButton(
+                                      icon: const Icon(Icons.filter_alt),
+                                      onPressed: () => VoidCallback,
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  children: <Widget>[
+                                    Text(
+                                      'Last synced: never!!!',
+                                      style: Theme.of(context).textTheme.displaySmall,
+                                    ),
+                                  ],
+                                ),
+                              ],
                             ),
-                            IconButton(
-                              icon: const Icon(Icons.filter_alt),
-                              onPressed: () => VoidCallback,
-                            ),
-                          ],
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 12),
-                          child: Row(
-                            children: <Widget>[
-                              Text(
-                                'Last synced: never!!!',
-                                style: Theme.of(context).textTheme.displaySmall,
-                              ),
-                            ],
                           ),
                         ),
-                      ],
+                      ),
                     ),
                   ),
                   const SliverPadding(padding: EdgeInsets.only(top: 10)),
@@ -73,7 +85,7 @@ class BrowserView extends StatelessWidget {
                     gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
                       maxCrossAxisExtent: 500,
                       mainAxisExtent: 140,
-                      mainAxisSpacing: 10,
+                      mainAxisSpacing: 16,
                     ),
                     itemBuilder: (BuildContext context, int id) => BrowserCard(
                       card: browserViewModel.scoresheetCards[id],
@@ -91,6 +103,7 @@ class BrowserView extends StatelessWidget {
                         ),
                       ),
                     ),
+                  const SliverPadding(padding: EdgeInsets.only(bottom: 698)),
                 ],
               ),
             ),

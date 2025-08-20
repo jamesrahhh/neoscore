@@ -29,8 +29,8 @@ class _NavigationBottomBarState extends State<NavigationBottomBar> {
                   color: Theme.of(context).textTheme.displayLarge!.color,
                   boxShadow: <BoxShadow>[
                     BoxShadow(
-                      blurRadius: 5,
-                      spreadRadius: 2,
+                      spreadRadius: 1,
+                      blurRadius: 6,
                       color: Theme.of(context).colorScheme.primary,
                     ),
                   ],

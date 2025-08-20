@@ -15,16 +15,23 @@ class BrowserCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Padding(
-        padding: const EdgeInsets.only(left: 10, right: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 14),
         child: DecoratedBox(
           decoration: BoxDecoration(
+            boxShadow: <BoxShadow>[
+              BoxShadow(
+                color: Theme.of(context).colorScheme.shadow,
+                spreadRadius: 1,
+                blurRadius: 6,
+              ),
+            ],
             color: Theme.of(context).colorScheme.surfaceContainer,
-            borderRadius: const BorderRadius.all(Radius.circular(4)),
+            borderRadius: const BorderRadius.all(Radius.circular(3)),
           ),
           child: Column(
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.only(left: 8, right: 8, top: 8),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
@@ -88,11 +95,11 @@ class BrowserCard extends StatelessWidget {
                 ),
               ),
               const Padding(
-                padding: EdgeInsets.only(left: 24, right: 24, top: 4, bottom: 4),
+                padding: EdgeInsets.symmetric(horizontal: 24),
                 child: Divider(),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 16, right: 16),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Text(
                   'target: ${card.target.formattedName.toLowerCase()}, ends: ${card.ends}',
                 ),
