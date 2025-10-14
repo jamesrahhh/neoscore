@@ -1,20 +1,32 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../common/scoresheet/scoresheet.dart';
 import '../../../util/theme/colors.dart';
 import '../../widgets/empty_score_icon.dart';
 import '../../widgets/score_icon.dart';
 import '../editor_viewmodel.dart';
 
-class EditorRow extends StatelessWidget {
-  const EditorRow({required this.endIndex, super.key});
+class EditorRow extends ConsumerWidget {
+  const EditorRow({required this.scoresheet, required this.endIndex, super.key});
 
+  final Scoresheet scoresheet;
   final int endIndex;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final ThemeColors themeColors = Theme.of(context).extension<ThemeColors>()!;
+    final List<int> end = ref.watch(editorEndProvider(scoresheet: scoresheet, endIndex: endIndex));
+    final int highestScoreCount = ref.watch(
+      singleScoreEndProvider(
+        scoresheet: scoresheet,
+        score: scoresheet.target.formattedScores.length - 1,
+        endIndex: endIndex,
+      ),
+    );
+    final int totalScore =
+        ref.watch(totalScoreEndProvider(scoresheet: scoresheet, endIndex: endIndex));
 
     return Column(
       children: <Widget>[
@@ -35,7 +47,7 @@ class EditorRow extends StatelessWidget {
                           Align(
                             alignment: Alignment.centerRight,
                             child: Text(
-                              "${Provider.of<EditorViewModel>(context, listen: false).scoresheet.target.formattedScores.last.toLowerCase()}'s",
+                              "${scoresheet.target.formattedScores.last.toLowerCase()}'s",
                               style: Theme.of(context).textTheme.displaySmall,
                             ),
                           ),
@@ -63,33 +75,20 @@ class EditorRow extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             Expanded(
-              child: Selector<EditorViewModel, List<int>>(
-                selector: (BuildContext context, EditorViewModel editorViewModel) =>
-                    editorViewModel.getEnd(endIndex),
-                builder: (BuildContext context, List<int> end, _) => Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: List<Widget>.generate(
-                    Provider.of<EditorViewModel>(
-                      context,
-                      listen: false,
-                    ).scoresheet.shotsPerEnd,
-                    (int shotIndex) {
-                      if (end.length <= shotIndex) {
-                        return const EmptyScoreIcon();
-                      } else {
-                        return ScoreIcon(
-                          value: Provider.of<EditorViewModel>(
-                            context,
-                            listen: false,
-                          ).scoresheet.target.formattedScores[end[shotIndex]],
-                          colors: themeColors.colors![Provider.of<EditorViewModel>(
-                            context,
-                            listen: false,
-                          ).scoresheet.target.colors[end[shotIndex]]],
-                        );
-                      }
-                    },
-                  ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: List<Widget>.generate(
+                  scoresheet.shotsPerEnd,
+                  (int shotIndex) {
+                    if (end.length <= shotIndex) {
+                      return const EmptyScoreIcon();
+                    } else {
+                      return ScoreIcon(
+                        value: scoresheet.target.formattedScores[end[shotIndex]],
+                        colors: themeColors.colors![scoresheet.target.colors[end[shotIndex]]],
+                      );
+                    }
+                  },
                 ),
               ),
             ),
@@ -97,12 +96,8 @@ class EditorRow extends StatelessWidget {
               padding: const EdgeInsets.only(left: 18),
               child: Align(
                 alignment: Alignment.centerRight,
-                child: Selector<EditorViewModel, List<int>>(
-                  selector: (_, EditorViewModel editorViewModel) =>
-                      editorViewModel.getEnd(endIndex),
-                  builder: (BuildContext context, _, __) => Text(
-                    '${Provider.of<EditorViewModel>(context, listen: false).getSingleScoreEnd(endIndex: endIndex, score: Provider.of<EditorViewModel>(context, listen: false).scoresheet.target.formattedScores.length - 1)}',
-                  ),
+                child: Text(
+                  '$highestScoreCount',
                 ),
               ),
             ),
@@ -110,12 +105,8 @@ class EditorRow extends StatelessWidget {
               width: 34,
               child: Align(
                 alignment: Alignment.centerRight,
-                child: Selector<EditorViewModel, List<int>>(
-                  selector: (_, EditorViewModel editorViewModel) =>
-                      editorViewModel.getEnd(endIndex),
-                  builder: (BuildContext context, _, __) => Text(
-                    '${Provider.of<EditorViewModel>(context, listen: false).getTotalScoreEnd(endIndex: endIndex)}',
-                  ),
+                child: Text(
+                  '$totalScore',
                 ),
               ),
             ),
@@ -128,6 +119,8 @@ class EditorRow extends StatelessWidget {
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty<int>('endIndex', endIndex));
+    properties
+      ..add(DiagnosticsProperty<Scoresheet>('scoresheet', scoresheet))
+      ..add(DiagnosticsProperty<int>('endIndex', endIndex));
   }
 }

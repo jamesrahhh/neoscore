@@ -5,6 +5,8 @@ analyzer:
     strict-casts: true
     strict-inference: true
     strict-raw-types: true
+  plugins:
+    - custom_lint
 
 formatter:
   page_width: 100
@@ -46,7 +48,7 @@ linter:
     - avoid_return_types_on_setters
     - avoid_returning_null_for_void
     - avoid_returning_this
-    - avoid_setters_without_getters
+    # - avoid_setters_without_getters # conflicts with riverpod
     - avoid_shadowing_type_parameters
     - avoid_single_cascade_in_expression_statements
     - avoid_slow_async_io

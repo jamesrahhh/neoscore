@@ -36,4 +36,21 @@ class Scoresheet extends ScoresheetCard {
         'arrows': jsonEncode(scoresheet.arrows),
         'target': scoresheet.target.name,
       };
+
+  Scoresheet copyWith({
+    int? id,
+    String? name,
+    Target? target,
+    int? shotsPerEnd,
+    int? ends,
+    List<List<int>>? arrows,
+  }) =>
+      Scoresheet(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        target: target ?? this.target,
+        shotsPerEnd: shotsPerEnd ?? this.shotsPerEnd,
+        ends: ends ?? this.ends,
+        arrows: arrows ?? this.arrows,
+      );
 }

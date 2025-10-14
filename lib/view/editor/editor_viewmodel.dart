@@ -1,111 +1,125 @@
 import 'dart:math';
-
-import 'package:flutter/widgets.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../common/scoresheet/scoresheet.dart';
 
-class EditorViewModel extends ChangeNotifier {
-  EditorViewModel({required Scoresheet scoresheet}) : _scoresheet = scoresheet;
+part 'editor_viewmodel.g.dart';
 
-  final Scoresheet _scoresheet;
+@riverpod
+class EditorViewModel extends _$EditorViewModel {
+  @override
+  Scoresheet build({required Scoresheet scoresheet}) => scoresheet;
 
   void addScore({required int endIndex, required int score}) {
-    while (endIndex >= _scoresheet.arrows.length) {
-      _scoresheet.arrows.add(<int>[]);
+    final List<List<int>> arrows = List<List<int>>.from(state.arrows);
+    while (endIndex >= arrows.length) {
+      arrows.add(<int>[]);
     }
-    if (_scoresheet.arrows[endIndex].length >= _scoresheet.shotsPerEnd) {
+    if (arrows[endIndex].length >= state.shotsPerEnd) {
       return;
     }
-    _scoresheet.arrows[endIndex] = <int>[
-      ..._scoresheet.arrows[endIndex],
-      score,
-    ];
-    _scoresheet.arrows[endIndex].sort((int a, int b) => b.compareTo(a));
-    notifyListeners();
+    arrows[endIndex]
+      ..add(score)
+      ..sort((int a, int b) => b.compareTo(a));
+    state = state.copyWith(arrows: arrows);
   }
 
   void deleteScore({required int endIndex}) {
-    if (endIndex >= _scoresheet.arrows.length || _scoresheet.arrows[endIndex].isEmpty) {
+    final List<List<int>> arrows = List<List<int>>.from(state.arrows);
+    if (endIndex >= arrows.length || arrows[endIndex].isEmpty) {
       return;
     }
-    _scoresheet.arrows[endIndex] = <int>[
-      ..._scoresheet.arrows[endIndex].sublist(
-        0,
-        _scoresheet.arrows[endIndex].length - 1,
-      ),
-    ];
-    notifyListeners();
+    arrows[endIndex].removeLast();
+    state = state.copyWith(arrows: arrows);
   }
 
   double getAverageArrow() {
-    int arrows = 0;
-    double average = 0;
-    for (final List<int> end in _scoresheet.arrows) {
+    int arrowCount = 0;
+    double total = 0;
+    for (final List<int> end in state.arrows) {
       for (final int score in end) {
-        arrows++;
-        average += min(score, _scoresheet.target.highestScore);
+        arrowCount++;
+        total += min(score, state.target.highestScore);
       }
     }
-    if (arrows == 0) {
-      return 0;
-    } else {
-      return average / arrows;
-    }
+
+    return arrowCount == 0 ? 0 : total / arrowCount;
   }
 
   int getTotalScoreEnd({required int endIndex}) {
-    if (endIndex >= _scoresheet.arrows.length) {
+    if (endIndex >= state.arrows.length) {
       return 0;
     }
-    int total = 0;
-    for (final int shot in _scoresheet.arrows[endIndex]) {
-      total += shot > _scoresheet.target.highestScore ? _scoresheet.target.highestScore : shot;
-    }
-    return total;
+
+    return state.arrows[endIndex]
+        .fold(0, (int total, int shot) => total + min(shot, state.target.highestScore));
   }
 
   int getSingleScoreEnd({required int endIndex, required int score}) {
-    if (endIndex >= _scoresheet.arrows.length) {
+    if (endIndex >= state.arrows.length) {
       return 0;
     }
-    int total = 0;
-    for (final int shot in _scoresheet.arrows[endIndex]) {
-      if (shot == score) {
-        total++;
-      }
-    }
-    return total;
+    return state.arrows[endIndex].where((int shot) => shot == score).length;
   }
 
-  int get getTotalScore {
-    int total = 0;
-    for (final List<int> end in _scoresheet.arrows) {
-      for (final int shot in end) {
-        total += shot > _scoresheet.target.highestScore ? _scoresheet.target.highestScore : shot;
-      }
-    }
-    return total;
-  }
+  int get getTotalScore => state.arrows.fold(
+        0,
+        (int total, List<int> end) =>
+            total +
+            end.fold(0, (int total, int shot) => total + min(shot, state.target.highestScore)),
+      );
 
-  int getSingleScore({required int score}) {
-    int total = 0;
-    for (final List<int> end in _scoresheet.arrows) {
-      for (final int shot in end) {
-        if (shot == score) {
-          total++;
-        }
-      }
-    }
-    return total;
-  }
+  int getSingleScore({required int score}) => state.arrows
+      .fold(0, (int total, List<int> end) => total + end.where((int shot) => shot == score).length);
 
-  List<int> getEnd(int endIndex) {
-    if (endIndex >= _scoresheet.arrows.length) {
-      return <int>[];
-    } else {
-      return _scoresheet.arrows[endIndex];
-    }
-  }
+  List<int> getEnd(int endIndex) =>
+      endIndex >= state.arrows.length ? <int>[] : state.arrows[endIndex];
+}
 
-  Scoresheet get scoresheet => _scoresheet;
+@riverpod
+double averageArrow({required Ref ref, required Scoresheet scoresheet}) {
+  ref.watch(editorViewModelProvider(scoresheet: scoresheet));
+  return ref.watch(editorViewModelProvider(scoresheet: scoresheet).notifier).getAverageArrow();
+}
+
+@riverpod
+int totalScore({required Ref ref, required Scoresheet scoresheet}) {
+  ref.watch(editorViewModelProvider(scoresheet: scoresheet));
+  return ref.watch(editorViewModelProvider(scoresheet: scoresheet).notifier).getTotalScore;
+}
+
+@riverpod
+int singleScore({required Ref ref, required Scoresheet scoresheet, required int score}) {
+  ref.watch(editorViewModelProvider(scoresheet: scoresheet));
+  return ref
+      .watch(editorViewModelProvider(scoresheet: scoresheet).notifier)
+      .getSingleScore(score: score);
+}
+
+@riverpod
+int totalScoreEnd({required Ref ref, required Scoresheet scoresheet, required int endIndex}) {
+  ref.watch(editorViewModelProvider(scoresheet: scoresheet));
+  return ref
+      .watch(editorViewModelProvider(scoresheet: scoresheet).notifier)
+      .getTotalScoreEnd(endIndex: endIndex);
+}
+
+@riverpod
+int singleScoreEnd({
+  required Ref ref,
+  required Scoresheet scoresheet,
+  required int score,
+  required int endIndex,
+}) {
+  ref.watch(editorViewModelProvider(scoresheet: scoresheet));
+  return ref
+      .watch(editorViewModelProvider(scoresheet: scoresheet).notifier)
+      .getSingleScoreEnd(score: score, endIndex: endIndex);
+}
+
+@riverpod
+List<int> editorEnd({required Ref ref, required Scoresheet scoresheet, required int endIndex}) {
+  final Scoresheet state = ref.watch(editorViewModelProvider(scoresheet: scoresheet));
+  return endIndex >= state.arrows.length ? <int>[] : state.arrows[endIndex];
 }

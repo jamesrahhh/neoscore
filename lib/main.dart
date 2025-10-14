@@ -3,6 +3,7 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'app/app.dart';
 import 'util/firebase/firebase_options.dart';
@@ -20,18 +21,24 @@ Future<void> main() async {
   };
 
   LicenseRegistry.addLicense(() async* {
-    final String license = await rootBundle.loadString(
-      'fonts/OFL_Montserrat.txt',
+    yield LicenseEntryWithLineBreaks(
+      <String>['montserrat'],
+      await rootBundle.loadString(
+        'fonts/OFL_Montserrat.txt',
+      ),
     );
-    yield LicenseEntryWithLineBreaks(<String>['montserrat'], license);
+
+    yield LicenseEntryWithLineBreaks(
+      <String>['noto'],
+      await rootBundle.loadString(
+        'fonts/OFL_NotoSans.txt',
+      ),
+    );
   });
 
-  LicenseRegistry.addLicense(() async* {
-    final String license = await rootBundle.loadString(
-      'fonts/OFL_NotoSans.txt',
-    );
-    yield LicenseEntryWithLineBreaks(<String>['noto'], license);
-  });
-
-  runApp(const Neoscore());
+  runApp(
+    const ProviderScope(
+      child: Neoscore(),
+    ),
+  );
 }

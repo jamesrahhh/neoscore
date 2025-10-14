@@ -1,12 +1,11 @@
-import 'package:flutter/foundation.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-class NavigationViewModel extends ChangeNotifier {
-  int _pageIndex = 0;
+part 'navigation_viewmodel.g.dart';
 
-  int get pageIndex => _pageIndex;
+@riverpod
+class NavigationViewModel extends _$NavigationViewModel {
+  @override
+  int build() => 0;
 
-  void setPage(int index) {
-    _pageIndex = index;
-    notifyListeners();
-  }
+  set setPage(int index) => state = index;
 }
