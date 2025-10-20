@@ -1,6 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:timeago/timeago.dart';
 
 import '../../common/scoresheet/scoresheet.dart';
 import '../browser/browser_viewmodel.dart';
@@ -8,7 +12,7 @@ import 'editor_viewmodel.dart';
 import 'widgets/editor_keyboard.dart';
 import 'widgets/editor_row.dart';
 
-class EditorView extends ConsumerWidget {
+class EditorView extends HookConsumerWidget {
   const EditorView({required this.scoresheet, super.key});
 
   final Scoresheet scoresheet;
@@ -25,18 +29,62 @@ class EditorView extends ConsumerWidget {
     );
     final int totalScore = ref.watch(totalScoreProvider(scoresheet: scoresheet));
 
+    final ValueNotifier<DateTime?> lastSaved = useState<DateTime?>(null);
+    final ObjectRef<bool> skipFirst = useRef<bool>(true);
+    useEffect(
+      () {
+        if (skipFirst.value) {
+          skipFirst.value = false;
+          return null;
+        }
+
+        final Timer autosaveTimer = Timer(const Duration(seconds: 5), () {
+          ref.read(browserViewModelProvider.notifier).updateScoresheet(scoresheet: editorState);
+          lastSaved.value = DateTime.now();
+        });
+
+        return autosaveTimer.cancel;
+      },
+      <Scoresheet>[editorState],
+    );
+
+    final ValueNotifier<int> tick = useState(0);
+    useEffect(
+      () {
+        if (lastSaved.value == null) {
+          return null;
+        }
+
+        Timer? ticker;
+        void scheduleNextTick() {
+          final Duration timeElapsed =
+              DateTime.now().difference(lastSaved.value ?? editorState.updatedAt);
+          ticker?.cancel();
+          ticker = Timer.periodic(
+              timeElapsed.inHours < 1 ? const Duration(minutes: 1) : const Duration(hours: 1), (_) {
+            tick.value++;
+            scheduleNextTick();
+          });
+        }
+
+        scheduleNextTick();
+        return () => ticker?.cancel();
+      },
+      <DateTime?>[lastSaved.value],
+    );
+
     return PopScope(
       onPopInvokedWithResult: (_, __) {
         if (Navigator.of(context).canPop()) {
           Navigator.of(context).pop();
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Scoresheet saved'),
+              duration: Duration(seconds: 2),
+            ),
+          );
+          ref.read(browserViewModelProvider.notifier).updateScoresheet(scoresheet: editorState);
         }
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Scoresheet saved'),
-            duration: Duration(seconds: 2),
-          ),
-        );
-        ref.read(browserViewModelProvider.notifier).updateScoresheet(scoresheet: editorState);
       },
       canPop: false,
       child: Scaffold(
@@ -44,6 +92,7 @@ class EditorView extends ConsumerWidget {
           physics: const AlwaysScrollableScrollPhysics(),
           slivers: <Widget>[
             SliverAppBar(
+              expandedHeight: 100,
               centerTitle: true,
               title: Column(
                 children: <Widget>[
@@ -54,6 +103,11 @@ class EditorView extends ConsumerWidget {
                     'Average arrow: ${averageArrow.toStringAsPrecision(4)}',
                     style: Theme.of(context).textTheme.displaySmall,
                   ),
+                  if (lastSaved.value != null)
+                    Text(
+                      'Autosaved ${format(lastSaved.value ?? editorState.updatedAt)}',
+                      style: Theme.of(context).textTheme.displaySmall,
+                    ),
                 ],
               ),
             ),

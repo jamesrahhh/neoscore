@@ -1,16 +1,17 @@
 import 'dart:convert';
 
 import '../target/target.dart';
-import 'scoresheet_card.dart';
 
-class Scoresheet extends ScoresheetCard {
+class Scoresheet {
   Scoresheet({
-    required super.id,
-    required super.name,
-    required super.target,
-    required super.shotsPerEnd,
-    required super.ends,
+    required this.id,
+    required this.name,
+    required this.target,
+    required this.shotsPerEnd,
+    required this.ends,
     required this.arrows,
+    required this.createdAt,
+    required this.updatedAt,
   });
 
   factory Scoresheet.fromMap({required Map<String, Object?> map}) => Scoresheet(
@@ -24,9 +25,28 @@ class Scoresheet extends ScoresheetCard {
               (dynamic end) => List<int>.from(end as List<dynamic>),
             )
             .toList(),
+        createdAt: _parseDateTime(map['createdAt']),
+        updatedAt: _parseDateTime(map['updatedAt']),
       );
 
+  final int id;
+  final String name;
+  final Target target;
+  final int shotsPerEnd;
+  final int ends;
   List<List<int>> arrows;
+  final DateTime createdAt;
+  DateTime updatedAt;
+
+  static DateTime _parseDateTime(Object? dateTime) {
+    final String? dateTimeFormatted = dateTime?.toString();
+
+    if (dateTimeFormatted == null || dateTimeFormatted.isEmpty) {
+      return DateTime.fromMillisecondsSinceEpoch(0);
+    }
+
+    return DateTime.tryParse(dateTimeFormatted) ?? DateTime.fromMillisecondsSinceEpoch(0);
+  }
 
   static Map<String, Object?> toMap({required Scoresheet scoresheet}) => <String, Object?>{
         'id': scoresheet.id,
@@ -35,6 +55,8 @@ class Scoresheet extends ScoresheetCard {
         'shotsPerEnd': scoresheet.shotsPerEnd.toString(),
         'arrows': jsonEncode(scoresheet.arrows),
         'target': scoresheet.target.name,
+        'createdAt': scoresheet.createdAt.toIso8601String(),
+        'updatedAt': scoresheet.updatedAt.toIso8601String(),
       };
 
   Scoresheet copyWith({
@@ -44,6 +66,8 @@ class Scoresheet extends ScoresheetCard {
     int? shotsPerEnd,
     int? ends,
     List<List<int>>? arrows,
+    DateTime? createdAt,
+    DateTime? updatedAt,
   }) =>
       Scoresheet(
         id: id ?? this.id,
@@ -52,5 +76,7 @@ class Scoresheet extends ScoresheetCard {
         shotsPerEnd: shotsPerEnd ?? this.shotsPerEnd,
         ends: ends ?? this.ends,
         arrows: arrows ?? this.arrows,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt,
       );
 }

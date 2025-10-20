@@ -3,9 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../common/scoresheet/scoresheet.dart';
-import '../../common/scoresheet/scoresheet_card.dart';
 import '../../common/target/target.dart';
-import '../../util/database/sqflite_model.dart';
+import '../../util/sqflite/sqflite_model.dart';
 
 part 'browser_viewmodel.g.dart';
 
@@ -18,17 +17,17 @@ SqfliteModel sqfliteModel(Ref ref) {
 
 class BrowserState {
   const BrowserState({
-    this.cards = const <ScoresheetCard>[],
+    this.cards = const <Scoresheet>[],
     this.hasMore = true,
     this.isLoading = false,
   });
 
-  final List<ScoresheetCard> cards;
+  final List<Scoresheet> cards;
   final bool hasMore;
   final bool isLoading;
 
   BrowserState copyWith({
-    List<ScoresheetCard>? cards,
+    List<Scoresheet>? cards,
     bool? hasMore,
     bool? isLoading,
   }) =>
@@ -47,7 +46,7 @@ class BrowserViewModel extends _$BrowserViewModel {
   Future<BrowserState> build() async {
     final SqfliteModel db = ref.watch(sqfliteModelProvider);
     await db.init();
-    final List<ScoresheetCard> cards = await db.queryCards(offset: 0, limit: _pageSize);
+    final List<Scoresheet> cards = await db.queryCards(offset: 0, limit: _pageSize);
     return BrowserState(cards: cards, hasMore: cards.length == _pageSize);
   }
 
@@ -56,7 +55,7 @@ class BrowserViewModel extends _$BrowserViewModel {
     state = const AsyncValue<BrowserState>.loading();
     state = await AsyncValue.guard(() async {
       final SqfliteModel db = ref.read(sqfliteModelProvider);
-      final List<ScoresheetCard> cards = await db.queryCards(offset: 0, limit: _pageSize);
+      final List<Scoresheet> cards = await db.queryCards(offset: 0, limit: _pageSize);
       return BrowserState(cards: cards, hasMore: cards.length == _pageSize);
     });
   }
@@ -70,16 +69,16 @@ class BrowserViewModel extends _$BrowserViewModel {
     state = AsyncValue<BrowserState>.data(currentState.copyWith(isLoading: true));
 
     // Only new cards should be guarded to prevent entire list being lost on error
-    final AsyncValue<List<ScoresheetCard>> result = await AsyncValue.guard(() async {
+    final AsyncValue<List<Scoresheet>> result = await AsyncValue.guard(() async {
       final SqfliteModel db = ref.read(sqfliteModelProvider);
-      final List<ScoresheetCard> newCards =
+      final List<Scoresheet> newCards =
           await db.queryCards(offset: currentState.cards.length, limit: _pageSize);
       return newCards;
     });
 
     result.when(
-      data: (List<ScoresheetCard> newCards) => state = AsyncValue<BrowserState>.data(
-        currentState.copyWith(cards: <ScoresheetCard>[...currentState.cards, ...newCards]),
+      data: (List<Scoresheet> newCards) => state = AsyncValue<BrowserState>.data(
+        currentState.copyWith(cards: <Scoresheet>[...currentState.cards, ...newCards]),
       ),
       error: (Object error, StackTrace stack) {
         state = AsyncValue<BrowserState>.data(currentState.copyWith(isLoading: false));
@@ -101,8 +100,15 @@ class BrowserViewModel extends _$BrowserViewModel {
     required int shotsPerEnd,
   }) async {
     final SqfliteModel db = ref.watch(sqfliteModelProvider);
-    final Scoresheet scoresheet =
-        await db.createScoresheet(name: name, target: target, ends: ends, shotsPerEnd: shotsPerEnd);
+    final DateTime now = DateTime.now();
+    final Scoresheet scoresheet = await db.createScoresheet(
+      name: name,
+      target: target,
+      ends: ends,
+      shotsPerEnd: shotsPerEnd,
+      createdAt: now,
+      updatedAt: now,
+    );
 
     await refresh();
     return scoresheet;
@@ -110,22 +116,18 @@ class BrowserViewModel extends _$BrowserViewModel {
 
   Future<void> updateScoresheet({required Scoresheet scoresheet}) async {
     final SqfliteModel db = ref.watch(sqfliteModelProvider);
-    await db.updateScoresheet(scoresheet: scoresheet);
+    final Scoresheet updatedScoresheet = scoresheet.copyWith(updatedAt: DateTime.now());
+
+    await db.updateScoresheet(scoresheet: updatedScoresheet);
 
     final BrowserState? currentState = state.valueOrNull;
     if (currentState == null) {
       return;
     }
 
-    final List<ScoresheetCard> updatedCards = currentState.cards.map((ScoresheetCard card) {
+    final List<Scoresheet> updatedCards = currentState.cards.map((Scoresheet card) {
       if (card.id == scoresheet.id) {
-        return ScoresheetCard(
-          id: scoresheet.id,
-          name: scoresheet.name,
-          target: scoresheet.target,
-          ends: scoresheet.ends,
-          shotsPerEnd: scoresheet.shotsPerEnd,
-        );
+        return updatedScoresheet;
       }
       return card;
     }).toList();
@@ -143,7 +145,7 @@ class BrowserViewModel extends _$BrowserViewModel {
 
     state = AsyncValue<BrowserState>.data(
       currentState.copyWith(
-        cards: currentState.cards.where((ScoresheetCard card) => card.id != id).toList(),
+        cards: currentState.cards.where((Scoresheet card) => card.id != id).toList(),
       ),
     );
   }

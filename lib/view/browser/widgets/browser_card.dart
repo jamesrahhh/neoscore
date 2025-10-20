@@ -1,16 +1,16 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:timeago/timeago.dart';
 
 import '../../../common/scoresheet/scoresheet.dart';
-import '../../../common/scoresheet/scoresheet_card.dart';
 import '../../editor/editor_view.dart';
 import '../browser_viewmodel.dart';
 
 class BrowserCard extends ConsumerWidget {
   const BrowserCard({required this.card, super.key});
 
-  final ScoresheetCard card;
+  final Scoresheet card;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -87,7 +87,7 @@ class BrowserCard extends ConsumerWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Text(
-                'target: ${card.target.formattedName.toLowerCase()}, ends: ${card.ends}',
+                'target: ${card.target.formattedName.toLowerCase()}, ends: ${card.ends}, created: ${card.createdAt.month}/${card.createdAt.day} ${card.createdAt.hour % 12}:${card.createdAt.minute}, update: ${format(card.updatedAt)}',
               ),
             ),
           ],
@@ -99,6 +99,6 @@ class BrowserCard extends ConsumerWidget {
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty<ScoresheetCard>('card', card));
+    properties.add(DiagnosticsProperty<Scoresheet>('card', card));
   }
 }
