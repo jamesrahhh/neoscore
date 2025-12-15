@@ -1,5 +1,4 @@
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../common/scoresheet/scoresheet.dart';
@@ -61,7 +60,7 @@ class BrowserViewModel extends _$BrowserViewModel {
   }
 
   Future<void> loadMore() async {
-    final BrowserState? currentState = state.valueOrNull;
+    final BrowserState? currentState = state.value;
     if (currentState == null || currentState.isLoading || !currentState.hasMore) {
       return;
     }
@@ -120,7 +119,7 @@ class BrowserViewModel extends _$BrowserViewModel {
 
     await db.updateScoresheet(scoresheet: updatedScoresheet);
 
-    final BrowserState? currentState = state.valueOrNull;
+    final BrowserState? currentState = state.value;
     if (currentState == null) {
       return;
     }
@@ -138,7 +137,7 @@ class BrowserViewModel extends _$BrowserViewModel {
     final SqfliteModel db = ref.watch(sqfliteModelProvider);
     await db.deleteScoresheet(id: id);
 
-    final BrowserState? currentState = state.valueOrNull;
+    final BrowserState? currentState = state.value;
     if (currentState == null) {
       return;
     }

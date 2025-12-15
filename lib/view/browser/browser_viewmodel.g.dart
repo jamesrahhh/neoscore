@@ -6,37 +6,88 @@ part of 'browser_viewmodel.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
+@ProviderFor(sqfliteModel)
+const sqfliteModelProvider = SqfliteModelProvider._();
+
+final class SqfliteModelProvider
+    extends $FunctionalProvider<SqfliteModel, SqfliteModel, SqfliteModel>
+    with $Provider<SqfliteModel> {
+  const SqfliteModelProvider._()
+      : super(
+          from: null,
+          argument: null,
+          retry: null,
+          name: r'sqfliteModelProvider',
+          isAutoDispose: false,
+          dependencies: null,
+          $allTransitiveDependencies: null,
+        );
+
+  @override
+  String debugGetCreateSourceHash() => _$sqfliteModelHash();
+
+  @$internal
+  @override
+  $ProviderElement<SqfliteModel> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  SqfliteModel create(Ref ref) {
+    return sqfliteModel(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(SqfliteModel value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<SqfliteModel>(value),
+    );
+  }
+}
+
 String _$sqfliteModelHash() => r'5b6254e38f20e96b132b7e2db512f74a44cd8538';
 
-/// See also [sqfliteModel].
-@ProviderFor(sqfliteModel)
-final sqfliteModelProvider = Provider<SqfliteModel>.internal(
-  sqfliteModel,
-  name: r'sqfliteModelProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$sqfliteModelHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef SqfliteModelRef = ProviderRef<SqfliteModel>;
-String _$browserViewModelHash() => r'5281947f1e35d6f12ffa1cd96666684e9e3060a6';
-
-/// See also [BrowserViewModel].
 @ProviderFor(BrowserViewModel)
-final browserViewModelProvider =
-    AsyncNotifierProvider<BrowserViewModel, BrowserState>.internal(
-  BrowserViewModel.new,
-  name: r'browserViewModelProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$browserViewModelHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+const browserViewModelProvider = BrowserViewModelProvider._();
 
-typedef _$BrowserViewModel = AsyncNotifier<BrowserState>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+final class BrowserViewModelProvider
+    extends $AsyncNotifierProvider<BrowserViewModel, BrowserState> {
+  const BrowserViewModelProvider._()
+      : super(
+          from: null,
+          argument: null,
+          retry: null,
+          name: r'browserViewModelProvider',
+          isAutoDispose: false,
+          dependencies: null,
+          $allTransitiveDependencies: null,
+        );
+
+  @override
+  String debugGetCreateSourceHash() => _$browserViewModelHash();
+
+  @$internal
+  @override
+  BrowserViewModel create() => BrowserViewModel();
+}
+
+String _$browserViewModelHash() => r'd93ca0a8fd95982ee745c43b1b722799bc8fae10';
+
+abstract class _$BrowserViewModel extends $AsyncNotifier<BrowserState> {
+  FutureOr<BrowserState> build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final created = build();
+    final ref = this.ref as $Ref<AsyncValue<BrowserState>, BrowserState>;
+    final element = ref.element as $ClassProviderElement<
+        AnyNotifier<AsyncValue<BrowserState>, BrowserState>,
+        AsyncValue<BrowserState>,
+        Object?,
+        Object?>;
+    element.handleValue(ref, created);
+  }
+}

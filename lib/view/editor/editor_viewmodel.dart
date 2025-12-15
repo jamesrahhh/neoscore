@@ -1,5 +1,4 @@
 import 'dart:math';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../common/scoresheet/scoresheet.dart';
@@ -63,7 +62,7 @@ class EditorViewModel extends _$EditorViewModel {
     return state.arrows[endIndex].where((int shot) => shot == score).length;
   }
 
-  int get getTotalScore => state.arrows.fold(
+  int getTotalScore() => state.arrows.fold(
         0,
         (int total, List<int> end) =>
             total +
@@ -77,20 +76,21 @@ class EditorViewModel extends _$EditorViewModel {
       endIndex >= state.arrows.length ? <int>[] : state.arrows[endIndex];
 }
 
+// TODO(jamesrahhh): Do not use notifier calls
 @riverpod
-double averageArrow({required Ref ref, required Scoresheet scoresheet}) {
+double averageArrow(Ref ref, {required Scoresheet scoresheet}) {
   ref.watch(editorViewModelProvider(scoresheet: scoresheet));
   return ref.watch(editorViewModelProvider(scoresheet: scoresheet).notifier).getAverageArrow();
 }
 
 @riverpod
-int totalScore({required Ref ref, required Scoresheet scoresheet}) {
+int totalScore(Ref ref, {required Scoresheet scoresheet}) {
   ref.watch(editorViewModelProvider(scoresheet: scoresheet));
-  return ref.watch(editorViewModelProvider(scoresheet: scoresheet).notifier).getTotalScore;
+  return ref.watch(editorViewModelProvider(scoresheet: scoresheet).notifier).getTotalScore();
 }
 
 @riverpod
-int singleScore({required Ref ref, required Scoresheet scoresheet, required int score}) {
+int singleScore(Ref ref, {required Scoresheet scoresheet, required int score}) {
   ref.watch(editorViewModelProvider(scoresheet: scoresheet));
   return ref
       .watch(editorViewModelProvider(scoresheet: scoresheet).notifier)
@@ -98,7 +98,7 @@ int singleScore({required Ref ref, required Scoresheet scoresheet, required int 
 }
 
 @riverpod
-int totalScoreEnd({required Ref ref, required Scoresheet scoresheet, required int endIndex}) {
+int totalScoreEnd(Ref ref, {required Scoresheet scoresheet, required int endIndex}) {
   ref.watch(editorViewModelProvider(scoresheet: scoresheet));
   return ref
       .watch(editorViewModelProvider(scoresheet: scoresheet).notifier)
@@ -106,8 +106,8 @@ int totalScoreEnd({required Ref ref, required Scoresheet scoresheet, required in
 }
 
 @riverpod
-int singleScoreEnd({
-  required Ref ref,
+int singleScoreEnd(
+  Ref ref, {
   required Scoresheet scoresheet,
   required int score,
   required int endIndex,
@@ -119,7 +119,7 @@ int singleScoreEnd({
 }
 
 @riverpod
-List<int> editorEnd({required Ref ref, required Scoresheet scoresheet, required int endIndex}) {
+List<int> editorEnd(Ref ref, {required Scoresheet scoresheet, required int endIndex}) {
   final Scoresheet state = ref.watch(editorViewModelProvider(scoresheet: scoresheet));
   return endIndex >= state.arrows.length ? <int>[] : state.arrows[endIndex];
 }
